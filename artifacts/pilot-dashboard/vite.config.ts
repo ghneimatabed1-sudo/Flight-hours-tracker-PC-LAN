@@ -49,27 +49,21 @@ function cspPlugin(): Plugin {
   };
 }
 
-const rawPort = process.env.PORT;
-
-if (!rawPort) {
-  throw new Error(
-    "PORT environment variable is required but was not provided.",
-  );
-}
-
+// PORT and BASE_PATH are required for the dev/preview server (Replit
+// workflow injects them) but irrelevant for `vite build`. We fall back
+// to safe defaults so the production installer build (which only needs
+// to emit static files into dist/public) works on any Windows CI host.
+const rawPort = process.env.PORT ?? "5173";
 const port = Number(rawPort);
 
 if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-const basePath = process.env.BASE_PATH;
-
-if (!basePath) {
-  throw new Error(
-    "BASE_PATH environment variable is required but was not provided.",
-  );
-}
+// For the LAN installer the dashboard is served from "/" by an Express
+// host (see installer/HawkEye.iss). For Replit dev BASE_PATH is set by
+// the workflow. "/" is the correct fallback for both.
+const basePath = process.env.BASE_PATH ?? "/";
 
 /** Dev/preview: proxy same-origin `__hawk_eye_internal_api` → monorepo api-server `/api` (see src/lib/internal-migration.ts). */
 const baseNorm = (basePath || "/").replace(/\/$/, "");
@@ -77,7 +71,8 @@ const internalApiProxyPath = baseNorm
   ? `${baseNorm}/__hawk_eye_internal_api`
   : "/__hawk_eye_internal_api";
 const internalApiProxyTarget =
-  process.env.INTERNAL_API_PROXY_TARGET ?? "http://127.0.0.1:3847";
+  process.env.INTERNAL_API_PROXY_TARGET
+    ?? (process.env.REPL_ID ? "http://127.0.0.1:8080" : "http://127.0.0.1:3847");
 function internalApiProxyRewrite(path: string): string {
   const re = baseNorm
     ? new RegExp(
@@ -105,10 +100,27 @@ const pkgVersion = (() => {
   } catch { return "unknown"; }
 })();
 
+// Resolve the short git hash at config time so the title bar can show
+// exactly which commit a given install was built from. Best-effort —
+// returns "nogit" if git isn't available (e.g. building from a tarball).
+const gitShortHash = (() => {
+  try {
+    // Lazy require so test runs that don't have child_process polyfilled
+    // (some bundler smoke tests) still load this config.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { execSync } = require("node:child_process") as typeof import("node:child_process");
+    return execSync("git rev-parse --short HEAD", {
+      cwd: path.resolve(import.meta.dirname, "..", ".."),
+      stdio: ["ignore", "pipe", "ignore"],
+    }).toString().trim() || "nogit";
+  } catch { return "nogit"; }
+})();
+
 export default defineConfig({
   base: basePath,
   define: {
     __APP_VERSION__: JSON.stringify(pkgVersion),
+    __GIT_SHORT_HASH__: JSON.stringify(gitShortHash),
   },
   plugins: [
     react(),

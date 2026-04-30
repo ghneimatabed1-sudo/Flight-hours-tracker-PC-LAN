@@ -2,51 +2,52 @@
 
 ## Project Overview
 
-Hawk Eye — RJAF Squadron Ops is a pnpm monorepo that includes an Electron + Vite + React desktop dashboard, an Expo mobile app, a small Express API server, and a Supabase backend with PostgreSQL, Auth, Row Level Security, and Edge Functions. Its production users are super administrators, squadron operations staff, commanders, and pilots.
+Hawk Eye is a LAN-only flight-hours management system for the Royal Jordanian Air Force. The production deployment in this repository consists of a Windows-hosted Express API server in `artifacts/api-server/` and an Electron + Vite desktop dashboard in `artifacts/pilot-dashboard/`, backed by local PostgreSQL on the squadron host PC. The current production model is closed-LAN, no Supabase, no cloud telemetry, and no internet dependency for core operations.
 
-Production security decisions in this repository hinge on a few high-impact boundaries: public internet callers reaching Edge Functions, Electron renderer code reaching privileged main-process IPC, and client applications receiving credentials or secrets that govern squadron access. Per scan assumptions, only production-reachable issues are in scope; mock/demo-only fallback code paths, mockup sandboxes, and local preview behavior that requires Supabase to be absent are not treated as production vulnerabilities.
+Production users are super administrators on the host PC, squadron ops staff, squadron commanders, and higher-tier wing/base commanders on aggregator machines. The main security decisions hinge on LAN authentication, server-side role enforcement, cross-PC peer trust, and the Electron renderer-to-main boundary. Mock/demo code, the mockup sandbox, and shelved mobile artifacts are out of scope unless production reachability is proven.
 
 ## Assets
 
-- **Supabase auth users, passwords, JWT claims, and role metadata** — compromise allows attackers to impersonate ops staff, commanders, or pilots and cross trust boundaries enforced by RLS.
-- **Squadron operational data** — pilot rosters, sortie history, currencies, reminder state, audit data, and squadron configuration are mission-sensitive and tenant-scoped.
-- **License and provisioning state** — license records, device bindings, squadron mappings, and account bootstrap flows control whether a PC or operator can join a squadron environment.
-- **Application secrets and service-role capabilities** — Supabase service-role access, TOTP challenge secrets, and any signing material are high-impact because they can bypass normal authorization controls.
-- **Desktop host filesystem** — the Electron main process can write files on the operator’s machine; renderer compromise must not be able to turn that into persistence or host tampering.
+- **LAN user accounts and sessions** — usernames, bcrypt password hashes, session tokens in `lan_sessions`, and role/scope metadata in `lan_users`. Compromise enables impersonation and downstream access to squadron or admin functions.
+- **Operational squadron data** — pilots, sorties, NOTAMs, leave/unavailability, audit logs, monthly/reporting data, and readiness summaries. This data is mission-sensitive and must remain correctly scoped by squadron, wing, or base.
+- **Peer trust material** — peer bearer tokens in `peer_tokens`, aggregator-side stored peer credentials, and pairing key material used to onboard other PCs. Compromise can expose read access across machines.
+- **Host operational secrets** — bootstrap token, internal write secret, system-identity token, database credentials, and any packaged update trust anchors. These secrets mediate privileged automation or first-user setup.
+- **Host PC integrity** — the Electron main process and LAN operator actions can touch the filesystem, scheduled tasks, and update/install flows. Renderer compromise must not become arbitrary host control.
 
 ## Trust Boundaries
 
-- **Public client to Supabase Edge Functions** — browsers, Electron renderers, and mobile clients are untrusted. Any Edge Function reachable with the anon key or with `--no-verify-jwt` must authenticate and authorize the caller explicitly before using service-role privileges.
-- **Public client to Express API server** — routes in `artifacts/api-server/src/app.ts` are internet-reachable and must not expose secrets or internal admin tooling.
-- **Electron renderer to Electron main process** — files under `artifacts/pilot-dashboard/electron/` cross from potentially attacker-influenced renderer code into privileged OS APIs. IPC payloads must be validated as hostile.
-- **Supabase service-role code to database/Auth admin APIs** — Edge Functions using `SUPABASE_SERVICE_ROLE_KEY` can bypass RLS and rotate passwords. These paths are equivalent to backend admin privileges.
-- **Authenticated role boundaries inside Supabase** — super admin, ops, commander, deputy, and pilot capabilities must be enforced server-side, not by UI state or locally cached credentials.
+- **Dashboard/Electron renderer to Express API** — all client input is untrusted. The API must authenticate and authorize requests server-side regardless of UI state.
+- **Express API to PostgreSQL** — the API has direct access to all LAN data. Query safety, data scoping, and secret handling are critical because this boundary carries the full mission dataset.
+- **Hub to aggregator/viewer PCs** — `/api/peer/*` and pairing flows move data and trust across different machines on the same LAN. Peer enrollment and peer-read scopes must resist spoofing and overexposure.
+- **Renderer to Electron main process** — `electron/preload.ts` exposes a narrow privileged bridge into filesystem and update capabilities. IPC arguments must be validated as hostile.
+- **Non-human host scripts to API** — PowerShell tasks authenticate with the system-identity token and can write audit or operational state without a human session. Those flows are effectively privileged automation.
+- **Public LAN caller to auth/bootstrap surface** — unauthenticated callers can reach login/bootstrap/pairing routes and any top-level route not gated by LAN session middleware. These are the main internet-equivalent attack surface for this deployment model.
 
 ## Scan Anchors
 
-- **Production entry points:** `artifacts/pilot-dashboard/src/lib/supabase.ts`, `artifacts/pilot-dashboard/src/lib/auth.tsx`, `artifacts/pilot-dashboard/supabase/functions/*`, `artifacts/pilot-dashboard/electron/main.ts`, `artifacts/pilot-dashboard/electron/preload.ts`, `artifacts/api-server/src/app.ts`.
-- **Highest-risk areas:** public provisioning/licensing flows (`register-license`, `provision-commander`, `validate-license`), super-admin auth flows, Electron IPC file operations, and any page that writes raw HTML (`src/pages/Currency.tsx`).
-- **Public vs authenticated vs admin surfaces:** public Edge Functions and API routes are the first priority; authenticated RLS-backed queries come next; admin-only UI checks are not trusted without server enforcement.
-- **Usually out of scope unless production reachability is proven:** mock/demo fallback paths gated by missing Supabase config, mock data stores, CI-only files, and mockup sandbox code.
+- **Production entry points:** `artifacts/api-server/src/app.ts`, `artifacts/api-server/src/routes/index.ts`, `artifacts/api-server/src/routes/lan-auth-public.ts`, `artifacts/api-server/src/routes/internal-lan-pairing.ts`, `artifacts/api-server/src/routes/peer-shell.ts`, `artifacts/api-server/src/routes/import-history-internal.ts`, `artifacts/pilot-dashboard/electron/main.ts`, `artifacts/pilot-dashboard/electron/preload.ts`, `artifacts/pilot-dashboard/src/lib/internal-migration.ts`.
+- **Highest-risk areas:** LAN auth/bootstrap, role-enforced internal CRUD, any route that combines LAN session auth with client-shipped `VITE_INTERNAL_WRITE_SECRET`, peer token issuance and pairing approval authenticity, privileged About/System Health actions that spawn host scripts, and the Electron file-write/update bridge.
+- **Public vs authenticated vs admin surfaces:** public LAN auth/bootstrap/pairing routes first; authenticated internal and aggregate routes next; super-admin-only operational routes and peer-token management are the most sensitive.
+- **Usually out of scope unless production reachability is proven:** `artifacts/mockup-sandbox/`, shelved/mobile artifacts, `.agents/skills/*`, and auth-off dev paths gated by `HAWK_INTERNAL_SESSION_AUTH=off` or `VITE_LAN_NO_AUTH=1`.
 
 ## Threat Categories
 
 ### Spoofing
 
-This project provisions Supabase users and grants role-bearing JWTs that drive access to squadron data. Any public bootstrap, recovery, or license-registration endpoint must verify who the caller is before creating or rotating credentials. The system must guarantee that only authorized super-admin or already-authenticated trusted actors can mint accounts, rotate passwords, bind devices, or activate licenses for a squadron.
+The primary spoofing risk is unauthorized creation or use of LAN identities: brute-forcing user passwords, abusing first-user bootstrap, forging peer identity during cross-PC pairing, or imitating trusted host-side automation with the system-identity token. The system must guarantee that only authorized operators or approved host processes can create users, obtain sessions, issue peer trust material, or act as the system, and that pairing approvals prove the real hub's identity rather than only the requester's.
 
 ### Tampering
 
-Operators can enter and edit pilot, squadron, and reminder data that is later rendered in browsers, print views, and desktop windows. The system must treat all stored roster and squadron fields as untrusted when building HTML, and it must validate all Electron IPC parameters before touching the filesystem. Client-controlled data must never be allowed to alter database state, HTML execution context, or host files outside explicitly approved destinations.
+Operators and peer machines can submit pilot, sortie, availability, pairing, and admin action inputs that directly influence mission records or host behavior. The system must validate all client-controlled fields before they reach the database, the filesystem, scheduled tasks, or pairing state, and must enforce write permissions server-side by role and squadron scope even when a coarse internal-write header is present in the shipped desktop client.
 
 ### Information Disclosure
 
-Production routes and shipped client bundles must never contain live secrets, signing material, service-role credentials, or recovery paths that reveal privileged bootstrap data. API and Edge Function responses should return only the minimum credentials needed for a legitimately authenticated flow, and public endpoints must not expose internal admin tooling or secret-bearing HTML.
+The API serves sensitive operational data and host diagnostics to different user tiers. The system must ensure that peer reads expose only the explicitly approved datasets, that authenticated users only receive rows inside their scope, and that error responses, diagnostics, and shipped client bundles do not leak secrets, tokens, or internal host details beyond the intended operator audience.
 
 ### Denial of Service
 
-Public authentication and admin bootstrap endpoints are attractive brute-force targets. The system must apply durable rate limiting or lockout controls to password and TOTP initiation paths, and public endpoints that trigger expensive admin operations must not be callable anonymously.
+LAN-only deployment does not remove DoS risk: any reachable LAN client can still hammer login, bootstrap, pairing, and heavy operational endpoints. The system must resist credential stuffing and request flooding on authentication surfaces, and privileged host-action routes must not allow trivial service disruption or resource exhaustion.
 
 ### Elevation of Privilege
 
-The highest-risk failure mode in this codebase is a low-privilege or unauthenticated actor gaining ops, commander, or super-admin effective power through public Edge Functions, weak license bootstrap flows, or renderer-to-main-process escalation in Electron. The system must guarantee that service-role functions enforce authorization before acting, that renderer compromise cannot directly reach arbitrary filesystem writes, and that RLS claims cannot be minted or changed by untrusted callers.
+The highest-impact failure mode is a low-privilege LAN user or compromised renderer gaining super-admin, cross-squadron, or host-level capabilities. The system must guarantee that role checks are enforced on the server, peer trust material cannot be minted or replayed by unauthorized actors, and Electron renderer compromise cannot become arbitrary file writes, unsafe updates, or execution of privileged host actions.

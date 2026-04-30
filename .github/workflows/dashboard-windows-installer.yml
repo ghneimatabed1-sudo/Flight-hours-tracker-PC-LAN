@@ -1,36 +1,32 @@
-name: Build Windows Installer (RJAF Squadron Ops)
+name: Build HawkEye-Setup.exe
 
-# Produces the NSIS .exe for the PC app and publishes it as a GitHub
-# Release in the PUBLIC Flight-hours-tracker-Releases repo. The installed
-# app polls that public repo for updates via electron-updater. Source code
-# stays in this private repo; only compiled binaries are exposed.
+# Compiles the Inno Setup installer for Hawk Eye (RJAF Squadron Ops).
+# LAN-only, air-gapped application — no Supabase or cloud secrets needed.
 #
 # Triggers:
-#   - manual (workflow_dispatch) — build + publish a release on demand
-#   - push of a v* tag          — cut a release
+#   - push to main
+#   - push of a v* tag  → also creates a GitHub Release
+#   - manual dispatch   → also creates a GitHub Release
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
-    paths:
-      - "artifacts/pilot-dashboard/**"
-      - ".github/workflows/dashboard-windows-installer.yml"
     tags:
       - "v*"
+  workflow_dispatch:
 
 jobs:
-  build-exe:
+  build-installer:
+    name: Compile HawkEye-Setup.exe on Windows
     runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: artifacts/pilot-dashboard
-        shell: bash
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node 20
         uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -40,208 +36,111 @@ jobs:
         with:
           version: 9
 
-      # Cache electron-builder's binary downloads (nsis, winCodeSign,
-      # nsis-resources, electron zips, etc). Without this cache, every
-      # run re-downloads ~120MB from GitHub release CDN; a transient 504
-      # on any one of those downloads (as happened in run 24608487600)
-      # fails the entire build. Cached entries skip the network entirely.
-      - name: Cache electron-builder downloads
+      - name: Install Inno Setup 6
+        shell: pwsh
+        run: |
+          # choco is pre-installed on windows-latest and is the most reliable path.
+          # No version pin — the latest Inno Setup 6.x is always compatible.
+          choco install innosetup --yes --no-progress
+          # Confirm iscc is accessible
+          $paths = @(
+            "C:\Program Files (x86)\Inno Setup 6\ISCC.exe",
+            "C:\Program Files\Inno Setup 6\ISCC.exe"
+          )
+          $found = $paths | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $found) {
+            # Also check PATH
+            $found = (Get-Command iscc -ErrorAction SilentlyContinue)?.Source
+          }
+          if (-not $found) { throw "iscc.exe not found after choco install innosetup" }
+          Write-Host "iscc found at: $found"
+          # Make iscc available to subsequent steps via PATH
+          $dir = Split-Path $found
+          echo "$dir" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      # Cache the portable Node + pnpm bundles embedded inside the installer .exe
+      - name: Cache installer portable bundles
         uses: actions/cache@v4
         with:
           path: |
-            ~/AppData/Local/electron-builder/Cache
-            ~/AppData/Local/electron/Cache
-          key: electron-builder-${{ runner.os }}-v32-nsis
-          restore-keys: |
-            electron-builder-${{ runner.os }}-
+            installer/build-cache/node
+            installer/build-cache/pnpm
+          key: installer-bundles-node20.18.1-pnpm-latest-v2
 
-      - name: Install workspace deps
-        run: pnpm install --frozen-lockfile=false
-        working-directory: .
+      - name: Install workspace dependencies
+        run: pnpm install --no-frozen-lockfile
+        shell: bash
 
-      # Safety net: ensure the version we are about to publish is strictly
-      # greater than the latest existing release. Without this, a forgotten
-      # `package.json` bump produces a build that electron-updater on every
-      # installed PC silently ignores ("you're already on x.y.z, no update")
-      # — exactly the failure mode that made the operator think Hawk Eye
-      # was broken. Now CI auto-bumps the patch number so a code push is
-      # always enough.
-      - name: Auto-bump patch version above latest published release
-        env:
-          GH_TOKEN: ${{ secrets.RELEASES_PAT }}
+      - name: Read version
+        id: version
         shell: bash
         run: |
-          set -euo pipefail
-          LATEST=$(curl -sS \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/ghneimatabed1-sudo/Flight-hours-tracker-Releases/releases?per_page=20" \
-            | node -e "let s='';process.stdin.on('data',d=>s+=d);process.stdin.on('end',()=>{const r=JSON.parse(s);const tags=r.filter(x=>!x.draft).map(x=>(x.tag_name||'').replace(/^v/,'')).filter(Boolean);tags.sort((a,b)=>{const A=a.split('.').map(Number),B=b.split('.').map(Number);for(let i=0;i<3;i++){if((A[i]||0)!==(B[i]||0))return(B[i]||0)-(A[i]||0)}return 0});console.log(tags[0]||'')});")
-          CURRENT=$(node -p "require('./package.json').version")
-          echo "current=$CURRENT  latest_release=$LATEST"
-          if [ -z "$LATEST" ]; then
-            echo "No prior release — keeping current version $CURRENT"
-            exit 0
-          fi
-          NEW=$(node -e "
-            const cur='$CURRENT'.split('.').map(Number);
-            const lat='$LATEST'.split('.').map(Number);
-            const cmp=(a,b)=>{for(let i=0;i<3;i++){if((a[i]||0)!==(b[i]||0))return(a[i]||0)-(b[i]||0)}return 0};
-            if (cmp(cur,lat)>0) { console.log(cur.join('.')); }
-            else { lat[2]=(lat[2]||0)+1; console.log(lat.join('.')); }
-          ")
-          if [ "$NEW" != "$CURRENT" ]; then
-            node -e "const fs=require('fs');const p=require('./package.json');p.version='$NEW';fs.writeFileSync('./package.json',JSON.stringify(p,null,2)+'\n');"
-            echo "Bumped package.json: $CURRENT -> $NEW"
-          else
-            echo "Version $CURRENT already ahead of latest $LATEST — no bump needed"
-          fi
+          VERSION=$(node -p "require('./artifacts/api-server/package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Building version: $VERSION"
 
-      - name: Install Electron toolchain
-        # electron + electron-builder are dev tooling. electron-updater MUST
-        # be a regular dependency so electron-builder bundles it into the
-        # asar — otherwise the installed app crashes with "Cannot find
-        # module 'electron-updater'" at startup.
+      - name: Run installer build script
+        shell: pwsh
         run: |
-          set -euo pipefail
-          pnpm add -D electron@^32 electron-builder@^25
-          pnpm add electron-updater@^6
+          Set-Location installer
+          # iscc is now on PATH from the install step
+          .\build.ps1 -Verbose
 
-      - name: Inject INSTALL_PASSWORD define into installer.nsh
-        env:
-          INSTALL_PASSWORD: ${{ secrets.INSTALL_PASSWORD || 'rjaf-install-change-me' }}
+      - name: Verify the .exe was produced
+        shell: bash
         run: |
-          set -euo pipefail
-          NSH=build/installer.nsh
-          ORIGINAL=$(cat "$NSH")
-          printf '!define INSTALL_PASSWORD "%s"\r\n%s' "$INSTALL_PASSWORD" "$ORIGINAL" > "$NSH"
-
-      - name: Verify Supabase build secrets were injected
-        # Hard-fail BEFORE the renderer build if either Supabase secret is
-        # empty. Without these the installer ships with no backend wired
-        # up — every PC ends up isolated, the cross-PC registry never
-        # populates, and operators waste hours on the Connection
-        # Diagnostic page wondering why nobody else is listed. We print
-        # the host portion only (never the anon key) so the build log
-        # confirms which project the build is bound to without leaking
-        # the credential.
-        run: |
-          set -euo pipefail
-          if [ -z "${VITE_SUPABASE_URL:-}" ]; then
-            echo "::error::VITE_SUPABASE_URL secret is not set in this repo. The installer would ship without a backend and no PC would see any other PC. Add it under Settings → Secrets and variables → Actions."
+          if [ ! -f installer/dist/HawkEye-Setup.exe ]; then
+            echo "::error::installer/dist/HawkEye-Setup.exe is missing after build"
             exit 1
           fi
-          if [ -z "${VITE_SUPABASE_ANON_KEY:-}" ]; then
-            echo "::error::VITE_SUPABASE_ANON_KEY secret is not set in this repo. The installer would ship without a backend and no PC would see any other PC. Add it under Settings → Secrets and variables → Actions."
-            exit 1
-          fi
-          # Strip scheme + path, keep host only.
-          HOST=$(printf '%s' "$VITE_SUPABASE_URL" | sed -E 's#^https?://##; s#/.*$##')
-          echo "VITE_SUPABASE_URL host ok: $HOST"
-          echo "VITE_SUPABASE_ANON_KEY ok: (length ${#VITE_SUPABASE_ANON_KEY})"
-        env:
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          SIZE=$(du -sh installer/dist/HawkEye-Setup.exe | cut -f1)
+          echo "HawkEye-Setup.exe built successfully — size: $SIZE"
 
-      - name: Vite build (renderer)
-        env:
-          PORT: "5173"
-          BASE_PATH: "./"
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-          VITE_EXPECTED_SUPABASE_HOST: ${{ secrets.VITE_SUPABASE_URL }}
-          # Public URL of the api-server. The license-registration flow
-          # routes through this server so the provisioning secret stays
-          # off the client. If unset, the renderer falls back to "/api"
-          # which fails immediately in a packaged Electron app loading
-          # from file:// — the operator sees "Failed to fetch" on Setup.
-          VITE_API_SERVER_URL: ${{ secrets.VITE_API_SERVER_URL }}
-          # Anti-spam shared secret that the desktop-installer must
-          # carry in the `x-unit-join-secret` header on every call to
-          # the join-flow RPCs (`unit_join_request_*`,
-          # `unit_super_admin_setup_*`, etc). Migration 0076 stores
-          # the canonical value in `unit_config.join_secret` in
-          # production; the desktop build mirrors it here so the
-          # client-side helper `unitJoinConfigured` evaluates to
-          # `true`. WITHOUT THIS SECRET the FirstLaunch screen renders
-          # both buttons disabled with the message "Cloud not
-          # reachable from this PC, or this build wasn't issued with
-          # a join secret." and the operator cannot proceed past the
-          # welcome screen — i.e. every fresh install is bricked.
-          VITE_UNIT_JOIN_SECRET: ${{ secrets.VITE_UNIT_JOIN_SECRET }}
-        run: pnpm run build
-
-      - name: Verify VITE_API_SERVER_URL was injected
-        # Hard-fail the build if the api-server URL is missing. Better to
-        # break the pipeline now than ship another installer that bricks
-        # at the Setup step on every base.
+      - name: Generate SHA-256 checksum
+        shell: pwsh
         run: |
-          set -euo pipefail
-          if [ -z "${VITE_API_SERVER_URL:-}" ]; then
-            echo "::error::VITE_API_SERVER_URL secret is not set in this repo. License registration will fail on every PC. Add it under Settings → Secrets and variables → Actions."
-            exit 1
-          fi
-          echo "VITE_API_SERVER_URL ok: $VITE_API_SERVER_URL"
-        env:
-          VITE_API_SERVER_URL: ${{ secrets.VITE_API_SERVER_URL }}
+          $hash = (Get-FileHash installer\dist\HawkEye-Setup.exe -Algorithm SHA256).Hash.ToLower()
+          "$hash  HawkEye-Setup.exe" | Out-File -Encoding ASCII installer\dist\HawkEye-Setup.exe.sha256
+          Write-Host "SHA-256: $hash"
 
-      - name: Verify VITE_UNIT_JOIN_SECRET was injected
-        # Hard-fail the build if the join secret is missing. Without
-        # it every fresh install lands on FirstLaunch with both
-        # buttons disabled — the v1.1.122 regression we shipped on
-        # 2026-04-25. Tripwire here so we never ship that build
-        # variant again.
-        run: |
-          set -euo pipefail
-          if [ -z "${VITE_UNIT_JOIN_SECRET:-}" ]; then
-            echo "::error::VITE_UNIT_JOIN_SECRET secret is not set in this repo. Every fresh installer would land on FirstLaunch with both buttons disabled and the message 'Cloud not reachable from this PC, or this build wasn't issued with a join secret.' Add it under Settings → Secrets and variables → Actions — the canonical value lives in production unit_config.join_secret (read it via the unit_get_join_secret() RPC as super-admin)."
-            exit 1
-          fi
-          # Length check only — never echo the secret itself.
-          echo "VITE_UNIT_JOIN_SECRET ok: (length ${#VITE_UNIT_JOIN_SECRET})"
-        env:
-          VITE_UNIT_JOIN_SECRET: ${{ secrets.VITE_UNIT_JOIN_SECRET }}
-
-      - name: Verify renderer output exists
-        run: |
-          set -euo pipefail
-          if [ ! -f dist/public/index.html ]; then
-            echo "::error::dist/public/index.html missing — vite build did not produce a renderer bundle"
-            exit 1
-          fi
-          echo "renderer ok: $(ls -la dist/public/index.html)"
-
-      - name: Compile Electron main + preload
-        run: pnpm run electron:compile
-
-      - name: Build & publish Windows installer (with retry)
-        env:
-          INSTALL_PASSWORD: ${{ secrets.INSTALL_PASSWORD || 'rjaf-install-change-me' }}
-          GH_TOKEN: ${{ secrets.RELEASES_PAT }}
-        # Retry up to 3 times. electron-builder downloads several binaries
-        # from the GitHub release CDN at build time; transient 5xx errors
-        # there should not fail the whole pipeline. After the first
-        # successful download, the cache step above keeps the file warm
-        # for subsequent runs.
-        run: |
-          set -euo pipefail
-          for attempt in 1 2 3; do
-            echo "::group::electron-builder attempt $attempt"
-            if pnpm exec electron-builder --win nsis --config electron-builder.json --publish always; then
-              echo "::endgroup::"
-              echo "build succeeded on attempt $attempt"
-              exit 0
-            fi
-            echo "::endgroup::"
-            echo "::warning::electron-builder attempt $attempt failed; retrying in 20s"
-            sleep 20
-          done
-          echo "::error::electron-builder failed after 3 attempts"
-          exit 1
-
-      - name: Upload installer (workflow artifact backup)
+      - name: Upload installer artifact
         uses: actions/upload-artifact@v4
         with:
-          name: RJAF-SquadronOps-Installer
-          path: artifacts/pilot-dashboard/release/*.exe
+          name: HawkEye-Setup-v${{ steps.version.outputs.version }}-${{ github.sha }}
+          path: |
+            installer/dist/HawkEye-Setup.exe
+            installer/dist/HawkEye-Setup.exe.sha256
           if-no-files-found: error
+          retention-days: 90
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: "Hawk Eye v${{ steps.version.outputs.version }}"
+          body: |
+            ## Hawk Eye Squadron Ops — v${{ steps.version.outputs.version }}
+
+            **LAN-only, air-gapped installer. No internet required on the target PC.**
+
+            ### Install
+            1. Copy `HawkEye-Setup.exe` to the target Windows PC (USB stick is fine).
+            2. Right-click → **Run as administrator**.
+            3. Follow the wizard — choose your role (Hub / Wing / Base / Viewer).
+            4. Everything installs automatically. No Node, no Postgres needed.
+
+            ### Verify download integrity
+            `certutil -hashfile HawkEye-Setup.exe SHA256` and compare to the `.sha256` file.
+
+            ### What's in this release
+            - Magic LAN auto-discovery: PCs sense each other and pair with one click.
+            - Dashboard auto-restarts on crash (supervisor for all 3 services).
+            - Audit log captures every admin-triggered ops action.
+            - Operator UX polish: unsaved-change warnings, backup progress, restart-broadcast button.
+          files: |
+            installer/dist/HawkEye-Setup.exe
+            installer/dist/HawkEye-Setup.exe.sha256
+          fail_on_unmatched_files: true
+          generate_release_notes: false
+          token: ${{ secrets.GITHUB_TOKEN }}

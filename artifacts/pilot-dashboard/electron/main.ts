@@ -226,18 +226,19 @@ app.whenReady().then(() => {
     autoUpdater.allowPrerelease = false;
     autoUpdater.channel = "latest";
 
-    // Builds are unsigned (no code-signing certificate). Disable the
-    // Authenticode publisher-name check that NsisUpdater performs by
-    // default — otherwise upgrades from a previously-signed install
-    // (publisherName "Captain Abed Ghneimat") refuse every new build
-    // with "not digitally signed". Returning null tells electron-updater
-    // the signature is acceptable. We extend the typed surface narrowly
-    // (no `any`) so the override is type-checked against the real shape
-    // electron-updater exposes for the NSIS code-signature hook.
-    type UpdaterWithSignatureHook = typeof autoUpdater & {
-      verifyUpdateCodeSignature?: (publisherNames: string[], path: string) => Promise<string | null>;
-    };
-    (autoUpdater as UpdaterWithSignatureHook).verifyUpdateCodeSignature = () => Promise.resolve(null);
+    // Security assertion: verifyUpdateCodeSignature must never be overridden to
+    // a no-op. Doing so allows unsigned or attacker-controlled NSIS installers to
+    // pass without Authenticode publisher-signature validation, enabling arbitrary
+    // code execution via a compromised release pipeline. The property must remain
+    // unset so electron-updater applies its default signature check on every
+    // downloaded update. If this assertion throws, a code change has re-introduced
+    // the bypass and must be reverted before shipping.
+    if (typeof (autoUpdater as { verifyUpdateCodeSignature?: unknown }).verifyUpdateCodeSignature === "function") {
+      throw new Error(
+        "[update-security] verifyUpdateCodeSignature is overridden — " +
+        "Authenticode bypass detected. Remove the override to restore update trust checks."
+      );
+    }
 
     // Pipe every update lifecycle event to the renderer so the Settings
     // page can show real progress instead of guessing. Renderer subscribes
