@@ -1,0 +1,12 @@
+{
+  "cell": "G1",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:31.424Z",
+  "note": "xpc_registry.squadron_name updated by rename trigger",
+  "reg": [
+    {
+      "id": "TEST_T303_PC_SQN_ALPHA",
+      "squadron_name": "TEST_T303_SQN_ALPHA_RENAMED"
+    }
+  ]
+}

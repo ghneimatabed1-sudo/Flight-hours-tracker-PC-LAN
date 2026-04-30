@@ -1,0 +1,11 @@
+{
+  "cell": "N2",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:47:10.099Z",
+  "note": "Recipient PC sees incoming message",
+  "seeR": [
+    {
+      "id": "TEST_T303_MSG_N_1777081628303"
+    }
+  ]
+}

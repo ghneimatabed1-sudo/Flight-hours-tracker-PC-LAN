@@ -1,0 +1,25 @@
+[
+  {
+    "id": "G-C2",
+    "severity": "P0",
+    "surface": "mobile vs dashboard totals",
+    "expected": "mobile==dashboard",
+    "actual": "see evidence",
+    "repro": ".calc.C2.perPilot diff rows",
+    "notes": "mobile/dashboard captain or hours drift",
+    "runId": "mod5bil7",
+    "source": "G",
+    "recordedAt": "2026-04-24T16:50:31.217Z"
+  },
+  {
+    "id": "G-Schedchain",
+    "severity": "P1",
+    "audit": "G",
+    "surface": "xpc_schedule_shares state vs constraint",
+    "expected": "submit can insert with current_tier=submitted",
+    "actual": "CHECK constraint xpc_schedule_shares_current_tier_check rejects",
+    "repro": "INSERT into xpc_schedule_shares with current_tier=submitted",
+    "notes": "state-machine vs check-constraint misalignment",
+    "recordedAt": "2026-04-24T18:02:44.572Z"
+  }
+]

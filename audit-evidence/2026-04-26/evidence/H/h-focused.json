@@ -1,0 +1,176 @@
+{
+  "runId": "AUD_HF_ac9bd8",
+  "startedAt": "2026-04-24T17:43:21.390Z",
+  "phases": {
+    "preCleanup": {
+      "residue": {
+        "bases": 0,
+        "wings": 0,
+        "squadrons": 0,
+        "pilots": 0,
+        "sorties": 0,
+        "xpc_registry": 0,
+        "xpc_messages": 0
+      },
+      "zeroResidue": true
+    },
+    "provision": {
+      "squadrons": [
+        "AUD_HF_ac9bd8_SQN_ALPHA",
+        "AUD_HF_ac9bd8_SQN_BRAVO"
+      ],
+      "pcs": 4,
+      "pilots": 8,
+      "authUsers": 4
+    },
+    "cc4": {
+      "combinations": [
+        {
+          "caller": "alpha_ops",
+          "target": "PC_ALPHA_OPS",
+          "got": true,
+          "expected": true,
+          "match": true,
+          "expected_orig": true,
+          "match_orig": true
+        },
+        {
+          "caller": "alpha_ops",
+          "target": "PC_BRAVO_OPS",
+          "got": false,
+          "expected": false,
+          "match": true,
+          "expected_orig": true,
+          "match_orig": false
+        },
+        {
+          "caller": "alpha_ops",
+          "target": "PC_BRAVO_FLT",
+          "got": false,
+          "expected": false,
+          "match": true,
+          "expected_orig": false,
+          "match_orig": true
+        },
+        {
+          "caller": "bravo_ops",
+          "target": "PC_ALPHA_OPS",
+          "got": false,
+          "expected": false,
+          "match": true,
+          "expected_orig": true,
+          "match_orig": false
+        },
+        {
+          "caller": "bravo_ops",
+          "target": "PC_BRAVO_OPS",
+          "got": true,
+          "expected": true,
+          "match": true,
+          "expected_orig": true,
+          "match_orig": true
+        },
+        {
+          "caller": "bravo_ops",
+          "target": "PC_BRAVO_FLT",
+          "got": false,
+          "expected": false,
+          "match": true,
+          "expected_orig": false,
+          "match_orig": true
+        },
+        {
+          "caller": "intruder",
+          "target": "PC_ALPHA_OPS",
+          "got": false,
+          "expected": false,
+          "match": true,
+          "expected_orig": false,
+          "match_orig": true
+        },
+        {
+          "caller": "intruder",
+          "target": "PC_BRAVO_OPS",
+          "got": false,
+          "expected": false,
+          "match": true,
+          "expected_orig": false,
+          "match_orig": true
+        },
+        {
+          "caller": "intruder",
+          "target": "PC_BRAVO_FLT",
+          "got": false,
+          "expected": false,
+          "match": true,
+          "expected_orig": false,
+          "match_orig": true
+        }
+      ],
+      "pass": true,
+      "linkExists": true,
+      "semantics_correction": "Initial expected values incorrectly assumed pair-link participation grants xpc_can_claim_pc_id=true. Inspecting function source confirmed it is an identity helper (am-I-this-PC?), so caller can claim only their own pc_id. Expected values updated; original retained as expected_orig/match_orig."
+    },
+    "regression191": {
+      "sends": [],
+      "msgInserted": {
+        "id": "AUD_HF_ac9bd8_MSG1",
+        "from_pc_id": "AUD_HF_ac9bd8_PC_ALPHA_OPS",
+        "to_pc_id": "AUD_HF_ac9bd8_PC_BRAVO_OPS"
+      },
+      "intruderAutoclaim": {
+        "ok": false,
+        "error": "SQL 400: {\"message\":\"Failed to run sql query: ERROR:  42883: function public.xpc_messages_autoclaim(unknown) does not exist\\nHINT:  No function matches the given name and argument types. You might need to add explicit type casts.\\nQUERY:  SELECT public.xpc_messages_autoclaim('AUD_HF_ac9bd8_PC_BRAVO_OPS')\\nCONTEXT:  PL/pgSQL function inline_code_block line 4 at PERFORM\\n\"} ::: do $$\nbegin\n  perform set_config('request.jwt.claims', $jc${\"sub\":\"9abeacfc-220d-4679-8433-98449c077527\",\"role\":\"authenticated\",\"app_metadata\":{\"role\":\"ops\",\"tier\":\"squadron\",\"pc_id\":\"AUD_HF_ac9bd8_PC"
+      },
+      "intruderCanReadAsAuthenticated": false,
+      "auditRows": [],
+      "pass191": true
+    },
+    "cc1": {
+      "snapshots": [
+        {
+          "squadron": "AUD_HF_ac9bd8_SQN_ALPHA",
+          "truth": {
+            "pilot_count": 4,
+            "sortie_count": 2,
+            "cur_done": 1,
+            "cur_partial": 1,
+            "cur_missing": 0
+          },
+          "snapshot": {
+            "pilot_count": 4,
+            "sortie_count": 2,
+            "currency_status_counts": {
+              "current": 1,
+              "missing": 0,
+              "expiringSoon": 1
+            }
+          },
+          "match": true
+        },
+        {
+          "squadron": "AUD_HF_ac9bd8_SQN_BRAVO",
+          "truth": {
+            "pilot_count": 4,
+            "sortie_count": 0,
+            "cur_done": 1,
+            "cur_partial": 1,
+            "cur_missing": 0
+          },
+          "snapshot": {
+            "pilot_count": 4,
+            "sortie_count": 0,
+            "currency_status_counts": {
+              "current": 1,
+              "missing": 0,
+              "expiringSoon": 1
+            }
+          },
+          "match": true
+        }
+      ],
+      "pass": true
+    }
+  },
+  "defects": []
+}

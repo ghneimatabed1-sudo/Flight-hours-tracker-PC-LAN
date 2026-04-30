@@ -1,0 +1,6 @@
+dist-binaries/RJAF-SquadronOps-Setup-1.0.0.exe filter=lfs diff=lfs merge=lfs -text
+artifacts/pilot-dashboard/release/win-unpacked/Hawk[[:space:]]Eye.exe filter=lfs diff=lfs merge=lfs -text
+artifacts/pilot-dashboard/release/win-unpacked/resources/app.asar filter=lfs diff=lfs merge=lfs -text
+artifacts/pilot-dashboard/release/HawkEye-1.1.71-win-x64.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/pilot-dashboard/release/HawkEye-1.1.71/Hawk[[:space:]]Eye.exe filter=lfs diff=lfs merge=lfs -text
+artifacts/pilot-dashboard/release/HawkEye-1.1.71/resources/app.asar filter=lfs diff=lfs merge=lfs -text

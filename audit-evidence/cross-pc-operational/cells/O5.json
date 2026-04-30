@@ -1,0 +1,25 @@
+{
+  "cell": "O5",
+  "name": "Currency window arithmetic identical across PCs (30/90-day buckets)",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:30:47.675Z",
+  "note": "",
+  "method": "Insert 5 sorties at known day-offsets (1,10,25,60,120). Run the exact 30-day and 90-day count queries twice (simulating PC-A and PC-B's polling). Both counts must match each other AND match the fixture-derived expectations (3 in 30d, 4 in 90d).",
+  "observed": {
+    "fixtures_dOff": [
+      1,
+      10,
+      25,
+      60,
+      120
+    ],
+    "w30_pcA": 3,
+    "w30_pcB": 3,
+    "w90_pcA": 4,
+    "w90_pcB": 4
+  },
+  "expected": {
+    "w30": 3,
+    "w90": 4
+  }
+}

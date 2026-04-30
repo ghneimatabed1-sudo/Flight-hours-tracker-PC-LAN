@@ -1,0 +1,7 @@
+{
+  "cell": "H3",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:38.403Z",
+  "note": "Share visible to receiver via SELECT within 5s (UI polls 15s)",
+  "firstSeenMs": 551
+}

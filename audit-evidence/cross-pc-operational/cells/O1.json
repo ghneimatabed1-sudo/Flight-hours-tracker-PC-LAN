@@ -1,0 +1,16 @@
+{
+  "cell": "O1",
+  "name": "Sortie INSERT propagates to peer PCs (count delta exactly +1)",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:30:26.904Z",
+  "note": "",
+  "method": "PC-A inserts a sortie. The exact COUNT(*) query the dashboard's currency rollup hooks fire on PC-B's polling tick is run against the same squadron — count must increment by exactly 1.",
+  "observed": {
+    "count_before": 0,
+    "count_after": 1,
+    "inserted_id": "1262b4ba-087d-4089-9225-92bcd16a0853"
+  },
+  "expected": {
+    "count_after": 1
+  }
+}

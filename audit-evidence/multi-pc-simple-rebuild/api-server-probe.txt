@@ -1,0 +1,61 @@
+# Task #299 — api-server `server_misconfigured` failure-mode probe (T011)
+# Captured 2026-04-24 from the workspace dev environment.
+
+## Question this probe answers
+Does the new Join → Approve → Bind flow (#299) still depend on the
+api-server proxy (`/api/license/register`)? If yes, the proxy must be
+fixed before rollout. If no, the new flow is decoupled and the proxy is
+historical scaffolding the next sweep can remove.
+
+## What was probed
+The deployed api-server (`artifacts/api-server`) at its dev URL:
+
+  POST https://$REPLIT_DEV_DOMAIN/api-server/api/license/register
+
+with bodies `{}` (empty), then `{"installKey":"NOSUCHKEY12345","fingerprint":"FP-PROBE-0000","username":"probe"}`.
+
+## Observed responses
+
+  $ curl -sS -X POST -H "Content-Type: application/json" \
+      -d '{}' \
+      "https://$REPLIT_DEV_DOMAIN/api-server/api/license/register" \
+      -w "\nHTTP %{http_code}\n"
+  HTTP 404
+
+  $ curl -sS -X POST -H "Content-Type: application/json" \
+      -d '{"installKey":"NOSUCHKEY12345","fingerprint":"FP-PROBE-0000","username":"probe"}' \
+      "https://$REPLIT_DEV_DOMAIN/api-server/api/license/register" \
+      -w "\nHTTP %{http_code}\n"
+  HTTP 404
+
+The route is mounted at `/api/license/register` in
+`artifacts/api-server/src/routes/license.ts` and the router is mounted
+at `/api` in `artifacts/api-server/src/app.ts`, so the absolute path
+inside the express app is `/api/license/register`. The 404 returned by
+the proxy in dev means the route is not wired up correctly under the
+artifact prefix. This is the pre-existing `server_misconfigured`
+failure-mode the audit captured — the legacy License Keys flow has
+been broken at the proxy layer for an unknown duration.
+
+## Why this no longer blocks rollout
+
+The new flow (#299) does NOT call `/api/license/register`. It calls:
+
+  • PostgREST RPCs at `${SUPABASE_URL}/rest/v1/rpc/unit_request_join`,
+    `unit_request_status`, `unit_pending_requests`, `unit_reserve_approval`,
+    `unit_remove_member`, `unit_update_squadrons`, `unit_member_self`,
+    `unit_super_admin_exists`, `unit_squadrons_for_join`.
+  • Edge Function at `${SUPABASE_URL}/functions/v1/unit-approve-device`
+    (super-admin JWT + `verify_jwt=true` in `config.toml`).
+
+Both are talked to from the client (`artifacts/pilot-dashboard`) using
+the public anon key + the per-call `x-unit-join-secret` header. There is
+no proxy in the request path. See `artifacts/pilot-dashboard/src/lib/unit-join.ts`.
+
+## Verdict
+- api-server `/license/register` proxy: still broken (HTTP 404, dev).
+- Impact on #299: NONE. The new flow bypasses the proxy entirely.
+- Recommendation: leave the api-server route mounted but unused; mark
+  it for removal in a follow-up sweep once the License Keys page is
+  fully retired (it is already off the sidebar — see HQLayout.tsx).
+

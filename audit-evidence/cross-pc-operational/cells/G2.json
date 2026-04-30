@@ -1,0 +1,12 @@
+{
+  "cell": "G2",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:32.772Z",
+  "note": "xpc_messages.from_pc_name updated by rename trigger",
+  "msg": [
+    {
+      "id": "TEST_T303_MSG_G_1777081589068",
+      "from_pc_name": "TEST_T303_SQN_ALPHA_RENAMED"
+    }
+  ]
+}

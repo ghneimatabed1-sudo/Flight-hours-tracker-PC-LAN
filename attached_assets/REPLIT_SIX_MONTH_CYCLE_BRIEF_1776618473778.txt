@@ -1,0 +1,422 @@
+================================================================
+RJAF FLIGHT HOURS TRACKER
+THE SIX-MONTH CYCLE — COMPLETE EXPLANATION FOR DEVELOPERS
+================================================================
+Written for: Replit development team
+Purpose: Full understanding of how the half-year (6-month)
+         breakdown works, how it is calculated, what it shows,
+         and where it appears in the app.
+================================================================
+
+
+BEFORE YOU START — WHY DOES THE SIX-MONTH CYCLE EXIST?
+--------------------------------------------------------
+In military aviation, pilot training is managed in cycles.
+The RJAF tracks how many hours a pilot has flown in each
+HALF of the current year. This tells commanders whether a
+pilot's training load is balanced, and whether they are
+meeting their flying hour requirements throughout the year.
+
+This is not a custom feature. It matches the original RJAF
+mobile APK that was used before this system was built.
+The six-month breakdown must look and work exactly the same way.
+
+
+================================================================
+PART 1 — THE TWO HALVES OF THE YEAR
+================================================================
+
+The calendar year is divided into exactly two halves:
+
+  ┌─────────────────────────────────────────────────────────┐
+  │  FIRST HALF (H1)                                        │
+  │  January, February, March, April, May, June             │
+  │  Months 1 through 6 of the year                         │
+  │  In code: month index 0 through 5 (JavaScript uses 0-5) │
+  └─────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────┐
+  │  SECOND HALF (H2)                                       │
+  │  July, August, September, October, November, December   │
+  │  Months 7 through 12 of the year                        │
+  │  In code: month index 6 through 11                      │
+  └─────────────────────────────────────────────────────────┘
+
+These two halves together make up the complete year.
+Every sortie in the current year belongs to either H1 or H2.
+There is no overlap. There is no gap. Every month is covered.
+
+HOW TO DECIDE WHICH HALF A SORTIE BELONGS TO:
+  Look at the sortie date. Extract the month number.
+  If the month is January through June → H1
+  If the month is July through December → H2
+
+  Example:
+    Sortie on 2025-03-15 → March → H1
+    Sortie on 2025-09-04 → September → H2
+    Sortie on 2025-06-30 → June → H1 (June is still the first half)
+    Sortie on 2025-07-01 → July → H2 (July begins the second half)
+
+The code logic (in JavaScript):
+  const month = new Date(sortie.date).getMonth(); // 0 = Jan, 11 = Dec
+  const half = month <= 5 ? "H1" : "H2";
+
+
+================================================================
+PART 2 — WHAT IS COUNTED IN EACH HALF
+================================================================
+
+For each half (H1 and H2), the system tracks these values
+PER PILOT, for sorties in the current calendar year only:
+
+  ┌──────────┬────────────────────────────────────────────────┐
+  │ Field    │ What it contains                               │
+  ├──────────┼────────────────────────────────────────────────┤
+  │ day      │ Total Day hours in this half                   │
+  │ night    │ Total Night hours in this half                 │
+  │ nvg      │ Total NVG hours in this half                   │
+  │ sim      │ Total Simulator/Instrument hours in this half  │
+  │ captain  │ Total Captain hours in this half               │
+  │ total    │ Day + Night combined (the main flying total)   │
+  │ sorties  │ Number of sorties flown in this half           │
+  └──────────┴────────────────────────────────────────────────┘
+
+IMPORTANT ABOUT THE "TOTAL" FIELD:
+  The "total" in the half-year breakdown = Day hours + Night hours.
+  NVG is shown separately. It is NOT included in "total."
+  This matches how RJAF reports flying hours — the main flying
+  total is Day + Night, and NVG is called out on its own.
+
+So the display on screen for each half looks like:
+
+         Day    Night   NVG    Sim    Total
+  H1:   45.0    12.0   18.0   4.0    57.0
+  H2:   30.0    8.0    22.0   2.0    38.0
+  Year: 75.0   20.0   40.0   6.0    95.0
+
+
+================================================================
+PART 3 — WHAT IS NOT INCLUDED IN THE SIX-MONTH BREAKDOWN
+================================================================
+
+These are things that look like they might be in the half-year
+breakdown but are NOT:
+
+1. OPENING BALANCE HOURS ARE NOT INCLUDED.
+   The half-year breakdown only counts sorties logged in the
+   current year WITHIN THIS SYSTEM. The opening balance
+   (hours the pilot had before they joined the system) is NOT
+   added to H1 or H2. Opening balances only appear in the
+   grand career total, not in the yearly/half-year breakdown.
+
+2. SORTIES FROM PREVIOUS YEARS ARE NOT INCLUDED.
+   If today is 2025, only 2025 sorties count for H1 and H2.
+   A sortie from 2024 does not appear in either half.
+   The half-year breakdown is always for THE CURRENT YEAR ONLY.
+
+3. THE NVG TOTAL IS NOT PART OF THE MAIN "TOTAL" COLUMN.
+   As explained above, NVG is shown separately.
+   The Total column = Day + Night only.
+
+WHY only the current year?
+  Because the six-month breakdown is a planning and monitoring
+  tool for the current training cycle. Last year's numbers are
+  irrelevant to whether a pilot is meeting this year's goals.
+  Commanders use this to see training distribution THIS year.
+
+
+================================================================
+PART 4 — HOW THE CALCULATION WORKS STEP BY STEP
+================================================================
+
+Here is the exact process the code follows for one pilot:
+
+STEP 1 — Get the current year.
+  Example: today is 15 April 2025, so current year = 2025.
+
+STEP 2 — Start with two empty buckets: H1 and H2.
+  Both start at zero for every field.
+
+STEP 3 — Loop through EVERY sortie where this pilot appears
+  (as either Pilot or Co-Pilot), same as for grand totals.
+
+STEP 4 — For each sortie, check its date:
+  a) Is the year = current year? (e.g. 2025)
+     YES → proceed to step 5.
+     NO  → skip this sortie entirely for H1/H2 calculation.
+            (It still counts toward the grand career total.)
+
+STEP 5 — Check the month of the sortie:
+  Month 1-6 (Jan through Jun) → add to H1 bucket
+  Month 7-12 (Jul through Dec) → add to H2 bucket
+
+STEP 6 — Add the hours to the correct half:
+  Take the sortie's Day hours → add to bucket.day
+  Take the sortie's Night hours → add to bucket.night
+  Take the sortie's NVG hours → add to bucket.nvg
+  Take the sortie's Sim hours → add to bucket.sim
+  If this pilot is Captain → add total hours to bucket.captain
+  Add Day + Night to bucket.total
+  Add 1 to bucket.sorties
+
+STEP 7 — After looping through all sorties, the results are:
+  H1: everything that happened January through June this year
+  H2: everything that happened July through December this year
+
+STEP 8 — Calculate the yearly total:
+  yearHours = H1.total + H2.total
+  (This is Day+Night for the full year, from system-logged sorties only)
+
+
+================================================================
+PART 5 — HOW IT IS DISPLAYED TO THE PILOT (MOBILE APP)
+================================================================
+
+On the pilot's home screen in the mobile app, there is a table
+that shows the half-year breakdown. It looks like this:
+
+  ┌────────────────────────────────────────────────────────┐
+  │  YEARLY BREAKDOWN · 2025                               │
+  │                                                        │
+  │           Day    Night   NVG    Sim    Total           │
+  │  ────────────────────────────────────────────────────  │
+  │  H1       45.0   12.0   18.0   4.0    57.0            │
+  │  (Jan–Jun) 24 sorties                                  │
+  │                                                        │
+  │  H2       30.0   8.0    22.0   2.0    38.0            │
+  │  (Jul–Dec) 16 sorties                                  │
+  │                                                        │
+  │  YEAR     75.0   20.0   40.0   6.0    95.0 ← bold     │
+  │  (full year) 40 sorties                                │
+  └────────────────────────────────────────────────────────┘
+
+Key points about how this table is shown:
+  • H1 row: hours from January through June, current year only
+  • H2 row: hours from July through December, current year only
+  • Year row: the sum of H1 and H2 (not opening balance, just this year)
+  • The Year row is highlighted/bold to stand out
+  • Each row also shows the sortie count for that period
+  • The current year number (e.g. "2025") is shown in the header
+  • This table is on the pilot's home screen, always visible
+
+Below this table, there is a SEPARATE career totals table:
+  • That one shows the grand total (opening balance + all sorties ever)
+  • It is a different table, clearly labeled differently
+  • Do not mix the two tables. They are separate sections.
+
+
+================================================================
+PART 6 — HOW IT IS DISPLAYED TO COMMANDERS (PC APP)
+================================================================
+
+On the PC app, commanders and the ops officer also see this
+breakdown when viewing an individual pilot's detail page.
+
+The same H1/H2 concept applies. The commander can see at a
+glance whether the pilot's training is evenly distributed
+or whether all their flying happened in one part of the year.
+
+The breakdown on the PC is shown in the pilot detail page
+using the same column structure: Day, Night, NVG, Sim, Total.
+
+
+================================================================
+PART 7 — A COMPLETE WORKED EXAMPLE
+================================================================
+
+Let's trace through a complete real example so there is zero
+ambiguity.
+
+Today's date: April 15, 2025 (so we are in H1, month 4).
+
+Pilot: Lt. Ahmad
+Opening balance: 120 Day, 40 Night, 30 NVG (from before the system)
+
+Sorties logged for Lt. Ahmad in the system:
+
+  Sortie 1: 2025-02-10, Day, 1.5 hrs, 1st Officer
+  Sortie 2: 2025-02-10, Day, 1.5 hrs (same flight, he was co-pilot too)
+  Sortie 3: 2025-03-22, NVG, 2.0 hrs, 1st Officer
+  Sortie 4: 2025-04-01, Night, 1.0 hrs, 2nd Officer
+  Sortie 5: 2025-08-14, Day, 2.5 hrs, 1st Officer (this is H2!)
+  Sortie 6: 2024-11-05, Night, 1.5 hrs (previous year — excluded from H1/H2!)
+
+STEP BY STEP CALCULATION:
+
+Processing Sortie 1 (2025-02-10, Day, 1.5):
+  Year = 2025 ✓. Month = February = H1.
+  H1.day += 1.5 → H1.day = 1.5
+  H1.total += 1.5 → H1.total = 1.5
+  H1.sorties += 1 → H1.sorties = 1
+
+Processing Sortie 2 (2025-02-10, Day, 1.5):
+  Year = 2025 ✓. Month = February = H1.
+  H1.day += 1.5 → H1.day = 3.0
+  H1.total += 1.5 → H1.total = 3.0
+  H1.sorties += 1 → H1.sorties = 2
+
+Processing Sortie 3 (2025-03-22, NVG, 2.0):
+  Year = 2025 ✓. Month = March = H1.
+  H1.nvg += 2.0 → H1.nvg = 2.0
+  NVG does NOT add to H1.total
+  H1.sorties += 1 → H1.sorties = 3
+
+Processing Sortie 4 (2025-04-01, Night, 1.0):
+  Year = 2025 ✓. Month = April = H1.
+  H1.night += 1.0 → H1.night = 1.0
+  H1.total += 1.0 → H1.total = 4.0
+  H1.sorties += 1 → H1.sorties = 4
+
+Processing Sortie 5 (2025-08-14, Day, 2.5):
+  Year = 2025 ✓. Month = August = H2.
+  H2.day += 2.5 → H2.day = 2.5
+  H2.total += 2.5 → H2.total = 2.5
+  H2.sorties += 1 → H2.sorties = 1
+
+Processing Sortie 6 (2024-11-05, Night, 1.5):
+  Year = 2024 ✗. SKIP. Does not go into H1 or H2.
+  (But it DOES count toward the grand career total.)
+
+FINAL H1/H2 RESULTS:
+
+  H1 (Jan–Jun 2025):
+    Day:     3.0 hrs
+    Night:   1.0 hrs
+    NVG:     2.0 hrs
+    Sim:     0.0 hrs
+    Total:   4.0 hrs (Day 3.0 + Night 1.0 — NVG not in total)
+    Sorties: 4
+
+  H2 (Jul–Dec 2025):
+    Day:     2.5 hrs
+    Night:   0.0 hrs
+    NVG:     0.0 hrs
+    Sim:     0.0 hrs
+    Total:   2.5 hrs
+    Sorties: 1
+
+  Year Total (H1 + H2):
+    Day:     5.5 hrs
+    Night:   1.0 hrs
+    NVG:     2.0 hrs
+    Sim:     0.0 hrs
+    Total:   6.5 hrs
+    Sorties: 5
+
+CAREER GRAND TOTAL (includes opening balance AND all sorties):
+  Grand Total Day   = 120 (opening) + 5.5 (logged) = 125.5 hrs
+  Grand Total Night = 40 (opening) + 1.0+1.5 (logged, including 2024) = 42.5 hrs
+  Grand Total NVG   = 30 (opening) + 2.0 (logged) = 32.0 hrs
+  Grand Total = 125.5 + 42.5 = 168.0 hrs (Day + Night only, no NVG)
+
+Notice: The career total includes the 2024 sortie (1.5 hrs Night).
+        The H1/H2 breakdown does NOT include it.
+        These are two different calculations for two different purposes.
+
+
+================================================================
+PART 8 — THE RULES FOR THE SIX-MONTH CALCULATION
+================================================================
+
+These must be followed exactly:
+
+RULE 1:
+  H1 = January, February, March, April, May, June.
+  H2 = July, August, September, October, November, December.
+  This split is fixed. It never changes. It is always calendar-based.
+  There are no custom periods. No fiscal year. No sliding windows.
+
+RULE 2:
+  Only sorties from the CURRENT calendar year count for H1 and H2.
+  Last year's sorties are excluded from the half-year breakdown.
+  They still count toward the all-time career total.
+
+RULE 3:
+  Opening balance hours DO NOT appear in H1 or H2.
+  They only appear in the grand career total.
+  The half-year shows only what the pilot has flown THIS year
+  in this system.
+
+RULE 4:
+  NVG hours are shown separately in the NVG column.
+  NVG hours do NOT add to the "Total" column.
+  Total = Day + Night only.
+  This is intentional. NVG is tracked separately.
+
+RULE 5:
+  The Year row at the bottom of the table = H1 + H2.
+  It is not a separate calculation. It is simply H1 + H2 added together.
+
+RULE 6:
+  The half-year breakdown and the career grand total are TWO DIFFERENT
+  tables shown in TWO DIFFERENT sections.
+  Never mix them. Never show career totals inside the H1/H2 table.
+  Never show H1/H2 as part of the career total.
+
+RULE 7:
+  Both the mobile app and the PC pilot detail page must show
+  the same H1/H2 numbers for the same pilot.
+  There is one calculation function. It must be used everywhere.
+  Do not create separate calculation logic for mobile vs PC.
+
+
+================================================================
+PART 9 — WHAT THE TABLE LOOKS LIKE WHEN THE YEAR IS PARTIAL
+================================================================
+
+Most of the time, when a pilot or commander looks at this table,
+the year is not yet complete. For example, if it is April, then:
+
+  H1 is PARTIAL — only January, February, March, and April
+                  have data so far. May and June are still zero.
+  H2 is EMPTY  — no flights yet because July has not started.
+
+The table still shows both rows. H2 just shows all zeros.
+That is correct behavior. It should not be hidden.
+
+Example in April 2025:
+
+         Day    Night   NVG    Sim    Total
+  H1:   45.0    12.0   18.0   4.0    57.0  ← partial (Jan-Apr so far)
+  H2:    0.0     0.0    0.0   0.0     0.0  ← empty (Jul-Dec not started)
+  Year: 45.0    12.0   18.0   4.0    57.0
+
+This is correct and expected. Both rows are always shown.
+Do not hide H2 because it is empty. It will fill in as the year goes on.
+
+
+================================================================
+SUMMARY — THE SIX-MONTH CONCEPT IN SIMPLE WORDS
+================================================================
+
+The year is cut in half: January-June is H1, July-December is H2.
+
+Every sortie a pilot flies this year goes into exactly one of those
+two halves based on which month it happened.
+
+For each half, the system totals up:
+  How many Day hours they flew
+  How many Night hours they flew
+  How many NVG hours they flew
+  How many Sim hours they logged
+  How many sorties they flew total
+
+The "Total" column shows Day + Night (NVG is always shown separately).
+
+This breakdown is ONLY for the current year.
+It does NOT include last year's flights.
+It does NOT include the opening balance.
+
+The career grand total (a completely separate section) includes
+everything: opening balance + all sorties ever, all years.
+
+These two sections must always be clearly separated on screen.
+
+
+================================================================
+END OF DOCUMENT
+Written from direct reading of:
+  - artifacts/pilot-mobile/lib/calculations.ts (computeTotals function)
+  - artifacts/pilot-mobile/app/(tabs)/index.tsx (mobile display)
+  - Full conversation and development history with the system owner.
+================================================================

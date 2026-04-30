@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:09:36.871Z",
+  "slug": "manage-reminder-schedule",
+  "meta": {
+    "verify_jwt": true,
+    "id": "b38f8dae-c18f-4af1-a830-3ffc6b25e4f7",
+    "slug": "manage-reminder-schedule",
+    "version": 6,
+    "name": "manage-reminder-schedule",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_b38f8dae-c18f-4af1-a830-3ffc6b25e4f7_6/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776513706259,
+    "updated_at": 1777061376341,
+    "ezbr_sha256": "b0195e96fe74538c02ed4f6f2b6406ab55ae83708a5ac39b3d1a000ce9bcd23f"
+  },
+  "body_sha256": "31427a5f80a47798136d4430fd51ff04b0b6ae3e999d00fad4d81284a0b739d5",
+  "body_size": 254270,
+  "source_sha256": "fa9fc7a2cc0e92cee8a48e5fd2cd7e898d52ac849cf3573f54be2a7db6bea42a",
+  "source_has_role_guard_marker": true,
+  "config_verify_jwt": true
+}

@@ -1,0 +1,21 @@
+{
+  "cell": "R8",
+  "name": "Forwarder remains in chain_pc_ids after handoff (raw schema check; visibility blocked by Family #1 RLS gap)",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:25:47.766Z",
+  "note": "",
+  "method": "Insert a share where current_pc_id=PC-B but chain_pc_ids contains PC-A (the forwarder). Schema must preserve PC-A in chain_pc_ids. Note: PC-A's *visibility* of this row at the policy layer is blocked by defect Family #1 (xpc_schedule_shares SELECT policy lacks chain_pc_ids) — that is the same root cause as A2/A3/A5/A6/A8/M3.",
+  "observed": {
+    "chain_pc_ids": [
+      "TEST_T303_R3_PCA",
+      "TEST_T303_R3_PCB"
+    ],
+    "current_pc_id": "TEST_T303_R3_PCB",
+    "forwarder_pc": "TEST_T303_R3_PCA"
+  },
+  "expected": {
+    "forwarder_in_chain": true,
+    "current_pc_id_is_recipient": true
+  },
+  "cross_reference": "See cells/A2.json, cells/M3.json for the visibility-side proof of the same defect family."
+}

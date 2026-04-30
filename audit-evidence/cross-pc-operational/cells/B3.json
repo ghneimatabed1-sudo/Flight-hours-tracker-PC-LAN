@@ -1,0 +1,7 @@
+{
+  "cell": "B3",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:19.773Z",
+  "note": "Closed month rejects sortie update with explicit error",
+  "lockedErr": "Cannot modify sortie — month is closed for this squadron. Re-open via super_admin only."
+}

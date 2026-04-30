@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:09:40.138Z",
+  "slug": "notify-notam",
+  "meta": {
+    "verify_jwt": true,
+    "id": "45677611-b8bc-4a64-9d47-a6638c2e7ddb",
+    "slug": "notify-notam",
+    "version": 3,
+    "name": "notify-notam",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_45677611-b8bc-4a64-9d47-a6638c2e7ddb_3/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776711056054,
+    "updated_at": 1777061379628,
+    "ezbr_sha256": "197a2c1bcad6190cab0ae81897f8e500f0f308e9292fbe4d380aaa497b7d7f37"
+  },
+  "body_sha256": "9b0efc7b7985dcb122cce7caff59f3421863bd6c4e4a3b12a3544fae81164eaf",
+  "body_size": 497929,
+  "source_sha256": "8101f3588b0432311f49aa99a89494567dcd365e517969b82d079308793bfa30",
+  "source_has_role_guard_marker": false,
+  "config_verify_jwt": true
+}

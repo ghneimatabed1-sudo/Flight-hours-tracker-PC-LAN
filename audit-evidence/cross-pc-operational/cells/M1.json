@@ -1,0 +1,11 @@
+{
+  "cell": "M1",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:47:07.527Z",
+  "note": "Wing N receiver sees alpha share (own wing)",
+  "nSeesA": [
+    {
+      "id": "TEST_T303_SHARE_M_ALPHA_1777081624767"
+    }
+  ]
+}

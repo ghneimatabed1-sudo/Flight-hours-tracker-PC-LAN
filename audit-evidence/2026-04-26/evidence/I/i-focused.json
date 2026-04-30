@@ -1,0 +1,268 @@
+{
+  "runId": "AUD_IF_6f7167",
+  "startedAt": "2026-04-24T17:55:10.814Z",
+  "phases": {
+    "preCleanup": {
+      "residue": {
+        "bases": 0,
+        "wings": 0,
+        "squadrons": 0,
+        "pilots": 0,
+        "sorties": 0,
+        "xpc_registry": 0
+      },
+      "zeroResidue": true
+    },
+    "provision": {
+      "squadrons": [
+        "AUD_IF_6f7167_SQN_X",
+        "AUD_IF_6f7167_SQN_Y",
+        "AUD_IF_6f7167_SQN_Z"
+      ],
+      "pilots": 12,
+      "authUsers": 4
+    },
+    "snapshots": {
+      "snapshots": {
+        "AUD_IF_6f7167_SQN_X": {
+          "pilot_count": 4,
+          "sortie_count_month": 3,
+          "sortie_hours_month": 4.5,
+          "currency_status_counts": {
+            "current": 8,
+            "expiringSoon": 8,
+            "missing": 4
+          },
+          "currency_status_by_type": {
+            "DAY": {
+              "current": 4,
+              "expiringSoon": 0,
+              "missing": 0
+            },
+            "NIGHT": {
+              "current": 0,
+              "expiringSoon": 4,
+              "missing": 0
+            },
+            "NVG": {
+              "current": 0,
+              "expiringSoon": 0,
+              "missing": 4
+            },
+            "IRT": {
+              "current": 4,
+              "expiringSoon": 0,
+              "missing": 0
+            },
+            "MEDICAL": {
+              "current": 0,
+              "expiringSoon": 4,
+              "missing": 0
+            }
+          },
+          "alerts": 12
+        },
+        "AUD_IF_6f7167_SQN_Y": {
+          "pilot_count": 5,
+          "sortie_count_month": 2,
+          "sortie_hours_month": 3,
+          "currency_status_counts": {
+            "current": 10,
+            "expiringSoon": 10,
+            "missing": 5
+          },
+          "currency_status_by_type": {
+            "DAY": {
+              "current": 5,
+              "expiringSoon": 0,
+              "missing": 0
+            },
+            "NIGHT": {
+              "current": 0,
+              "expiringSoon": 5,
+              "missing": 0
+            },
+            "NVG": {
+              "current": 0,
+              "expiringSoon": 0,
+              "missing": 5
+            },
+            "IRT": {
+              "current": 5,
+              "expiringSoon": 0,
+              "missing": 0
+            },
+            "MEDICAL": {
+              "current": 0,
+              "expiringSoon": 5,
+              "missing": 0
+            }
+          },
+          "alerts": 15
+        },
+        "AUD_IF_6f7167_SQN_Z": {
+          "pilot_count": 3,
+          "sortie_count_month": 1,
+          "sortie_hours_month": 1.5,
+          "currency_status_counts": {
+            "current": 6,
+            "expiringSoon": 6,
+            "missing": 3
+          },
+          "currency_status_by_type": {
+            "DAY": {
+              "current": 3,
+              "expiringSoon": 0,
+              "missing": 0
+            },
+            "NIGHT": {
+              "current": 0,
+              "expiringSoon": 3,
+              "missing": 0
+            },
+            "NVG": {
+              "current": 0,
+              "expiringSoon": 0,
+              "missing": 3
+            },
+            "IRT": {
+              "current": 3,
+              "expiringSoon": 0,
+              "missing": 0
+            },
+            "MEDICAL": {
+              "current": 0,
+              "expiringSoon": 3,
+              "missing": 0
+            }
+          },
+          "alerts": 9
+        }
+      }
+    },
+    "ci1": {
+      "combined_from_snapshots": 12,
+      "truth": 12,
+      "pass": true
+    },
+    "ci2": {
+      "combined_from_snapshots": {
+        "count": 6,
+        "hours": 9
+      },
+      "truth": {
+        "c": 6,
+        "h": "9.0"
+      },
+      "pass": true
+    },
+    "ci3": {
+      "perType": {
+        "DAY": {
+          "sumSnap": {
+            "current": 12,
+            "expiringSoon": 0,
+            "missing": 0
+          },
+          "truth": {
+            "current": 12,
+            "expiringSoon": 0,
+            "missing": 0
+          },
+          "match": true
+        },
+        "NIGHT": {
+          "sumSnap": {
+            "current": 0,
+            "expiringSoon": 12,
+            "missing": 0
+          },
+          "truth": {
+            "current": 0,
+            "expiringSoon": 12,
+            "missing": 0
+          },
+          "match": true
+        },
+        "NVG": {
+          "sumSnap": {
+            "current": 0,
+            "expiringSoon": 0,
+            "missing": 12
+          },
+          "truth": {
+            "current": 0,
+            "expiringSoon": 0,
+            "missing": 12
+          },
+          "match": true
+        },
+        "IRT": {
+          "sumSnap": {
+            "current": 12,
+            "expiringSoon": 0,
+            "missing": 0
+          },
+          "truth": {
+            "current": 12,
+            "expiringSoon": 0,
+            "missing": 0
+          },
+          "match": true
+        },
+        "MEDICAL": {
+          "sumSnap": {
+            "current": 0,
+            "expiringSoon": 12,
+            "missing": 0
+          },
+          "truth": {
+            "current": 0,
+            "expiringSoon": 12,
+            "missing": 0
+          },
+          "match": true
+        }
+      },
+      "pass": true
+    },
+    "ci4": {
+      "sumSnap": 36,
+      "truth": 36,
+      "pass": true
+    },
+    "ci5": {
+      "sqn_y": {
+        "snapshot_pilot_count": 5,
+        "truth_pilot_count": 5,
+        "match_p": true,
+        "snapshot_sortie_month": 2,
+        "truth_sortie_month": 2,
+        "match_s": true
+      },
+      "combined": {
+        "delegated": "CI-1, CI-2"
+      },
+      "silent_fallback": {
+        "note": "Silent fallback to COMBINED tested at dashboard layer in J-Playwright (DEFERRED-MANUAL); SQL evidence cannot exercise the picker's reactive logic."
+      },
+      "pass": true
+    },
+    "ci6": {
+      "snapshot_hours_old": 48.0003848775,
+      "isStale": true,
+      "pass": true
+    },
+    "ci7": {
+      "sees_x": true,
+      "sees_y": true,
+      "sees_z": false,
+      "visibleSqnIds": [
+        "1d96b11d-1ad1-4ad2-b9e6-d8334fe5f1c4",
+        "4af0d376-df1b-48c2-9526-07a9825c8633"
+      ],
+      "pass": true
+    }
+  },
+  "defects": []
+}

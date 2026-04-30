@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:09:34.713Z",
+  "slug": "link-pilot-device",
+  "meta": {
+    "verify_jwt": true,
+    "id": "896dc9dc-452b-4706-a756-ae8927c077ba",
+    "slug": "link-pilot-device",
+    "version": 15,
+    "name": "link-pilot-device",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_896dc9dc-452b-4706-a756-ae8927c077ba_15/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776513706259,
+    "updated_at": 1777061374264,
+    "ezbr_sha256": "8f223424e45e98ea21dd30bf80de912ece64c89d7bf559a35be6c2a0c10eb9ea"
+  },
+  "body_sha256": "ad51ed4112dd883cf8bc49227c46d39f25bd8a1185ad3c0b90f9d18dadadf36e",
+  "body_size": 511485,
+  "source_sha256": "94f5bca240d5cb8508111bc38f150a9d2e09f11d55d9b230563029719ef1de7f",
+  "source_has_role_guard_marker": false,
+  "config_verify_jwt": true
+}

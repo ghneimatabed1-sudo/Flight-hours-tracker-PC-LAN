@@ -1,0 +1,14 @@
+{
+  "cell": "H4",
+  "status": "FAIL",
+  "note": "Realtime publication contains only device_requests; cross-PC tables propagate via 15-30s polling — fails ≤5s SLA",
+  "writtenAt": "2026-04-25T02:02:35.647Z",
+  "sla": {
+    "required_seconds": 5,
+    "observed": "polling (15-30s)",
+    "verdict": "FAIL"
+  },
+  "realtimePublication": [
+    "device_requests"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Hawk Eye",
+  "short_name": "Hawk Eye",
+  "description": "Hawk Eye — RJAF UH-60M Squadron Flight Hours Management",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b0f14",
+  "theme_color": "#0b0f14",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

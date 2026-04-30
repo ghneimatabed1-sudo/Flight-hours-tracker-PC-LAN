@@ -1,0 +1,23 @@
+users: total=9
+  aud_sim=0 (test residue)
+  audit_test=0 (test residue)
+  aud_fix=0 (test residue)
+  aa2_probe=0 (test residue)
+  test_t171=0 (test residue)
+  real=9
+squadrons: total=2 residue=0 real=2
+xpc_registry: total=1 residue=0
+users table: total=0 residue=0
+Real users:
+  - cmd@99.rjaf.local role=admin tier=squadron
+  - ops@rjaf.rjaf.local role=ops tier=ops
+  - bilal@rjaf.rjaf.local role=admin tier=squadron
+  - ops@8.rjaf.local role=ops tier=ops
+  - flight1@8.rjaf.local role=undefined tier=undefined
+  - uh60mno8@8.rjaf.local role=admin tier=squadron
+  - radwan2@8.rjaf.local role=ops tier=ops
+  - pilot+p001@rjaf.local role=pilot tier=undefined
+  - radwan@8.rjaf.local role=ops tier=ops
+Real squadrons:
+  - NO.8 (#8, base=KING ABDULLAH II AIRBASE) id=9d2415b0-600a-44d2-8de9-12c64e53727c
+  - Test Squadron (#99, base=Test Base) id=d29fddd5-4858-4c96-b490-b63f27d2a60d

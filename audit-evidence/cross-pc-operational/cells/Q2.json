@@ -1,0 +1,25 @@
+{
+  "cell": "Q2",
+  "name": "Heartbeat / inbox poll cadence: 15 000 ms (refetchInterval on cross-PC hooks)",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:30:54.273Z",
+  "note": "",
+  "method": "grep cross-pc.ts for `refetchInterval: …` literals. The dashboard's polling cadence (which doubles as the heartbeat re-upsert tick) must include 15_000 ms on at least the registry + schedule-inbox + messages-inbox hooks.",
+  "observed": {
+    "refetchInterval_values_ms": [
+      30000,
+      30000,
+      15000,
+      15000,
+      30000,
+      15000,
+      15000
+    ],
+    "count_at_15s": 4,
+    "source": "artifacts/pilot-dashboard/src/lib/cross-pc.ts"
+  },
+  "expected": {
+    "has_15000_ms": true,
+    "min_count_at_15s": 2
+  }
+}

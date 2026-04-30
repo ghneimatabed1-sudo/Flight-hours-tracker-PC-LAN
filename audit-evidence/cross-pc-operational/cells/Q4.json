@@ -1,0 +1,19 @@
+{
+  "cell": "Q4",
+  "name": "Reconnect upsert replaces stale row in-place (id stable, last_seen advances)",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:31:01.194Z",
+  "note": "",
+  "method": "Force PC-A's xpc_registry.last_seen to a stale value. Re-run the heartbeat upsert (the same shape cross-pc.ts uses). Re-read row: id must remain identical (no INSERT-as-new), last_seen must move forward.",
+  "observed": {
+    "id": "TEST_T303_S_PCA",
+    "last_seen_before": "2024-01-01 00:00:00+00",
+    "last_seen_after": "2026-04-25 02:30:59.541+00",
+    "id_stable": true,
+    "last_seen_advanced": true
+  },
+  "expected": {
+    "id_stable": true,
+    "last_seen_advanced": true
+  }
+}

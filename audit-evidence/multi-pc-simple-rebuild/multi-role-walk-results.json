@@ -1,0 +1,1068 @@
+{
+  "project_ref": "nklrdhfsbevckovqqkah",
+  "started_at": "2026-04-25T01:07:18.377Z",
+  "steps": [
+    {
+      "step": "bootstrap",
+      "at": "2026-04-25T01:07:19.135Z",
+      "join_secret_sha": "23841799e31d",
+      "squadron_count": 2
+    },
+    {
+      "step": "create_temp_super_admin",
+      "at": "2026-04-25T01:07:19.508Z",
+      "email": "probe-sa-eba3b249@unit.local",
+      "id": "7f1c6354-bb58-4e7d-8c6e-1df4325a22ba",
+      "ok": true
+    },
+    {
+      "step": "sign_in_super_admin",
+      "at": "2026-04-25T01:07:19.863Z",
+      "ok": true
+    },
+    {
+      "step": "ops.request_submit",
+      "at": "2026-04-25T01:07:20.129Z",
+      "ok": true,
+      "request_id": "5fe308ef-3b89-470a-9941-aa39c0fe03eb",
+      "status": 200
+    },
+    {
+      "step": "ops.pending_visible",
+      "at": "2026-04-25T01:07:20.930Z",
+      "ok": true,
+      "total_pending": 1
+    },
+    {
+      "step": "ops.reserve_approval",
+      "at": "2026-04-25T01:07:21.211Z",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "member_id": "e3b6c9ce-8015-4503-8329-15f05c834f94",
+        "device_id": "e9066cfd-a325-4642-bd95-e0d34e4aa4ee",
+        "username": "probe_ops_4f5d892b",
+        "display_name": "Probe Squadron Operator (4f5d892b)",
+        "role": "ops",
+        "tier": "ops",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      }
+    },
+    {
+      "step": "ops.role_mapping_check",
+      "at": "2026-04-25T01:07:21.211Z",
+      "ok": true,
+      "expected": {
+        "role": "ops",
+        "tier": "ops"
+      },
+      "actual": {
+        "role": "ops",
+        "tier": "ops"
+      }
+    },
+    {
+      "step": "ops.edge_approve",
+      "at": "2026-04-25T01:07:23.350Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_ops_4f5d892b@no8.unit.local",
+        "memberId": "e3b6c9ce-8015-4503-8329-15f05c834f94",
+        "deviceId": "e9066cfd-a325-4642-bd95-e0d34e4aa4ee"
+      }
+    },
+    {
+      "step": "ops.edge_claim",
+      "at": "2026-04-25T01:07:24.714Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_ops_4f5d892b@no8.unit.local"
+      }
+    },
+    {
+      "step": "ops.sign_in",
+      "at": "2026-04-25T01:07:25.056Z",
+      "ok": true,
+      "email": "probe_ops_4f5d892b@no8.unit.local"
+    },
+    {
+      "step": "ops.member_self",
+      "at": "2026-04-25T01:07:25.317Z",
+      "ok": true,
+      "identity_ok": true,
+      "body": {
+        "member_id": "e3b6c9ce-8015-4503-8329-15f05c834f94",
+        "device_id": "e9066cfd-a325-4642-bd95-e0d34e4aa4ee",
+        "status": "active",
+        "role": "ops",
+        "tier": "ops",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "display_name": "Probe Squadron Operator (4f5d892b)",
+        "username": "probe_ops_4f5d892b"
+      }
+    },
+    {
+      "step": "flight.request_submit",
+      "at": "2026-04-25T01:07:25.574Z",
+      "ok": true,
+      "request_id": "ee985e63-28d8-44c0-a781-396d2381263f",
+      "status": 200
+    },
+    {
+      "step": "flight.pending_visible",
+      "at": "2026-04-25T01:07:25.869Z",
+      "ok": true,
+      "total_pending": 1
+    },
+    {
+      "step": "flight.reserve_approval",
+      "at": "2026-04-25T01:07:26.134Z",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "member_id": "95dc9c20-6805-4935-aeb2-31a0680e2c2d",
+        "device_id": "f3acfb7b-20da-4394-bb98-07e296cef6b2",
+        "username": "probe_flight_3d2a4aab",
+        "display_name": "Probe Flight Cmdr (3d2a4aab)",
+        "role": "commander",
+        "tier": "flight",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      }
+    },
+    {
+      "step": "flight.role_mapping_check",
+      "at": "2026-04-25T01:07:26.134Z",
+      "ok": true,
+      "expected": {
+        "role": "commander",
+        "tier": "flight"
+      },
+      "actual": {
+        "role": "commander",
+        "tier": "flight"
+      }
+    },
+    {
+      "step": "flight.edge_approve",
+      "at": "2026-04-25T01:07:28.318Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_flight_3d2a4aab@no8.unit.local",
+        "memberId": "95dc9c20-6805-4935-aeb2-31a0680e2c2d",
+        "deviceId": "f3acfb7b-20da-4394-bb98-07e296cef6b2"
+      }
+    },
+    {
+      "step": "flight.edge_claim",
+      "at": "2026-04-25T01:07:29.952Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_flight_3d2a4aab@no8.unit.local"
+      }
+    },
+    {
+      "step": "flight.sign_in",
+      "at": "2026-04-25T01:07:30.298Z",
+      "ok": true,
+      "email": "probe_flight_3d2a4aab@no8.unit.local"
+    },
+    {
+      "step": "flight.member_self",
+      "at": "2026-04-25T01:07:30.558Z",
+      "ok": true,
+      "identity_ok": true,
+      "body": {
+        "member_id": "95dc9c20-6805-4935-aeb2-31a0680e2c2d",
+        "device_id": "f3acfb7b-20da-4394-bb98-07e296cef6b2",
+        "status": "active",
+        "role": "commander",
+        "tier": "flight",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "display_name": "Probe Flight Cmdr (3d2a4aab)",
+        "username": "probe_flight_3d2a4aab"
+      }
+    },
+    {
+      "step": "squadron.request_submit",
+      "at": "2026-04-25T01:07:30.824Z",
+      "ok": true,
+      "request_id": "ac430151-6838-45ad-bb95-2c410fe6e30c",
+      "status": 200
+    },
+    {
+      "step": "squadron.pending_visible",
+      "at": "2026-04-25T01:07:31.116Z",
+      "ok": true,
+      "total_pending": 1
+    },
+    {
+      "step": "squadron.reserve_approval",
+      "at": "2026-04-25T01:07:31.377Z",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "member_id": "8a8226c3-feb1-4a6f-b928-b0274f3970e1",
+        "device_id": "6a5aa8c2-ea51-401d-b01f-7bf5da4774f1",
+        "username": "probe_squadron_a1b946a0",
+        "display_name": "Probe Squadron Cmdr (a1b946a0)",
+        "role": "commander",
+        "tier": "squadron",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      }
+    },
+    {
+      "step": "squadron.role_mapping_check",
+      "at": "2026-04-25T01:07:31.377Z",
+      "ok": true,
+      "expected": {
+        "role": "commander",
+        "tier": "squadron"
+      },
+      "actual": {
+        "role": "commander",
+        "tier": "squadron"
+      }
+    },
+    {
+      "step": "squadron.edge_approve",
+      "at": "2026-04-25T01:07:33.541Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_squadron_a1b946a0@no8.unit.local",
+        "memberId": "8a8226c3-feb1-4a6f-b928-b0274f3970e1",
+        "deviceId": "6a5aa8c2-ea51-401d-b01f-7bf5da4774f1"
+      }
+    },
+    {
+      "step": "squadron.edge_claim",
+      "at": "2026-04-25T01:07:35.083Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_squadron_a1b946a0@no8.unit.local"
+      }
+    },
+    {
+      "step": "squadron.sign_in",
+      "at": "2026-04-25T01:07:35.442Z",
+      "ok": true,
+      "email": "probe_squadron_a1b946a0@no8.unit.local"
+    },
+    {
+      "step": "squadron.member_self",
+      "at": "2026-04-25T01:07:35.706Z",
+      "ok": true,
+      "identity_ok": true,
+      "body": {
+        "member_id": "8a8226c3-feb1-4a6f-b928-b0274f3970e1",
+        "device_id": "6a5aa8c2-ea51-401d-b01f-7bf5da4774f1",
+        "status": "active",
+        "role": "commander",
+        "tier": "squadron",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "display_name": "Probe Squadron Cmdr (a1b946a0)",
+        "username": "probe_squadron_a1b946a0"
+      }
+    },
+    {
+      "step": "wing.request_submit",
+      "at": "2026-04-25T01:07:35.973Z",
+      "ok": true,
+      "request_id": "8886c026-f58d-4f53-bf08-d29c1c1f2816",
+      "status": 200
+    },
+    {
+      "step": "wing.pending_visible",
+      "at": "2026-04-25T01:07:36.270Z",
+      "ok": true,
+      "total_pending": 1
+    },
+    {
+      "step": "wing.reserve_approval",
+      "at": "2026-04-25T01:07:36.530Z",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "member_id": "2859b8ae-53ac-4226-83db-d0a066969bc4",
+        "device_id": "e50d3c73-11d4-47d2-beda-1de5e7cb7b99",
+        "username": "probe_wing_698933a1",
+        "display_name": "Probe Wing Cmdr (698933a1)",
+        "role": "commander",
+        "tier": "wing",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      }
+    },
+    {
+      "step": "wing.role_mapping_check",
+      "at": "2026-04-25T01:07:36.530Z",
+      "ok": true,
+      "expected": {
+        "role": "commander",
+        "tier": "wing"
+      },
+      "actual": {
+        "role": "commander",
+        "tier": "wing"
+      }
+    },
+    {
+      "step": "wing.edge_approve",
+      "at": "2026-04-25T01:07:38.765Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_wing_698933a1@no8.unit.local",
+        "memberId": "2859b8ae-53ac-4226-83db-d0a066969bc4",
+        "deviceId": "e50d3c73-11d4-47d2-beda-1de5e7cb7b99"
+      }
+    },
+    {
+      "step": "wing.edge_claim",
+      "at": "2026-04-25T01:07:40.182Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_wing_698933a1@no8.unit.local"
+      }
+    },
+    {
+      "step": "wing.sign_in",
+      "at": "2026-04-25T01:07:40.544Z",
+      "ok": true,
+      "email": "probe_wing_698933a1@no8.unit.local"
+    },
+    {
+      "step": "wing.member_self",
+      "at": "2026-04-25T01:07:40.804Z",
+      "ok": true,
+      "identity_ok": true,
+      "body": {
+        "member_id": "2859b8ae-53ac-4226-83db-d0a066969bc4",
+        "device_id": "e50d3c73-11d4-47d2-beda-1de5e7cb7b99",
+        "status": "active",
+        "role": "commander",
+        "tier": "wing",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "display_name": "Probe Wing Cmdr (698933a1)",
+        "username": "probe_wing_698933a1"
+      }
+    },
+    {
+      "step": "base.request_submit",
+      "at": "2026-04-25T01:07:41.062Z",
+      "ok": true,
+      "request_id": "b00dca94-0088-4fd8-ac98-d8ed643b60a8",
+      "status": 200
+    },
+    {
+      "step": "base.pending_visible",
+      "at": "2026-04-25T01:07:41.371Z",
+      "ok": true,
+      "total_pending": 1
+    },
+    {
+      "step": "base.reserve_approval",
+      "at": "2026-04-25T01:07:41.664Z",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "member_id": "47811a21-a7de-47cc-b172-3d6b29a256ab",
+        "device_id": "ce317179-a50e-4a09-9ecc-fe4f15fc956b",
+        "username": "probe_base_d3992978",
+        "display_name": "Probe Base Cmdr (d3992978)",
+        "role": "commander",
+        "tier": "base",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      }
+    },
+    {
+      "step": "base.role_mapping_check",
+      "at": "2026-04-25T01:07:41.664Z",
+      "ok": true,
+      "expected": {
+        "role": "commander",
+        "tier": "base"
+      },
+      "actual": {
+        "role": "commander",
+        "tier": "base"
+      }
+    },
+    {
+      "step": "base.edge_approve",
+      "at": "2026-04-25T01:07:44.256Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_base_d3992978@no8.unit.local",
+        "memberId": "47811a21-a7de-47cc-b172-3d6b29a256ab",
+        "deviceId": "ce317179-a50e-4a09-9ecc-fe4f15fc956b"
+      }
+    },
+    {
+      "step": "base.edge_claim",
+      "at": "2026-04-25T01:07:45.593Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_base_d3992978@no8.unit.local"
+      }
+    },
+    {
+      "step": "base.sign_in",
+      "at": "2026-04-25T01:07:45.938Z",
+      "ok": true,
+      "email": "probe_base_d3992978@no8.unit.local"
+    },
+    {
+      "step": "base.member_self",
+      "at": "2026-04-25T01:07:46.198Z",
+      "ok": true,
+      "identity_ok": true,
+      "body": {
+        "member_id": "47811a21-a7de-47cc-b172-3d6b29a256ab",
+        "device_id": "ce317179-a50e-4a09-9ecc-fe4f15fc956b",
+        "status": "active",
+        "role": "commander",
+        "tier": "base",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "display_name": "Probe Base Cmdr (d3992978)",
+        "username": "probe_base_d3992978"
+      }
+    },
+    {
+      "step": "hq.request_submit",
+      "at": "2026-04-25T01:07:46.454Z",
+      "ok": true,
+      "request_id": "8dc7c10c-7587-4990-bfd7-7d7f5b433856",
+      "status": 200
+    },
+    {
+      "step": "hq.pending_visible",
+      "at": "2026-04-25T01:07:46.744Z",
+      "ok": true,
+      "total_pending": 1
+    },
+    {
+      "step": "hq.reserve_approval",
+      "at": "2026-04-25T01:07:47.003Z",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "member_id": "df1e94ea-6e7a-4d9d-b1ef-9e68908db853",
+        "device_id": "1a14e7f5-54b7-410f-af14-fb503d4ae9da",
+        "username": "probe_hq_b5aca612",
+        "display_name": "Probe HQ Cmdr (b5aca612)",
+        "role": "commander",
+        "tier": "hq",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      }
+    },
+    {
+      "step": "hq.role_mapping_check",
+      "at": "2026-04-25T01:07:47.003Z",
+      "ok": true,
+      "expected": {
+        "role": "commander",
+        "tier": "hq"
+      },
+      "actual": {
+        "role": "commander",
+        "tier": "hq"
+      }
+    },
+    {
+      "step": "hq.edge_approve",
+      "at": "2026-04-25T01:07:49.067Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_hq_b5aca612@no8.unit.local",
+        "memberId": "df1e94ea-6e7a-4d9d-b1ef-9e68908db853",
+        "deviceId": "1a14e7f5-54b7-410f-af14-fb503d4ae9da"
+      }
+    },
+    {
+      "step": "hq.edge_claim",
+      "at": "2026-04-25T01:07:50.488Z",
+      "ok": true,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_hq_b5aca612@no8.unit.local"
+      }
+    },
+    {
+      "step": "hq.sign_in",
+      "at": "2026-04-25T01:07:50.865Z",
+      "ok": true,
+      "email": "probe_hq_b5aca612@no8.unit.local"
+    },
+    {
+      "step": "hq.member_self",
+      "at": "2026-04-25T01:07:51.125Z",
+      "ok": true,
+      "identity_ok": true,
+      "body": {
+        "member_id": "df1e94ea-6e7a-4d9d-b1ef-9e68908db853",
+        "device_id": "1a14e7f5-54b7-410f-af14-fb503d4ae9da",
+        "status": "active",
+        "role": "commander",
+        "tier": "hq",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "display_name": "Probe HQ Cmdr (b5aca612)",
+        "username": "probe_hq_b5aca612"
+      }
+    },
+    {
+      "step": "squadron_edit.update",
+      "at": "2026-04-25T01:07:51.387Z",
+      "ok": true,
+      "member_id": "2859b8ae-53ac-4226-83db-d0a066969bc4",
+      "new_squads": [
+        "NO.8"
+      ]
+    },
+    {
+      "step": "squadron_edit.verify",
+      "at": "2026-04-25T01:07:52.019Z",
+      "ok": true,
+      "observed": [
+        "NO.8"
+      ]
+    },
+    {
+      "step": "remove.unit_remove_member",
+      "at": "2026-04-25T01:07:52.289Z",
+      "ok": true,
+      "status": 204,
+      "member_id": "8a8226c3-feb1-4a6f-b928-b0274f3970e1"
+    },
+    {
+      "step": "remove.existing_jwt_read",
+      "at": "2026-04-25T01:07:52.542Z",
+      "ok": true,
+      "status": 200,
+      "member_self_status": "removed"
+    },
+    {
+      "step": "remove.fresh_sign_in",
+      "at": "2026-04-25T01:07:52.805Z",
+      "ok": true,
+      "status": 500,
+      "body": {
+        "code": 500,
+        "error_code": "unexpected_failure",
+        "msg": "Database error querying schema",
+        "error_id": "9f19740d88abadc8-ATL"
+      }
+    },
+    {
+      "step": "reject.unit_reject_request",
+      "at": "2026-04-25T01:07:53.322Z",
+      "ok": true,
+      "status": 204
+    },
+    {
+      "step": "reject.request_status",
+      "at": "2026-04-25T01:07:53.579Z",
+      "ok": true,
+      "body": {
+        "status": "rejected",
+        "decision_reason": "workspace probe — task #302 reject path",
+        "supabase_email": null,
+        "member_id": null,
+        "device_id": null,
+        "claim_consumed": false
+      }
+    },
+    {
+      "step": "ignore.unit_ignore_request",
+      "at": "2026-04-25T01:07:54.091Z",
+      "ok": true,
+      "status": 204
+    },
+    {
+      "step": "ignore.request_status",
+      "at": "2026-04-25T01:07:54.613Z",
+      "ok": true,
+      "body": {
+        "status": "ignored",
+        "decision_reason": null,
+        "supabase_email": null,
+        "member_id": null,
+        "device_id": null,
+        "claim_consumed": false
+      },
+      "still_visible_to_sa": true
+    },
+    {
+      "step": "cleanup",
+      "at": "2026-04-25T01:07:57.383Z",
+      "ok": true,
+      "status": 201,
+      "body": "[]",
+      "sweep_status": 201
+    }
+  ],
+  "roles": {
+    "ops": {
+      "role": "ops",
+      "label": "Squadron Operator",
+      "username": "probe_ops_4f5d892b",
+      "display_name": "Probe Squadron Operator (4f5d892b)",
+      "squads": [
+        "NO.8"
+      ],
+      "request_id": "5fe308ef-3b89-470a-9941-aa39c0fe03eb",
+      "request_submit_status": 200,
+      "appears_in_pending": true,
+      "reserve": {
+        "member_id": "e3b6c9ce-8015-4503-8329-15f05c834f94",
+        "device_id": "e9066cfd-a325-4642-bd95-e0d34e4aa4ee",
+        "username": "probe_ops_4f5d892b",
+        "display_name": "Probe Squadron Operator (4f5d892b)",
+        "role": "ops",
+        "tier": "ops",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "reserve_status": 200,
+      "role_mapping_ok": true,
+      "approve": {
+        "ok": true,
+        "supabaseEmail": "probe_ops_4f5d892b@no8.unit.local",
+        "memberId": "e3b6c9ce-8015-4503-8329-15f05c834f94",
+        "deviceId": "e9066cfd-a325-4642-bd95-e0d34e4aa4ee"
+      },
+      "approve_status": 200,
+      "claim": {
+        "ok": true,
+        "supabaseEmail": "probe_ops_4f5d892b@no8.unit.local"
+      },
+      "claim_status": 200,
+      "user_signed_in": true,
+      "auth_user_id": "e4233597-118a-4a4c-b87c-ef4ece1c1830",
+      "member_self": {
+        "member_id": "e3b6c9ce-8015-4503-8329-15f05c834f94",
+        "device_id": "e9066cfd-a325-4642-bd95-e0d34e4aa4ee",
+        "status": "active",
+        "role": "ops",
+        "tier": "ops",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "display_name": "Probe Squadron Operator (4f5d892b)",
+        "username": "probe_ops_4f5d892b"
+      },
+      "identity_strip_check_ok": true
+    },
+    "flight": {
+      "role": "flight",
+      "label": "Flight Cmdr",
+      "username": "probe_flight_3d2a4aab",
+      "display_name": "Probe Flight Cmdr (3d2a4aab)",
+      "squads": [
+        "NO.8"
+      ],
+      "request_id": "ee985e63-28d8-44c0-a781-396d2381263f",
+      "request_submit_status": 200,
+      "appears_in_pending": true,
+      "reserve": {
+        "member_id": "95dc9c20-6805-4935-aeb2-31a0680e2c2d",
+        "device_id": "f3acfb7b-20da-4394-bb98-07e296cef6b2",
+        "username": "probe_flight_3d2a4aab",
+        "display_name": "Probe Flight Cmdr (3d2a4aab)",
+        "role": "commander",
+        "tier": "flight",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "reserve_status": 200,
+      "role_mapping_ok": true,
+      "approve": {
+        "ok": true,
+        "supabaseEmail": "probe_flight_3d2a4aab@no8.unit.local",
+        "memberId": "95dc9c20-6805-4935-aeb2-31a0680e2c2d",
+        "deviceId": "f3acfb7b-20da-4394-bb98-07e296cef6b2"
+      },
+      "approve_status": 200,
+      "claim": {
+        "ok": true,
+        "supabaseEmail": "probe_flight_3d2a4aab@no8.unit.local"
+      },
+      "claim_status": 200,
+      "user_signed_in": true,
+      "auth_user_id": "42321817-5800-4220-9121-71f33f548d5f",
+      "member_self": {
+        "member_id": "95dc9c20-6805-4935-aeb2-31a0680e2c2d",
+        "device_id": "f3acfb7b-20da-4394-bb98-07e296cef6b2",
+        "status": "active",
+        "role": "commander",
+        "tier": "flight",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "display_name": "Probe Flight Cmdr (3d2a4aab)",
+        "username": "probe_flight_3d2a4aab"
+      },
+      "identity_strip_check_ok": true
+    },
+    "squadron": {
+      "role": "squadron",
+      "label": "Squadron Cmdr",
+      "username": "probe_squadron_a1b946a0",
+      "display_name": "Probe Squadron Cmdr (a1b946a0)",
+      "squads": [
+        "NO.8"
+      ],
+      "request_id": "ac430151-6838-45ad-bb95-2c410fe6e30c",
+      "request_submit_status": 200,
+      "appears_in_pending": true,
+      "reserve": {
+        "member_id": "8a8226c3-feb1-4a6f-b928-b0274f3970e1",
+        "device_id": "6a5aa8c2-ea51-401d-b01f-7bf5da4774f1",
+        "username": "probe_squadron_a1b946a0",
+        "display_name": "Probe Squadron Cmdr (a1b946a0)",
+        "role": "commander",
+        "tier": "squadron",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "reserve_status": 200,
+      "role_mapping_ok": true,
+      "approve": {
+        "ok": true,
+        "supabaseEmail": "probe_squadron_a1b946a0@no8.unit.local",
+        "memberId": "8a8226c3-feb1-4a6f-b928-b0274f3970e1",
+        "deviceId": "6a5aa8c2-ea51-401d-b01f-7bf5da4774f1"
+      },
+      "approve_status": 200,
+      "claim": {
+        "ok": true,
+        "supabaseEmail": "probe_squadron_a1b946a0@no8.unit.local"
+      },
+      "claim_status": 200,
+      "user_signed_in": true,
+      "auth_user_id": "90887a99-3139-4a8c-bf21-5f554cc1fb01",
+      "member_self": {
+        "member_id": "8a8226c3-feb1-4a6f-b928-b0274f3970e1",
+        "device_id": "6a5aa8c2-ea51-401d-b01f-7bf5da4774f1",
+        "status": "active",
+        "role": "commander",
+        "tier": "squadron",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "display_name": "Probe Squadron Cmdr (a1b946a0)",
+        "username": "probe_squadron_a1b946a0"
+      },
+      "identity_strip_check_ok": true
+    },
+    "wing": {
+      "role": "wing",
+      "label": "Wing Cmdr",
+      "username": "probe_wing_698933a1",
+      "display_name": "Probe Wing Cmdr (698933a1)",
+      "squads": [
+        "NO.8",
+        "Test Squadron"
+      ],
+      "request_id": "8886c026-f58d-4f53-bf08-d29c1c1f2816",
+      "request_submit_status": 200,
+      "appears_in_pending": true,
+      "reserve": {
+        "member_id": "2859b8ae-53ac-4226-83db-d0a066969bc4",
+        "device_id": "e50d3c73-11d4-47d2-beda-1de5e7cb7b99",
+        "username": "probe_wing_698933a1",
+        "display_name": "Probe Wing Cmdr (698933a1)",
+        "role": "commander",
+        "tier": "wing",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "reserve_status": 200,
+      "role_mapping_ok": true,
+      "approve": {
+        "ok": true,
+        "supabaseEmail": "probe_wing_698933a1@no8.unit.local",
+        "memberId": "2859b8ae-53ac-4226-83db-d0a066969bc4",
+        "deviceId": "e50d3c73-11d4-47d2-beda-1de5e7cb7b99"
+      },
+      "approve_status": 200,
+      "claim": {
+        "ok": true,
+        "supabaseEmail": "probe_wing_698933a1@no8.unit.local"
+      },
+      "claim_status": 200,
+      "user_signed_in": true,
+      "auth_user_id": "acf1f1dc-bf5c-45a2-bea2-d8a1c705c956",
+      "member_self": {
+        "member_id": "2859b8ae-53ac-4226-83db-d0a066969bc4",
+        "device_id": "e50d3c73-11d4-47d2-beda-1de5e7cb7b99",
+        "status": "active",
+        "role": "commander",
+        "tier": "wing",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "display_name": "Probe Wing Cmdr (698933a1)",
+        "username": "probe_wing_698933a1"
+      },
+      "identity_strip_check_ok": true
+    },
+    "base": {
+      "role": "base",
+      "label": "Base Cmdr",
+      "username": "probe_base_d3992978",
+      "display_name": "Probe Base Cmdr (d3992978)",
+      "squads": [
+        "NO.8",
+        "Test Squadron"
+      ],
+      "request_id": "b00dca94-0088-4fd8-ac98-d8ed643b60a8",
+      "request_submit_status": 200,
+      "appears_in_pending": true,
+      "reserve": {
+        "member_id": "47811a21-a7de-47cc-b172-3d6b29a256ab",
+        "device_id": "ce317179-a50e-4a09-9ecc-fe4f15fc956b",
+        "username": "probe_base_d3992978",
+        "display_name": "Probe Base Cmdr (d3992978)",
+        "role": "commander",
+        "tier": "base",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "reserve_status": 200,
+      "role_mapping_ok": true,
+      "approve": {
+        "ok": true,
+        "supabaseEmail": "probe_base_d3992978@no8.unit.local",
+        "memberId": "47811a21-a7de-47cc-b172-3d6b29a256ab",
+        "deviceId": "ce317179-a50e-4a09-9ecc-fe4f15fc956b"
+      },
+      "approve_status": 200,
+      "claim": {
+        "ok": true,
+        "supabaseEmail": "probe_base_d3992978@no8.unit.local"
+      },
+      "claim_status": 200,
+      "user_signed_in": true,
+      "auth_user_id": "7408c470-bf42-4977-b9aa-25b9303f3f3e",
+      "member_self": {
+        "member_id": "47811a21-a7de-47cc-b172-3d6b29a256ab",
+        "device_id": "ce317179-a50e-4a09-9ecc-fe4f15fc956b",
+        "status": "active",
+        "role": "commander",
+        "tier": "base",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "display_name": "Probe Base Cmdr (d3992978)",
+        "username": "probe_base_d3992978"
+      },
+      "identity_strip_check_ok": true
+    },
+    "hq": {
+      "role": "hq",
+      "label": "HQ Cmdr",
+      "username": "probe_hq_b5aca612",
+      "display_name": "Probe HQ Cmdr (b5aca612)",
+      "squads": [
+        "NO.8",
+        "Test Squadron"
+      ],
+      "request_id": "8dc7c10c-7587-4990-bfd7-7d7f5b433856",
+      "request_submit_status": 200,
+      "appears_in_pending": true,
+      "reserve": {
+        "member_id": "df1e94ea-6e7a-4d9d-b1ef-9e68908db853",
+        "device_id": "1a14e7f5-54b7-410f-af14-fb503d4ae9da",
+        "username": "probe_hq_b5aca612",
+        "display_name": "Probe HQ Cmdr (b5aca612)",
+        "role": "commander",
+        "tier": "hq",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "reserve_status": 200,
+      "role_mapping_ok": true,
+      "approve": {
+        "ok": true,
+        "supabaseEmail": "probe_hq_b5aca612@no8.unit.local",
+        "memberId": "df1e94ea-6e7a-4d9d-b1ef-9e68908db853",
+        "deviceId": "1a14e7f5-54b7-410f-af14-fb503d4ae9da"
+      },
+      "approve_status": 200,
+      "claim": {
+        "ok": true,
+        "supabaseEmail": "probe_hq_b5aca612@no8.unit.local"
+      },
+      "claim_status": 200,
+      "user_signed_in": true,
+      "auth_user_id": "ca07022f-3354-4545-a27b-dfeea6bb9183",
+      "member_self": {
+        "member_id": "df1e94ea-6e7a-4d9d-b1ef-9e68908db853",
+        "device_id": "1a14e7f5-54b7-410f-af14-fb503d4ae9da",
+        "status": "active",
+        "role": "commander",
+        "tier": "hq",
+        "squadron_allow_list": [
+          "NO.8",
+          "Test Squadron"
+        ],
+        "display_name": "Probe HQ Cmdr (b5aca612)",
+        "username": "probe_hq_b5aca612"
+      },
+      "identity_strip_check_ok": true
+    }
+  },
+  "join_secret_sha": "23841799e31d",
+  "squadrons": [
+    {
+      "name": "NO.8",
+      "number": "8",
+      "base": "KING ABDULLAH II AIRBASE"
+    },
+    {
+      "name": "Test Squadron",
+      "number": "99",
+      "base": "Test Base"
+    }
+  ],
+  "squadron_edit": {
+    "tested": true,
+    "update_status": 204,
+    "update_ok": true,
+    "member_self_after_edit": {
+      "member_id": "2859b8ae-53ac-4226-83db-d0a066969bc4",
+      "device_id": "e50d3c73-11d4-47d2-beda-1de5e7cb7b99",
+      "status": "active",
+      "role": "commander",
+      "tier": "wing",
+      "squadron_allow_list": [
+        "NO.8"
+      ],
+      "display_name": "Probe Wing Cmdr (698933a1)",
+      "username": "probe_wing_698933a1"
+    },
+    "observed_squads": [
+      "NO.8"
+    ],
+    "expected_squads": [
+      "NO.8"
+    ],
+    "matches": true
+  },
+  "remove": {
+    "tested": true,
+    "remove_status": 204,
+    "remove_ok": true,
+    "remove_body": "",
+    "existing_jwt_signal_removed": true,
+    "existing_jwt_response": {
+      "status": 200,
+      "body": "[{\"member_id\":\"8a8226c3-feb1-4a6f-b928-b0274f3970e1\",\"device_id\":null,\"status\":\"removed\",\"role\":\"commander\",\"tier\":\"squadron\",\"squadron_allow_list\":[\"NO.8\"],\"display_name\":\"Probe Squadron Cmdr (a1b946a0)\",\"username\":\"probe_squadron_a1b946a0\"}]"
+    },
+    "fresh_sign_in_blocked": true,
+    "fresh_sign_in_response": {
+      "status": 500,
+      "body": {
+        "code": 500,
+        "error_code": "unexpected_failure",
+        "msg": "Database error querying schema",
+        "error_id": "9f19740d88abadc8-ATL"
+      }
+    }
+  },
+  "reject": {
+    "tested": true,
+    "request_id": "5fb607a1-5e55-48bd-865e-5a54f122ea78",
+    "reject_status": 204,
+    "reject_ok": true,
+    "request_status": {
+      "status": "rejected",
+      "decision_reason": "workspace probe — task #302 reject path",
+      "supabase_email": null,
+      "member_id": null,
+      "device_id": null,
+      "claim_consumed": false
+    },
+    "matches": true
+  },
+  "ignore": {
+    "tested": true,
+    "request_id": "51f7a943-33f0-4305-a341-f8fdc0a7bddb",
+    "ignore_status": 204,
+    "ignore_ok": true,
+    "request_status": {
+      "status": "ignored",
+      "decision_reason": null,
+      "supabase_email": null,
+      "member_id": null,
+      "device_id": null,
+      "claim_consumed": false
+    },
+    "still_visible_to_sa": true,
+    "matches": true
+  },
+  "finished_at": "2026-04-25T01:07:57.383Z",
+  "ok": true
+}

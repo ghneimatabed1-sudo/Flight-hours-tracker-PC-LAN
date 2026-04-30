@@ -1,0 +1,54 @@
+{
+  "item": "F-I snapshot scoped SELECT 0061",
+  "ts": "2026-04-24T21:14:31.896Z",
+  "checks": [
+    {
+      "label": "policy_form",
+      "ok": true,
+      "rows": [
+        {
+          "polname": "xpc_snap_select",
+          "polcmd": "r",
+          "using_expr": "((xpc_caller_role() = ANY (ARRAY['super_admin'::text, 'superadmin'::text, 'admin'::text])) OR (squadron_id = ANY (xpc_my_pc_ids())) OR ((xpc_caller_squadron_ids() IS NOT NULL) AND (squadron_id = ANY (xpc_caller_squadron_ids()))))"
+        }
+      ]
+    },
+    {
+      "label": "table_rls",
+      "ok": true,
+      "rows": [
+        {
+          "relname": "xpc_squadron_snapshot",
+          "relrowsecurity": true
+        }
+      ]
+    },
+    {
+      "label": "legacy_fallback_absent",
+      "ok": true,
+      "rows": [
+        {
+          "legacy_present": 0
+        }
+      ]
+    },
+    {
+      "label": "regression_test_referenced",
+      "ok": true,
+      "file": "artifacts/pilot-dashboard/supabase/tests/test-snapshot-rls-scoped-select.mjs",
+      "last_run_verdict": "PASS in 2471ms (RUN=T270-moddvz7q-7aslza)"
+    },
+    {
+      "label": "live_role_walk_referenced",
+      "ok": true,
+      "file": "audit-evidence/2026-04-27/AAZ/verify-rollup.json",
+      "assertions": {
+        "wingCmdr_seesAlphaBravo": true,
+        "baseCmdr_seesBravoCharlie": true,
+        "wingCmdr_doesNotSeeCharlie": true,
+        "baseCmdr_doesNotSeeAlpha": true
+      }
+    }
+  ],
+  "verdict": "PASS"
+}

@@ -1,0 +1,130 @@
+workflows:
+  # ──────────────────────────────────────────────────────────────────────
+  # Android APK — RJAF Pilot Logbook (unsigned preview build)
+  #
+  # Produces a debug-signed APK you can hand to pilots on any Android
+  # phone without an Play Store account. Uses `expo prebuild` so the
+  # native android/ folder is generated at build time from app.json.
+  # ──────────────────────────────────────────────────────────────────────
+  android-apk:
+    name: RJAF Pilot Logbook — Android APK
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      node: 20
+      java: 17
+      vars:
+        PACKAGE_NAME: "com.rjaf.pilotlogbook"
+        # Supabase config baked into the JS bundle. The anon key is
+        # public-by-design (only opens read access guarded by RLS) so
+        # storing it in source is acceptable; the squadron's actual
+        # data is protected by per-pilot JWTs minted by the
+        # link-pilot-device edge function. Without these the mobile
+        # app falls back to "Offline mode" and can never link.
+        EXPO_PUBLIC_SUPABASE_URL: "https://nklrdhfsbevckovqqkah.supabase.co"
+        EXPO_PUBLIC_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rbHJkaGZzYmV2Y2tvdnFxa2FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTMwNjMsImV4cCI6MjA5MjA4OTA2M30.LrCdsefKUQNIM-qWTsH5J78jXvVHINdqQ5oj9SjuD5s"
+    scripts:
+      - name: Install pnpm
+        script: |
+          npm install -g pnpm@9 --force
+      - name: Install workspace deps
+        script: |
+          pnpm install --frozen-lockfile=false
+      - name: Expo prebuild (android)
+        script: |
+          cd artifacts/pilot-mobile
+          CI=true EXPO_NO_GIT_STATUS=1 pnpm exec expo prebuild --platform android --clean
+      - name: Build debug APK
+        script: |
+          cd artifacts/pilot-mobile/android
+          chmod +x gradlew
+          ./gradlew assembleRelease -x lint -x test
+    artifacts:
+      - artifacts/pilot-mobile/android/app/build/outputs/**/*.apk
+
+  # ──────────────────────────────────────────────────────────────────────
+  # iOS IPA — RJAF Pilot Logbook (unsigned / ad-hoc)
+  #
+  # Builds an .ipa you can side-load via AltStore / Sideloadly on any
+  # iPhone without a paid Apple Developer account. Flip to
+  # `app-store` distribution later by adding an ios_signing block and
+  # code-signing credentials in the Codemagic UI.
+  # ──────────────────────────────────────────────────────────────────────
+  ios-ipa:
+    name: RJAF Pilot Logbook — iOS IPA
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      node: 20
+      xcode: latest
+      cocoapods: default
+      vars:
+        BUNDLE_ID: "com.rjaf.pilotlogbook"
+        # See android-apk for context. EXPO_PUBLIC_* values are inlined
+        # into the JS bundle at build time, so they must be present in
+        # the build environment — without them the IPA boots straight
+        # into permanent "Offline mode" on every device.
+        EXPO_PUBLIC_SUPABASE_URL: "https://nklrdhfsbevckovqqkah.supabase.co"
+        EXPO_PUBLIC_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rbHJkaGZzYmV2Y2tvdnFxa2FoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MTMwNjMsImV4cCI6MjA5MjA4OTA2M30.LrCdsefKUQNIM-qWTsH5J78jXvVHINdqQ5oj9SjuD5s"
+    scripts:
+      - name: Install pnpm
+        script: |
+          npm install -g pnpm@9 --force
+      - name: Install workspace deps
+        script: |
+          pnpm install --frozen-lockfile=false
+      - name: Expo prebuild (ios)
+        script: |
+          cd artifacts/pilot-mobile
+          CI=true EXPO_NO_GIT_STATUS=1 pnpm exec expo prebuild --platform ios --clean
+      - name: Install pods
+        script: |
+          cd artifacts/pilot-mobile/ios
+          pod install
+      - name: Build unsigned IPA (ad-hoc)
+        script: |
+          set -euo pipefail
+          cd artifacts/pilot-mobile/ios
+          # `.xcworkspace` is a directory bundle, so `ls *.xcworkspace`
+          # would list its contents. Use `-d` to list the directory itself.
+          WORKSPACE=$(ls -d *.xcworkspace 2>/dev/null | head -1)
+          if [ -z "$WORKSPACE" ]; then
+            echo "ERROR: no .xcworkspace found in $(pwd). Listing:"; ls -la
+            exit 1
+          fi
+          SCHEME="${WORKSPACE%.xcworkspace}"
+          echo "Workspace: $WORKSPACE | Scheme: $SCHEME"
+          xcodebuild -workspace "$WORKSPACE" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$CM_BUILD_DIR/build/PilotLogbook.xcarchive" \
+            CODE_SIGNING_ALLOWED=NO \
+            archive
+          # Verify the .app was produced before packaging
+          APP_PATH=$(ls -d "$CM_BUILD_DIR/build/PilotLogbook.xcarchive/Products/Applications/"*.app | head -1)
+          if [ -z "$APP_PATH" ] || [ ! -d "$APP_PATH" ]; then
+            echo "ERROR: archive produced no .app bundle"
+            ls -la "$CM_BUILD_DIR/build/PilotLogbook.xcarchive/Products/Applications/" || true
+            exit 1
+          fi
+          echo "App bundle: $APP_PATH"
+          # Repackage .xcarchive -> .ipa without re-signing
+          mkdir -p "$CM_BUILD_DIR/build/Payload"
+          cp -R "$APP_PATH" "$CM_BUILD_DIR/build/Payload/"
+          cd "$CM_BUILD_DIR/build"
+          zip -qr PilotLogbook-unsigned.ipa Payload
+          IPA_SIZE=$(stat -f%z PilotLogbook-unsigned.ipa)
+          echo "IPA size: $IPA_SIZE bytes"
+          if [ "$IPA_SIZE" -lt 1000000 ]; then
+            echo "ERROR: IPA is suspiciously small ($IPA_SIZE bytes) — failing build"
+            exit 1
+          fi
+    artifacts:
+      - build/*.ipa
+      - build/**/*.xcarchive
+
+  # NOTE: Windows EXE build runs on GitHub Actions instead of Codemagic
+  # because Codemagic's Windows runners require a paid plan. See
+  # `.github/workflows/dashboard-windows-installer.yml`.

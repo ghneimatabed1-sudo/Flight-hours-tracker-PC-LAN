@@ -1,0 +1,15 @@
+
+> @workspace/pilot-dashboard@1.1.109 test:smoke /home/runner/workspace/artifacts/pilot-dashboard
+> TSX_TSCONFIG_PATH=$PWD/tests/tsconfig.json tsx --import=./tests/asset-loader-register.mjs --test --test-force-exit tests/sidebar-smoke.test.ts
+
+✔ sidebar smoke · all roles × all sidebar routes (7297.330769ms)
+✔ sidebar smoke · teardown jsdom (3.98271ms)
+✔ write smoke evidence artifact (1.34082ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11008.053261

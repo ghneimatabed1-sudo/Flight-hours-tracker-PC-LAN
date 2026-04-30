@@ -1,0 +1,19 @@
+{
+  "cell": "K9",
+  "status": "PASS",
+  "note": "OK: SELECT+INSERT+UPDATE all present",
+  "writtenAt": "2026-04-25T02:02:36.990Z",
+  "table": "xpc_squadron_snapshot",
+  "required": [
+    "SELECT",
+    "INSERT",
+    "UPDATE"
+  ],
+  "present": {
+    "SELECT": 1,
+    "INSERT": 1,
+    "UPDATE": 1,
+    "DELETE": 0
+  },
+  "missing": []
+}

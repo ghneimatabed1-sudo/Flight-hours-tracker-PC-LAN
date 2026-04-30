@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:09:35.696Z",
+  "slug": "super-admin-2fa",
+  "meta": {
+    "verify_jwt": false,
+    "id": "6138591e-7b92-4abe-9bee-dccc6394a964",
+    "slug": "super-admin-2fa",
+    "version": 7,
+    "name": "super-admin-2fa",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_6138591e-7b92-4abe-9bee-dccc6394a964_7/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776513706259,
+    "updated_at": 1777061375286,
+    "ezbr_sha256": "4bca987d79332e6249261c32103fd2b75e7a6f34a056471bd0ccce2471391220"
+  },
+  "body_sha256": "84e4d82dbba52eaa3dd4681d0536db6f4c71cb034f9a0aa93cfaf368aabd52b6",
+  "body_size": 299783,
+  "source_sha256": "4fc6762c2e942634ee879d8877a1c213c962a9db1c00a865a22eff9a2fb67613",
+  "source_has_role_guard_marker": true,
+  "config_verify_jwt": false
+}

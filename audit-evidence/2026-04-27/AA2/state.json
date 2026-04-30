@@ -1,0 +1,13 @@
+{
+  "deputy": {
+    "id": "9c8415cd-9c13-4a9b-b421-618f87838fac",
+    "email": "aud-fix-aa2-deputy@aa2.rjaf.local",
+    "password": "<redacted: deputy auth user deleted in teardown.json>"
+  },
+  "exploitMintedCommander": "e583ee52-2765-4a2d-8031-7f2b1d69fc78",
+  "beforeProbeUserIds": [
+    "b70255e6-2cd1-41ec-ac1b-5307323985d8",
+    "8e2f6335-c357-4b64-aef5-1adcdaf147ee"
+  ],
+  "note": "Password was redacted before commit. The auth user with this email no longer exists (see teardown.json deletedAuthUsers). Subsequent runs would generate a fresh random password."
+}

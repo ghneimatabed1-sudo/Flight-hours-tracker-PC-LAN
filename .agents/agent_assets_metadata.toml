@@ -1,0 +1,109 @@
+uploads = []
+
+[[generated]]
+id = "eu3JURw1w9n462zpars1j"
+uri = "file://exports/hawkeye-pdf/images/cover_hero.png"
+type = "image"
+title = "cover hero jet sunset"
+
+[[generated]]
+id = "R__vSNjC5_BPr5Q6Az8LD"
+uri = "file://exports/hawkeye-pdf/images/ecosystem_diagram.png"
+type = "image"
+title = "three devices connected cloud"
+
+[[generated]]
+id = "iTdtlqopgVA45WBP6DnYJ"
+uri = "file://exports/hawkeye-pdf/images/security_envelope.png"
+type = "image"
+title = "sealed envelope secure tunnel"
+
+[[generated]]
+id = "qkED0T4ArLA9OKWr0ZbQr"
+uri = "file://exports/hawkeye-pdf/images/logbook_modern.png"
+type = "image"
+title = "pilot logbook tablet phone"
+
+[[generated]]
+id = "gm1-AlzLpvybp9auvEnrY"
+uri = "file://exports/hawkeye-pdf/images/squadron_lineup.png"
+type = "image"
+title = "squadron pilots flight line dawn"
+
+[[generated]]
+id = "-E9J_9gjPyXv7Ty1t9oZN"
+uri = "file://exports/hawkeye-pdf/images/network_nodes.png"
+type = "image"
+title = "golden nodes network dark"
+
+[[generated]]
+id = "HLHf5KWonz2vgrlIn5vxj"
+uri = "file://exports/hawkeye-pdf/images/cover_hero_blackhawk.png"
+type = "image"
+title = "black hawk cover"
+
+[[generated]]
+id = "pXT0AcvsczCSob0hY6Nnr"
+uri = "file://exports/hawkeye-pdf/images/data_flow_encryption_src.png"
+type = "image"
+title = "data flow"
+
+[[generated]]
+id = "6Yt42UXJX_FdzQw1SG1IF"
+uri = "file://exports/hawkeye-pdf/images/intruder_blocked_src.png"
+type = "image"
+title = "intruder blocked"
+
+[[generated]]
+id = "wqhKRHdu7vjtRTsx9KOfk"
+uri = "file://exports/hawkeye-pdf/images/schedule_chain_src.png"
+type = "image"
+title = "schedule chain"
+
+[[generated]]
+id = "zPYe6S_gQfaVGmyndS9fY"
+uri = "file://exports/hawkeye-pdf/images/private_messages_src.png"
+type = "image"
+title = "private messages"
+
+[[outputs]]
+id = "0P_4p5zo8yEKCfhCMIbHS"
+uri = "file://attached_assets/briefing/RJAF_Squadron_Ops_Briefing.pdf"
+type = "pdf"
+title = "RJAF Squadron Ops Briefing (Apr 18)"
+
+[[outputs]]
+id = "7mW8UrYeFIx-GUG0wzMRn"
+uri = "file://attached_assets/briefing/RJAF_Squadron_Ops_Briefing.md"
+type = "text"
+title = "RJAF Squadron Ops — Command Briefing (editable Markdown source)"
+
+[[outputs]]
+id = "J9zaqEThqnYdZwCWCjL7b"
+uri = "file://exports/hawkeye-pdf/HawkEye-Ecosystem.pdf"
+type = "pdf"
+title = "Hawk Eye Ecosystem (Apr 20)"
+
+[[outputs]]
+id = "EzMTV6FCkd2F4cB2gpbWx"
+uri = "file://artifacts/pilot-dashboard/release/HawkEye-1.1.71-win-x64.zip"
+type = "unspecified"
+title = "Hawk Eye v1.1.71 — Windows update bundle"
+
+[[outputs]]
+id = "aTe4a4fLJZ9j91NXvr2xF"
+uri = "file://.local/HAWK-EYE-FINAL-REPORT-2026-04-23.md"
+type = "text"
+title = "Hawk Eye — Consolidated Overnight Report (2026-04-23)"
+
+[[outputs]]
+id = "6sAaNCEdUw_wzqk0rPsBg"
+uri = "file://.local/HAWK-EYE-OVERNIGHT-MASTER-REPORT.md"
+type = "text"
+title = "Hawk Eye — Overnight Master Report (all agents, all work, 2026-04-23)"
+
+[[outputs]]
+id = "q6V8HFQuXLYRKedUecL8b"
+uri = "file://.local/test-report-2026-04-23.md"
+type = "text"
+title = "Hawk Eye — Overnight Comprehensive Simulation Report (2026-04-23)"

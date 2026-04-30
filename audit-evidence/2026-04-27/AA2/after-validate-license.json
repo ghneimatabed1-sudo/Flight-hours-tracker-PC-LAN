@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:09:42.295Z",
+  "slug": "validate-license",
+  "meta": {
+    "verify_jwt": false,
+    "id": "53c870cd-12ca-4c01-b144-138e281190d3",
+    "slug": "validate-license",
+    "version": 6,
+    "name": "validate-license",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_53c870cd-12ca-4c01-b144-138e281190d3_6/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776513706259,
+    "updated_at": 1777061381918,
+    "ezbr_sha256": "160dbb778dbea701ee195ad81204c654faa5dcd00834c74735435d7615a7cbe0"
+  },
+  "body_sha256": "1f180b05a3db995e75e64afd47e3ca6d6efe3c8301625346fff982dda816f656",
+  "body_size": 222904,
+  "source_sha256": "7569f6bfa833de9d5a76585b61e203a91e1db56bd4e30dd26130f4a289b7b272",
+  "source_has_role_guard_marker": true,
+  "config_verify_jwt": false
+}

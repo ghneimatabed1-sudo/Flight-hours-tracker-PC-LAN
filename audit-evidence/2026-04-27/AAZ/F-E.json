@@ -1,0 +1,127 @@
+{
+  "item": "F-E runtime_errors digest",
+  "ts": "2026-04-24T21:14:15.502Z",
+  "checks": [
+    {
+      "label": "table_exists",
+      "ok": true,
+      "rows": [
+        {
+          "exists": "runtime_errors"
+        }
+      ]
+    },
+    {
+      "label": "digest_cron",
+      "ok": true,
+      "rows": [
+        {
+          "jobname": "runtime-errors-digest",
+          "schedule": "5 4 * * *",
+          "active": true
+        }
+      ]
+    },
+    {
+      "label": "purge_cron",
+      "ok": true,
+      "rows": [
+        {
+          "jobname": "runtime-errors-purge",
+          "schedule": "10 4 * * *",
+          "active": true
+        }
+      ]
+    },
+    {
+      "label": "columns",
+      "ok": true,
+      "rows": [
+        {
+          "column_name": "id",
+          "data_type": "bigint"
+        },
+        {
+          "column_name": "occurred_at",
+          "data_type": "timestamp with time zone"
+        },
+        {
+          "column_name": "app",
+          "data_type": "text"
+        },
+        {
+          "column_name": "app_version",
+          "data_type": "text"
+        },
+        {
+          "column_name": "role",
+          "data_type": "text"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid"
+        },
+        {
+          "column_name": "squadron_id",
+          "data_type": "uuid"
+        },
+        {
+          "column_name": "page",
+          "data_type": "text"
+        },
+        {
+          "column_name": "message",
+          "data_type": "text"
+        },
+        {
+          "column_name": "name",
+          "data_type": "text"
+        },
+        {
+          "column_name": "stack",
+          "data_type": "text"
+        },
+        {
+          "column_name": "user_agent",
+          "data_type": "text"
+        },
+        {
+          "column_name": "detail",
+          "data_type": "jsonb"
+        }
+      ]
+    },
+    {
+      "label": "recent_count",
+      "ok": true,
+      "rows": [
+        {
+          "n": 0
+        }
+      ]
+    },
+    {
+      "label": "synthetic_insert",
+      "ok": true,
+      "rows": [
+        {
+          "id": 5
+        }
+      ]
+    },
+    {
+      "label": "synthetic_visible",
+      "ok": true,
+      "rows": [
+        {
+          "id": 5,
+          "page": "/aaz/aaz_F_modeqrbx",
+          "message": "AAZ verification probe aaz_F_modeqrbx",
+          "name": "AAZProbe",
+          "app": "aaz-script"
+        }
+      ]
+    }
+  ],
+  "verdict": "PASS"
+}

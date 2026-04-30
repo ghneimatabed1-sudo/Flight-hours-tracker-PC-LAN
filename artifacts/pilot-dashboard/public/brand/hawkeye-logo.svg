@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Hawk Eye">
+  <defs>
+    <radialGradient id="hawkeye-bg" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#152238"/>
+      <stop offset="70%" stop-color="#0a1220"/>
+      <stop offset="100%" stop-color="#050810"/>
+    </radialGradient>
+    <linearGradient id="hawkeye-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5d98a"/>
+      <stop offset="55%" stop-color="#d8b25a"/>
+      <stop offset="100%" stop-color="#8a6420"/>
+    </linearGradient>
+    <linearGradient id="hawkeye-iris" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e6c97a"/>
+      <stop offset="100%" stop-color="#7a5210"/>
+    </linearGradient>
+    <radialGradient id="hawkeye-pupil" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#1a1208"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Disc -->
+  <circle cx="128" cy="128" r="120" fill="url(#hawkeye-bg)"/>
+  <circle cx="128" cy="128" r="119" fill="none" stroke="url(#hawkeye-gold)" stroke-width="2" opacity="0.85"/>
+  <circle cx="128" cy="128" r="111" fill="none" stroke="#e6c97a" stroke-width="0.6" opacity="0.35"/>
+
+  <!-- Hawk brow: angled wing-like stroke above the eye -->
+  <path d="M 38 102
+           Q 96 56 152 76
+           Q 196 92 222 110"
+        fill="none" stroke="url(#hawkeye-gold)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 60 92
+           Q 110 64 164 84"
+        fill="none" stroke="#f5d98a" stroke-width="2.2" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Eye almond -->
+  <path d="M 40 142
+           Q 128 70 216 142
+           Q 128 196 40 142 Z"
+        fill="#0a1220" stroke="url(#hawkeye-gold)" stroke-width="4.5"/>
+
+  <!-- Iris -->
+  <circle cx="128" cy="146" r="34" fill="url(#hawkeye-iris)"/>
+  <circle cx="128" cy="146" r="34" fill="none" stroke="#3a2810" stroke-width="1.2"/>
+
+  <!-- Iris radial striations (hawk-like) -->
+  <g stroke="#7a5210" stroke-width="1" opacity="0.55">
+    <line x1="128" y1="115" x2="128" y2="124"/>
+    <line x1="128" y1="168" x2="128" y2="177"/>
+    <line x1="97"  y1="146" x2="106" y2="146"/>
+    <line x1="150" y1="146" x2="159" y2="146"/>
+    <line x1="106" y1="124" x2="112" y2="130"/>
+    <line x1="150" y1="124" x2="144" y2="130"/>
+    <line x1="106" y1="168" x2="112" y2="162"/>
+    <line x1="150" y1="168" x2="144" y2="162"/>
+  </g>
+
+  <!-- Pupil -->
+  <circle cx="128" cy="146" r="14" fill="url(#hawkeye-pupil)"/>
+  <!-- Catchlight -->
+  <circle cx="123" cy="141" r="3.4" fill="#fff8e0" opacity="0.85"/>
+
+  <!-- Sharp inner accent at corners of the almond (hawk fierceness) -->
+  <path d="M 40 142 L 56 140" stroke="url(#hawkeye-gold)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 216 142 L 200 140" stroke="url(#hawkeye-gold)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Lower lid hairline -->
+  <path d="M 56 154 Q 128 188 200 154"
+        fill="none" stroke="#e6c97a" stroke-width="1" opacity="0.45"/>
+</svg>

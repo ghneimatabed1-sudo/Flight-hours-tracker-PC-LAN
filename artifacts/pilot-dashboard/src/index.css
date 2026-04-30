@@ -1,0 +1,582 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-border: var(--primary-border);
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary-border: var(--secondary-border);
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-muted-border: var(--muted-border);
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-border: var(--accent-border);
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-destructive-border: var(--destructive-border);
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+  --font-sans: var(--app-font-sans);
+  --font-serif: var(--app-font-serif);
+  --font-mono: var(--app-font-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Light theme (printable / daylight). The app defaults to the
+   military dark theme below; the operator can flip via the topbar
+   toggle. The choice persists per device in localStorage("theme").
+   The light theme is intentionally restrained — it keeps the gold
+   accent so the brand identity carries over, but uses neutral
+   off-whites so currency badges stay legible on paper or in
+   bright cockpits / briefing rooms.
+───────────────────────────────────────────────────────────────── */
+.light {
+  --button-outline: rgba(0,0,0, .10);
+  --badge-outline: rgba(0,0,0, .05);
+  --opaque-button-border-intensity: 9;
+  --elevate-1: rgba(0,0,0, .03);
+  --elevate-2: rgba(0,0,0, .07);
+
+  --background: 40 30% 96%;
+  --foreground: 220 30% 12%;
+  --border: 220 14% 82%;
+  --input: 220 14% 92%;
+  --ring: 42 80% 45%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 220 30% 12%;
+  --card-border: 220 14% 82%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 30% 12%;
+  --popover-border: 220 14% 82%;
+
+  --primary: 42 80% 40%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 220 14% 92%;
+  --secondary-foreground: 220 30% 12%;
+
+  --muted: 220 14% 92%;
+  --muted-foreground: 220 12% 38%;
+
+  --accent: 42 80% 45%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 70% 45%;
+  --destructive-foreground: 0 0% 100%;
+
+  --chart-1: 42 80% 45%;
+  --chart-2: 200 70% 45%;
+  --chart-3: 0 70% 45%;
+  --chart-4: 140 50% 38%;
+  --chart-5: 280 50% 50%;
+
+  --sidebar: 40 30% 94%;
+  --sidebar-foreground: 220 30% 12%;
+  --sidebar-border: 220 14% 82%;
+  --sidebar-primary: 42 80% 40%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 220 14% 88%;
+  --sidebar-accent-foreground: 220 30% 12%;
+  --sidebar-ring: 42 80% 45%;
+
+  --primary-border: hsl(42 80% 32%);
+  --secondary-border: hsl(220 14% 78%);
+  --muted-border: hsl(220 14% 82%);
+  --accent-border: hsl(42 80% 32%);
+  --destructive-border: hsl(0 70% 35%);
+  --sidebar-primary-border: hsl(42 80% 32%);
+  --sidebar-accent-border: hsl(220 14% 78%);
+}
+
+/* Force military dark theme as the default */
+:root, .dark {
+  --button-outline: rgba(255,255,255, .10);
+  --badge-outline: rgba(255,255,255, .05);
+  --opaque-button-border-intensity: 9;
+  --elevate-1: rgba(255,255,255, .04);
+  --elevate-2: rgba(255,255,255, .09);
+
+  --background: 220 45% 7%;
+  --foreground: 45 35% 92%;
+  --border: 220 25% 18%;
+  --input: 220 25% 14%;
+  --ring: 42 90% 55%;
+
+  --card: 220 40% 10%;
+  --card-foreground: 45 35% 92%;
+  --card-border: 220 25% 18%;
+
+  --popover: 220 40% 10%;
+  --popover-foreground: 45 35% 92%;
+  --popover-border: 220 25% 18%;
+
+  --primary: 42 90% 55%;
+  --primary-foreground: 220 50% 8%;
+
+  --secondary: 220 30% 16%;
+  --secondary-foreground: 45 35% 92%;
+
+  --muted: 220 25% 14%;
+  --muted-foreground: 220 12% 65%;
+
+  --accent: 42 80% 50%;
+  --accent-foreground: 220 50% 8%;
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 98%;
+
+  --chart-1: 42 90% 55%;
+  --chart-2: 200 80% 55%;
+  --chart-3: 0 70% 55%;
+  --chart-4: 140 55% 50%;
+  --chart-5: 280 55% 60%;
+
+  --sidebar: 220 50% 6%;
+  --sidebar-foreground: 45 30% 88%;
+  --sidebar-border: 220 30% 14%;
+  --sidebar-primary: 42 90% 55%;
+  --sidebar-primary-foreground: 220 50% 8%;
+  --sidebar-accent: 220 30% 14%;
+  --sidebar-accent-foreground: 45 35% 92%;
+  --sidebar-ring: 42 90% 55%;
+
+  --app-font-sans: 'Inter', system-ui, sans-serif;
+  --app-font-serif: Georgia, serif;
+  --app-font-mono: 'JetBrains Mono', Menlo, monospace;
+  --radius: 0.5rem;
+  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,.4);
+  --shadow: 0 2px 6px -1px rgba(0,0,0,.5);
+  --shadow-md: 0 4px 12px -2px rgba(0,0,0,.55);
+  --shadow-lg: 0 10px 25px -5px rgba(0,0,0,.6);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+
+  --primary-border: hsl(42 90% 45%);
+  --secondary-border: hsl(220 30% 20%);
+  --muted-border: hsl(220 25% 18%);
+  --accent-border: hsl(42 80% 42%);
+  --destructive-border: hsl(0 70% 42%);
+  --sidebar-primary-border: hsl(42 90% 45%);
+  --sidebar-accent-border: hsl(220 30% 18%);
+}
+
+* { border-color: hsl(var(--border)); }
+
+html, body, #root {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+  font-family: var(--app-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+[dir="rtl"] body { font-family: 'Tajawal', 'Noto Sans Arabic', var(--app-font-sans); }
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: hsl(220 30% 20%); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(220 30% 28%); }
+::-webkit-scrollbar-track { background: hsl(220 45% 7%); }
+
+/* Branding helpers */
+.gold-text { color: hsl(42 90% 60%); }
+.gold-grad {
+  background: linear-gradient(180deg, #f5d57a 0%, #c98f1f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.brand-bg {
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(212,160,40,.10), transparent 60%),
+    radial-gradient(1000px 500px at -10% 110%, rgba(40,80,160,.18), transparent 60%),
+    hsl(var(--background));
+}
+.panel { background: hsl(var(--card)); border: 1px solid hsl(var(--card-border)); border-radius: 12px; }
+.kbd { font-family: var(--app-font-mono); font-size: 11px; padding: 2px 6px; border-radius: 4px; background: hsl(220 30% 14%); border: 1px solid hsl(220 25% 22%); color: hsl(45 30% 80%); }
+
+.status-dot { width: 8px; height: 8px; border-radius: 999px; display: inline-block; }
+.status-ok { background: #34d399; box-shadow: 0 0 8px rgba(52,211,153,.6); }
+.status-warn { background: #fbbf24; box-shadow: 0 0 8px rgba(251,191,36,.6); }
+.status-bad { background: #f87171; box-shadow: 0 0 8px rgba(248,113,113,.6); }
+.status-na { background: #64748b; }
+
+.row-hover:hover { background: hsl(220 30% 12%); }
+
+.title-line { letter-spacing: .14em; text-transform: uppercase; font-size: 11px; color: hsl(220 12% 65%); }
+
+/* ─── Tactical / military design language ─────────────────────────── */
+.stencil { font-family: var(--app-font-mono); letter-spacing: .22em; text-transform: uppercase; font-size: 10px; color: hsl(220 12% 60%); }
+.stencil-lg { font-family: var(--app-font-mono); letter-spacing: .28em; text-transform: uppercase; font-size: 12px; color: hsl(220 12% 70%); }
+.tick { color: hsl(42 90% 55%); font-family: var(--app-font-mono); }
+.hairline { height: 1px; background: linear-gradient(90deg, transparent, hsl(220 25% 22%), transparent); border: 0; }
+
+/* Gradient gold border using mask trick */
+.frame-gold {
+  position: relative;
+  border-radius: 14px;
+  background: linear-gradient(180deg, hsl(220 40% 11%), hsl(220 45% 8%));
+}
+.frame-gold::before {
+  content: "";
+  position: absolute; inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(245,213,122,.55), rgba(201,143,31,.15) 35%, rgba(255,255,255,.04) 60%, rgba(245,213,122,.45));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Tactical corner brackets — purely decorative */
+.brackets { position: relative; }
+.brackets::before, .brackets::after {
+  content: ""; position: absolute; width: 14px; height: 14px;
+  border: 1px solid hsl(42 90% 55% / .6); pointer-events: none;
+}
+.brackets::before { top: 8px; left: 8px; border-right: 0; border-bottom: 0; }
+.brackets::after { bottom: 8px; right: 8px; border-left: 0; border-top: 0; }
+
+/* Hero number — military readout */
+.hero-num {
+  font-family: var(--app-font-mono);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #fbe39a 0%, #f5d57a 35%, #d4a528 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  text-shadow: 0 0 30px rgba(245,213,122,.18);
+}
+
+/* Subtle scanline overlay (very faint) */
+.scan {
+  background-image: repeating-linear-gradient(180deg, rgba(255,255,255,0) 0, rgba(255,255,255,0) 3px, rgba(255,255,255,.012) 3px, rgba(255,255,255,.012) 4px);
+}
+
+/* Subtle pulse for live indicators */
+@keyframes pulse-soft { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.pulse-soft { animation: pulse-soft 2.4s ease-in-out infinite; }
+
+/* Stagger fade-in for content */
+@keyframes rise-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.rise { animation: rise-in .4s ease-out both; }
+.rise-1 { animation-delay: .04s; }
+.rise-2 { animation-delay: .08s; }
+.rise-3 { animation-delay: .12s; }
+.rise-4 { animation-delay: .16s; }
+
+/* Hover lift on cards */
+.lift { transition: transform .18s ease, border-color .18s ease, background-color .18s ease; }
+.lift:hover { transform: translateY(-1px); border-color: hsl(42 90% 55% / .35); }
+
+/* ─── Lock screen ─────────────────────────────────────────────────────── */
+/* Soft animated radial vignette — drifts very slowly to add depth without
+   ever being distracting. Tuned to ~30s cycle so the eye never tracks it. */
+@keyframes lock-vignette-drift {
+  0%   { background-position: 30% 35%; }
+  50%  { background-position: 70% 65%; }
+  100% { background-position: 30% 35%; }
+}
+.lock-vignette {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 40%,
+      hsl(42 90% 55% / .08) 0%,
+      transparent 60%),
+    radial-gradient(ellipse 90% 70% at 50% 100%,
+      hsl(220 60% 30% / .25) 0%,
+      transparent 70%);
+  background-size: 200% 200%, 100% 100%;
+  animation: lock-vignette-drift 30s ease-in-out infinite;
+}
+/* Faint diagonal sheen sweeping across the top — gives the lock an
+   "alive" feel similar to high-end OS lock screens. */
+@keyframes lock-sheen-sweep {
+  0%   { transform: translateX(-30%); opacity: 0; }
+  10%  { opacity: .9; }
+  90%  { opacity: .9; }
+  100% { transform: translateX(130%); opacity: 0; }
+}
+.lock-sheen {
+  background: linear-gradient(115deg,
+    transparent 0%,
+    hsl(42 90% 65% / .04) 45%,
+    hsl(42 90% 75% / .08) 50%,
+    hsl(42 90% 65% / .04) 55%,
+    transparent 100%);
+  animation: lock-sheen-sweep 14s ease-in-out infinite;
+  animation-delay: 2s;
+}
+/* Slow logo "breathing" — 4% scale + slight glow pulse. */
+@keyframes lock-breathe {
+  0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 24px rgba(212,175,55,.30)); }
+  50%      { transform: scale(1.04); filter: drop-shadow(0 0 38px rgba(212,175,55,.55)); }
+}
+.lock-breathe { animation: lock-breathe 6s ease-in-out infinite; }
+/* Time digits get a faint amber ink glow for that "command center" feel. */
+.lock-time {
+  text-shadow: 0 0 22px hsl(42 90% 60% / .25), 0 1px 0 hsl(42 90% 35% / .15);
+}
+
+/* Inline progress meter */
+.meter { height: 4px; border-radius: 999px; background: hsl(220 25% 16%); overflow: hidden; }
+.meter > i { display: block; height: 100%; background: linear-gradient(90deg, #f5d57a, #d4a528); border-radius: 999px; }
+
+/* HQ Dashboard currency status utilities */
+.currency-current { background-color: rgb(187 247 208); color: rgb(20 83 45); }
+.dark .currency-current { background-color: rgb(20 83 45 / 0.3); color: rgb(187 247 208); }
+.currency-warning { background-color: rgb(254 240 138); color: rgb(113 63 18); }
+.dark .currency-warning { background-color: rgb(113 63 18 / 0.4); color: rgb(254 240 138); }
+.currency-expired { background-color: rgb(254 202 202); color: rgb(127 29 29); }
+.dark .currency-expired { background-color: rgb(127 29 29 / 0.4); color: rgb(254 202 202); }
+.currency-unset { background-color: rgb(226 232 240); color: rgb(71 85 105); }
+.dark .currency-unset { background-color: rgb(71 85 105 / 0.4); color: rgb(203 213 225); }
+
+/* ─── Print stylesheet ──────────────────────────────────────────────
+   Single source of truth for every printable surface in the app.
+   Goals (from the global polish task):
+   • No sidebars, navigation, or other UI chrome leaks onto paper.
+   • No buttons, action bars, dialogs, popovers, or toast notifications.
+   • Content fits inside the printable A4 area — no edge-clipping.
+   • Currency badge colours preserved (so red/yellow/green keep meaning).
+   • DD-MM-YYYY date format is enforced by the JS date helpers, so the
+     CSS only has to make sure the page doesn't re-introduce noise.
+─────────────────────────────────────────────────────────────────── */
+.print-only { display: none; }
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* v1.1.48: print-isolation trick. When a page contains a
+     `.print-target` or `.print-area` element, ONLY that subtree
+     appears on paper — every other element (sidebar, top header,
+     toolbars, panels, dialogs, page chrome, even sibling cards on
+     the same page) is hidden via visibility:hidden so the printout
+     contains nothing but the document the operator wanted. The old
+     selector-by-selector chrome list (aside, header, nav, etc.) is
+     kept below as a belt-and-braces fallback for pages that don't
+     opt in with print-target / print-area. */
+  body:has(.print-target) > *,
+  body:has(.print-area) > *,
+  body:has([data-print-area]) > * {
+    visibility: hidden !important;
+  }
+  body:has(.print-target) .print-target,
+  body:has(.print-area) .print-area,
+  body:has([data-print-area]) [data-print-area] {
+    visibility: visible !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  body:has(.print-target) .print-target *,
+  body:has(.print-area) .print-area *,
+  body:has([data-print-area]) [data-print-area] * {
+    visibility: visible !important;
+  }
+  /* Keep the printable subtree contained — never let a child push
+     past the page edge and trigger a second page. */
+  .print-target, .print-area, [data-print-area] {
+    overflow: visible !important;
+  }
+  .print-target table, .print-area table, [data-print-area] table {
+    table-layout: auto !important;
+    word-wrap: break-word !important;
+    border-collapse: collapse !important;
+  }
+  /* Repeat the table head on every printed page and never split a
+     row across pages. */
+  .print-target thead, .print-area thead, [data-print-area] thead {
+    display: table-header-group !important;
+  }
+  .print-target tr, .print-area tr, [data-print-area] tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Shared print-only header — render-only-on-paper component used by
+     every printable page. Hidden on screen, visible on paper. */
+  .print-header {
+    margin-bottom: 8px;
+    color: #000 !important;
+    font-family: var(--app-font-sans);
+  }
+  .print-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 10px;
+  }
+  .print-header-sqn { font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .print-header-meta { text-align: right; font-size: 10px; line-height: 1.3; }
+  .print-header-title { text-align: center; font-weight: 700; font-size: 14px; margin-top: 2px; }
+  .print-header-sub { text-align: center; font-size: 11px; font-style: italic; }
+  .print-header-context { text-align: center; font-size: 10px; color: #333 !important; margin-top: 2px; }
+  .print-header-rule { border: 0; border-top: 1px solid #000; margin: 6px 0 8px; }
+
+  /* Anything explicitly opted out of print. */
+  .no-print { display: none !important; }
+  /* Schedule diff highlights are screen-only — paper output stays clean. */
+  .no-print-diff { background: transparent !important; text-decoration: none !important; opacity: 1 !important; }
+  .print-only { display: block !important; }
+
+  /* App chrome — NEVER on paper. Sidebar, top header, sticky nav. */
+  aside,
+  header,
+  nav.sidebar,
+  [data-sidebar],
+  [data-print-hide],
+  [role="navigation"],
+  [role="toolbar"],
+  [role="dialog"],
+  [role="alertdialog"],
+  [data-radix-popper-content-wrapper],
+  [data-sonner-toaster],
+  [data-state="open"][data-side],
+  .toaster,
+  .sonner,
+  .ConfirmDialog,
+  .modal,
+  .Toastify,
+  .reminders-pop,
+  .live-data-indicator,
+  .tooltip,
+  [data-state="open"].popover,
+  [data-radix-portal] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Strip every interactive control from paper. The page content keeps
+     its tables, headings, and read-only data. */
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  a[href]:not(.print-keep) {
+    display: none !important;
+  }
+  /* Form inputs collapse to their text value where possible. */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  input[type="month"],
+  select,
+  textarea {
+    border: none !important;
+    background: transparent !important;
+    color: #000 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  main { padding: 0 !important; margin: 0 !important; overflow: visible !important; }
+  .min-h-screen { min-height: 0 !important; }
+  body * { box-shadow: none !important; }
+
+  /* Force black text on every printable surface so dark-theme greys
+     don't bleed through. Currency badges keep their explicit colours
+     via the rules below. */
+  .panel, .frame-gold, .brand-bg, .scan, [class*="bg-card"], [class*="bg-secondary"],
+  [class*="bg-popover"], [class*="bg-sidebar"], [class*="bg-background"] {
+    background: #fff !important;
+    color: #000 !important;
+    border-color: #ccc !important;
+  }
+  .gold-grad, .gold-text, .hero-num {
+    background: none !important;
+    -webkit-text-fill-color: #000 !important;
+    color: #000 !important;
+  }
+
+  /* Generic table polish for any page that opts into print-area. */
+  .print-area { color: #000 !important; background: #fff !important; }
+  .print-area table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+  .print-area th, .print-area td { border: 1px solid #ccc; padding: 4px 6px; text-align: start; vertical-align: middle; }
+  .print-area thead { background: #f4f4f4 !important; }
+
+  /* Currency badges keep their colour-coding on paper so commanders
+     can scan red/yellow at a glance. */
+  .currency-current,
+  .currency-unset,
+  .currency-warning,
+  .currency-expired {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .print-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; }
+  .print-header h1 { font-size: 16px; font-weight: 700; margin: 0; }
+  .print-header .meta { font-size: 10.5px; color: #333; text-align: end; }
+
+  /* Avoid orphan rows / split tables across pages. */
+  tr, .avoid-break { page-break-inside: avoid; }
+  h1, h2, h3 { page-break-after: avoid; }
+
+  /* Pages that prefer portrait layout opt in. */
+  .print-portrait { page-break-before: always; }
+  @page :first { margin-top: 12mm; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Radix UI workaround: when a <Select>, <Popover>, or <Combobox> closes
+   inside a <Dialog> (or any portal) Radix may leave inline
+   `pointer-events: none` on the body, html, or the React root, which
+   freezes every input on the page until the Electron window is
+   minimised and restored. Force pointer-events back on regardless of
+   what Radix sets inline. Outside-click detection still works because
+   Radix listens at the document level, not via pointer-events.
+
+   The MutationObserver in src/main.tsx is the belt-and-braces fix that
+   actually strips the inline style; this CSS is the safety net so the
+   user is never blocked even if the observer misses a frame.
+   ───────────────────────────────────────────────────────────────────── */
+html,
+body,
+#root,
+main { pointer-events: auto !important; }

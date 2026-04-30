@@ -1,0 +1,43 @@
+{
+  "appId": "jo.gov.rjaf.squadron-ops",
+  "productName": "Hawk Eye",
+  "copyright": "© Captain Abed Ghneimat — Royal Jordanian Air Force",
+  "directories": {
+    "output": "release",
+    "buildResources": "public/brand"
+  },
+  "files": [
+    "dist-electron/**/*",
+    "dist/public/**/*",
+    "public/brand/**/*",
+    "package.json"
+  ],
+  "asar": true,
+  "win": {
+    "target": [{ "target": "nsis", "arch": ["x64"] }],
+    "icon": "build/icon.ico",
+    "artifactName": "HawkEye-Setup-${version}.${ext}"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": true,
+    "allowElevation": true,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Hawk Eye",
+    "installerIcon": "build/icon.ico",
+    "uninstallerIcon": "build/icon.ico",
+    "installerHeaderIcon": "build/icon.ico",
+    "include": "build/installer.nsh"
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "ghneimatabed1-sudo",
+      "repo": "Flight-hours-tracker-Releases",
+      "releaseType": "release",
+      "vPrefixedTagName": true
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:09:41.397Z",
+  "slug": "provision-user",
+  "meta": {
+    "verify_jwt": true,
+    "id": "1543dcf6-fcf0-48ad-ab89-98718ba98231",
+    "slug": "provision-user",
+    "version": 6,
+    "name": "provision-user",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_1543dcf6-fcf0-48ad-ab89-98718ba98231_6/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776513706259,
+    "updated_at": 1777061380928,
+    "ezbr_sha256": "fcfb636d4b3f937ea53b09a348ecd4b14a434681dffabb3d8aea31c0d9608aed"
+  },
+  "body_sha256": "3718ddcb31b9a7bff9123ce93396af39ca7630e9e57d84c384c9e7089718e9f9",
+  "body_size": 545584,
+  "source_sha256": "f42869180ee47eed93af639a8dcdd24cdd5284d6123c4db6fbad1ba931cca258",
+  "source_has_role_guard_marker": true,
+  "config_verify_jwt": true
+}

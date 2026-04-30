@@ -1,0 +1,8 @@
+release
+
+# Playwright generated outputs (Round-4 AA4, task #281).
+# Reports are uploaded as workflow artifacts in
+# .github/workflows/e2e-commander-provisioning.yml — never commit them.
+playwright-report
+test-results
+.playwright

@@ -1,0 +1,697 @@
+================================================================
+RJAF FLIGHT HOURS TRACKER
+COMPLETE LOGIC & CALCULATION GUIDE FOR DEVELOPERS
+================================================================
+Written for: Replit development team
+Purpose: Full understanding of how flight hours are tracked,
+         calculated, and displayed. Read every word.
+================================================================
+
+
+BEFORE YOU START — UNDERSTAND THE CONTEXT
+------------------------------------------
+This application is used by the Royal Jordanian Air Force to track
+pilot flight hours. It is not a generic app. Every rule in this
+document exists because of real military aviation standards.
+
+Getting the calculations wrong is not just a bug — it means a pilot
+could appear current when they are not, or their hours could be wrong
+in official records. Treat every rule here as non-negotiable.
+
+There are two apps:
+  1. PC App  — Used by the Ops Officer to enter flight data.
+               Also used by commanders to monitor pilots.
+  2. Mobile App — Used by individual pilots to view their own hours.
+                  READ ONLY. Pilots cannot enter or change anything.
+
+Both apps connect to the same Supabase (PostgreSQL) database.
+The PC writes the data. The mobile reads it.
+
+
+================================================================
+PART 1 — THE THREE FLIGHT CONDITIONS
+================================================================
+
+This is the most important concept in the entire system.
+Every single flight belongs to ONE of three conditions:
+
+  ┌─────────────────────────────────────────────────────────┐
+  │  CONDITION 1: DAY                                       │
+  │  A flight conducted during daylight hours.              │
+  │  No special equipment. Normal visibility.               │
+  └─────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────┐
+  │  CONDITION 2: NIGHT                                     │
+  │  A flight conducted at night WITHOUT NVG goggles.       │
+  │  The pilot is flying in the dark with no special optics.│
+  └─────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────┐
+  │  CONDITION 3: NVG (Night Vision Goggles)                │
+  │  A flight conducted at night WITH NVG goggles.          │
+  │  The pilot is wearing special night vision equipment.   │
+  └─────────────────────────────────────────────────────────┘
+
+WHY DOES THIS MATTER SO MUCH?
+------------------------------
+Because the hours from each condition are stored and reported
+COMPLETELY SEPARATELY. They never mix. They never add together.
+
+  • Day hours go into the DAY total. Only.
+  • Night hours go into the NIGHT total. Only.
+  • NVG hours go into the NVG total. Only.
+
+⚠️  THE MOST CRITICAL RULE IN THE WHOLE SYSTEM:
+    NVG IS NOT NIGHT. NIGHT IS NOT NVG.
+    THEY ARE SEPARATE CATEGORIES.
+    AN NVG FLIGHT NEVER ADDS TO THE NIGHT BUCKET.
+    A NIGHT FLIGHT NEVER ADDS TO THE NVG BUCKET.
+    NEVER MERGE THEM. NEVER SUM THEM TOGETHER.
+
+Example to make this 100% clear:
+  A pilot has:
+    - 150 hours Day
+    - 30 hours Night (flew at night without goggles)
+    - 80 hours NVG (flew at night with goggles)
+
+  These are THREE separate numbers. They are all correct.
+  The Night total is 30. The NVG total is 80.
+  Do NOT add them to get "110 Night hours." That is wrong.
+  Report them separately, always.
+
+
+================================================================
+PART 2 — WITHIN EACH CONDITION: SEAT STATUS
+================================================================
+
+Now that you understand the three conditions, here is the
+next layer: within each condition, the hours are further
+separated by the pilot's seat status on that flight.
+
+Every flight has TWO pilots: a Pilot and a Co-Pilot.
+Each pilot has a STATUS for that flight. The status options are:
+
+  1st Officer — Flying as the First Officer (primary seat)
+  2nd Officer — Flying as the Second Officer (secondary seat)
+  Dual        — Flying as part of dual instruction
+                (an instructor and student both on the controls)
+
+So the complete breakdown of hour fields in the database is:
+
+  DAY condition:
+  ┌────────────┬────────────────────────────────────────────┐
+  │ day1       │ Day hours flown as 1st Officer             │
+  │ day2       │ Day hours flown as 2nd Officer             │
+  │ dayDual    │ Day hours flown as Dual instruction        │
+  └────────────┴────────────────────────────────────────────┘
+
+  NIGHT condition:
+  ┌────────────┬────────────────────────────────────────────┐
+  │ night1     │ Night hours flown as 1st Officer           │
+  │ night2     │ Night hours flown as 2nd Officer           │
+  │ nightDual  │ Night hours flown as Dual instruction      │
+  └────────────┴────────────────────────────────────────────┘
+
+  NVG condition:
+  ┌────────────┬────────────────────────────────────────────┐
+  │ nvg1       │ NVG hours flown as 1st Officer             │
+  │ nvg2       │ NVG hours flown as 2nd Officer             │
+  │ nvgDual    │ NVG hours flown as Dual instruction        │
+  │ nvg        │ Total NVG (nvg1 + nvg2 + nvgDual combined) │
+  │            │ Kept for backward compatibility            │
+  └────────────┴────────────────────────────────────────────┘
+
+So a pilot's full hour profile looks like this:
+  Day 1st:    hours flown as Day 1st Officer
+  Day 2nd:    hours flown as Day 2nd Officer
+  Day Dual:   hours flown as Day Dual instruction
+  Night 1st:  hours flown as Night 1st Officer
+  Night 2nd:  hours flown as Night 2nd Officer
+  Night Dual: hours flown as Night Dual instruction
+  NVG 1st:    hours flown as NVG 1st Officer
+  NVG 2nd:    hours flown as NVG 2nd Officer
+  NVG Dual:   hours flown as NVG Dual instruction
+  Sim:        Instrument simulator hours (separate, explained later)
+  Captain:    Hours where this pilot was the aircraft captain
+
+
+================================================================
+PART 3 — THE MOST IMPORTANT DESIGN DECISION:
+         PILOT AND CO-PILOT STATUS ARE INDEPENDENT
+================================================================
+
+This is the second most critical rule. Read carefully.
+
+When the Ops Officer enters a flight, there are TWO crew members:
+  • The Pilot
+  • The Co-Pilot
+
+EACH of them has their OWN separate status. Completely independent.
+
+  Pilot:    Choose name + Choose status (1st / 2nd / Dual) + Captain? (yes/no)
+  Co-Pilot: Choose name + Choose status (1st / 2nd / Dual) + Captain? (yes/no)
+
+WHY is this so important?
+
+Because in real military aviation, many combinations are possible:
+
+  Example A — Normal training:
+    Pilot    = Lt. Ahmad    → 1st Officer,  NOT Captain
+    Co-Pilot = Maj. Khalid  → 2nd Officer,  IS Captain
+    (The major is flying 2nd seat but is the aircraft commander)
+
+  Example B — Dual instruction:
+    Pilot    = Capt. Omar   → 1st Officer,  IS Captain (instructor)
+    Co-Pilot = Lt. Faris    → Dual,         NOT Captain (student)
+
+  Example C — Check ride:
+    Pilot    = Lt. Nasser   → 1st Officer,  NOT Captain
+    Co-Pilot = Col. Ibrahim → 2nd Officer,  IS Captain (evaluator)
+
+In every example above, the Pilot and Co-Pilot have DIFFERENT statuses.
+The old broken system had ONE status toggle for both pilots combined,
+which made it impossible to represent reality correctly.
+
+The CORRECT design: each crew member gets their own independent
+status buttons and their own Captain checkbox. No shared toggles.
+
+⚠️  DO NOT make a single "Position" selector that forces
+    Pilot=1st and Co-Pilot=2nd automatically.
+    That is the old bug. Do not recreate it.
+
+
+================================================================
+PART 4 — FLIGHT DURATION: ONE TIME, TWO PILOTS
+================================================================
+
+Every sortie has ONE time field. One number. For example: 1.5 hours.
+
+This is the duration of the entire flight.
+
+BOTH pilots receive this SAME duration credited to their own bucket.
+
+  If the flight is 1.5 hours and condition is DAY:
+    Pilot (1st Officer):    gets 1.5 hours in day1
+    Co-Pilot (2nd Officer): gets 1.5 hours in day2
+
+  They were BOTH in the aircraft for 1.5 hours.
+  The hours are NOT split between them.
+  The hours are NOT shared.
+  Both pilots independently receive 1.5 hours, each in their own bucket.
+
+This might feel like "double counting" but it is not. These are two
+separate pilots. Each one's logbook gets credited for the time they
+personally spent in the aircraft. A 1.5-hour flight adds 1.5 hours
+to each pilot's personal record — in the appropriate category.
+
+
+================================================================
+PART 5 — CAPTAIN HOURS
+================================================================
+
+Captain hours are a running total of hours where a specific pilot
+was acting as the Aircraft Commander (Captain).
+
+Captain hours are NOT a separate flight condition.
+They are an ADDITIONAL credit on top of the condition hours.
+
+  If Pilot is marked Captain on a 1.5-hour Day flight:
+    → Pilot gets 1.5 hours in day1 (their 1st Officer Day hours)
+    → Pilot ALSO gets 1.5 hours in their Captain total
+    → These are not double-counted in the Grand Total —
+      Captain hours are a separate stat, not added to Grand Total
+
+  If Co-Pilot is ALSO marked Captain on the same sortie:
+    → Co-Pilot gets 1.5 hours in day2 (their 2nd Officer Day hours)
+    → Co-Pilot ALSO gets 1.5 hours in their own Captain total
+
+Both pilots on the same sortie CAN both be marked Captain.
+Neither pilot has to be marked Captain.
+These are completely independent checkboxes for each seat.
+
+Captain hours appear in:
+  • Pilot detail page (CAP total)
+  • Monthly report
+  • Rankings page
+  • The pilot's Grand Total breakdown
+
+
+================================================================
+PART 6 — HOW THE CALCULATION WORKS (STEP BY STEP)
+================================================================
+
+When computing a pilot's total hours, the system does the following:
+
+Step 1:
+  Collect ALL sorties in the database where this pilot appears
+  as either the Pilot OR the Co-Pilot.
+
+Step 2:
+  For each of those sorties, look at three things:
+    a) The sortie's condition (Day / Night / NVG)
+    b) The sortie's time (the flight duration in decimal hours)
+    c) Whether this pilot was marked as Captain on that sortie
+
+Step 3:
+  Route the time into the correct bucket based on condition ONLY.
+  NVG goes to NVG. Night goes to Night. Day goes to Day. Never mixed.
+
+Step 4:
+  If the Captain flag is true for this pilot on this sortie,
+  also add the time to the Captain total.
+
+Step 5:
+  Add up everything, then add the opening balance
+  (the hours the pilot had before they were entered into the system).
+
+GRAND TOTAL formula:
+  Grand Total = Opening Day + All Day sortie hours
+              + Opening Night + All Night sortie hours
+              + Opening NVG + All NVG sortie hours
+              + All Simulator hours
+
+Monthly Total formula (same logic, but only current month sorties):
+  Month Total = Day hours this month
+              + Night hours this month
+              + NVG hours this month
+              + Sim hours this month
+
+
+================================================================
+PART 7 — INSTRUMENT FLIGHT AND IRT CURRENCY
+================================================================
+
+Instrument flight is a separate optional section that can be added
+to ANY sortie, regardless of whether it is Day, Night, or NVG.
+
+It is NOT its own condition. Think of it as "additional information
+about this flight" rather than a category of hours.
+
+The instrument flight fields are:
+
+  instrumentFlight → True/False flag: was this an instrument flight?
+  ifSim  → Hours flown using instruments inside a simulator
+  ifAct  → Hours flown using instruments in real flight (under hood)
+  ils    → Count of ILS (Instrument Landing System) approaches done
+  vor    → Count of VOR approaches done
+
+IMPORTANT: These hours are NOT added to the pilot's Day/Night/NVG totals.
+They are tracked in their own column for IRT currency purposes.
+
+The `sim` legacy field in the database stores the ifSim value for
+backward compatibility with older reports and the mobile app.
+
+IRT CURRENCY:
+  Every pilot needs to keep their Instrument Rating current.
+  The IRT currency has its own expiry date stored on the pilot's profile.
+  Default validity: 180 days (configurable per squadron).
+
+  UNLIKE Day and Night currencies, the IRT expiry is NOT automatically
+  updated when a sortie is saved. The Ops Officer must manually update
+  the IRT expiry date after a pilot completes an instrument refresher.
+
+
+================================================================
+PART 8 — THE FIVE CURRENCY TYPES
+================================================================
+
+Every pilot has five currencies. Each one is an expiry date.
+If the date has passed, the pilot is expired in that category.
+
+  ┌──────────┬────────────────────────────────────────────────────┐
+  │ Currency │ What it tracks                                     │
+  ├──────────┼────────────────────────────────────────────────────┤
+  │ Day      │ Last day flight. Expires if not flown for 60 days. │
+  │ Night    │ Last night OR NVG flight. 60 days. (See note below)│
+  │ IRT      │ Instrument rating refresher. 180 days. Manual.     │
+  │ Medical  │ Medical certificate. 365 days. Manual.             │
+  │ Sim      │ Last simulator session. Manual entry.              │
+  └──────────┴────────────────────────────────────────────────────┘
+
+CRITICAL NOTE ABOUT NIGHT CURRENCY:
+  The Night currency expiry covers BOTH Night flights AND NVG flights.
+  They share one currency field.
+  When a Night sortie is saved → Night expiry auto-updates.
+  When an NVG sortie is saved → Night expiry also auto-updates.
+  This is per RJAF SOP for the UH-60M. It is intentional.
+  Do not separate them into two different currency fields.
+
+AUTO-UPDATE RULE (happens automatically when a sortie is saved):
+  • Day sortie saved   → Day currency expiry for BOTH pilots moves forward
+                         to: (sortie date + 60 days)
+  • Night sortie saved → Night currency expiry for BOTH pilots moves forward
+                         to: (sortie date + 60 days)
+  • NVG sortie saved   → Night currency expiry for BOTH pilots moves forward
+                         to: (sortie date + 60 days)
+
+NEVER MOVE EXPIRY BACKWARDS:
+  If a pilot already has a night expiry of 2025-09-15 and you log
+  a new night sortie with date 2025-06-01, the new calculated expiry
+  would be 2025-07-31 — which is EARLIER than 2025-09-15.
+  In this case, KEEP 2025-09-15. The expiry only ever moves forward.
+
+CURRENCY STATUS LEVELS (from most to least urgent):
+  expired      → Date has already passed. Pilot is not current.
+  critical     → Expires within a very short time (days away).
+  expiringSoon → Getting close (weeks away).
+  warning      → Approaching (a month or so away).
+  current      → Valid with plenty of time remaining.
+
+These statuses drive color indicators on the dashboard, alerts,
+and the mobile app. Red = expired/critical. Amber = warning.
+Green = current.
+
+HIDDEN CURRENCIES:
+  Some pilots may never fly a certain type. For example, a pilot who
+  only ever flies NVG missions may never have a Day currency to track.
+  The Ops Officer can mark any currency as "N/A" for a specific pilot.
+  Hidden currencies show as "N/A" — not as "expired." They do not
+  count toward the alert/warning totals.
+
+
+================================================================
+PART 9 — OPENING BALANCES
+================================================================
+
+When a pilot joins the system, they already have years of flying
+history. All those hours before the app existed must be stored somewhere.
+
+These are called Opening Balances:
+  openingDay   → Total Day hours flown before the system was set up
+  openingNight → Total Night hours flown before the system was set up
+  openingNvg   → Total NVG hours flown before the system was set up
+
+These are entered once when the pilot is first added to the roster.
+They are permanent. They are added to all calculated totals.
+
+Grand Total Day = openingDay + sum of all Day sorties in the system
+Grand Total Night = openingNight + sum of all Night sorties in the system
+Grand Total NVG = openingNvg + sum of all NVG sorties in the system
+
+
+================================================================
+PART 10 — THE SORTIE TYPES (MISSION CLASSIFICATION)
+================================================================
+
+Every sortie is classified by its purpose. This is a label only.
+It does NOT change how hours are calculated.
+The calculation is always driven by Condition (Day/Night/NVG) and
+Status (1st/2nd/Dual), not by the sortie type.
+
+Full list of sortie types:
+
+  GH           General Handling
+  MTF          Maintenance Test Flight
+  NF           Night Flying (training)
+  NVG          NVG training
+  NAV          Navigation
+  NAV FOR      Navigation Foreign (cross-border nav)
+  EMER         Emergency procedures training
+  EVAL         Evaluation / check
+  IF           Instrument Flight
+  MSN DAY      Mission (Day condition)
+  MSN NIGHT    Mission (Night condition)
+  MSN NVG      Mission (NVG condition)
+  TRG DAY      Training (Day)
+  TRG NIGHT    Training (Night)
+  TRG NVG      Training (NVG)
+  CRS DAY      Course (Day)
+  CRS NVG      Course (NVG)
+  GP.C DAY     Group Commander Day
+  CPC NVG      CPC NVG
+  FCF          Functional Check Flight
+  ACADEMIC     Academic / ground only
+  INSTR        Instrument training
+  CHECK RIDE   Evaluation / check ride
+  TRANSPORT    Transport mission
+  SAR          Search and Rescue
+  MEDEVAC      Medical evacuation
+  Other…       Free text entry for anything not in the list
+
+
+================================================================
+PART 11 — THE ADD SORTIE FORM (FULL FIELD LIST)
+================================================================
+
+This is the form the Ops Officer uses to log a flight.
+Here is every field, what it means, and what it does:
+
+FLIGHT INFORMATION:
+  Date         → The date the flight happened. Format: YYYY-MM-DD.
+  A/C Type     → Aircraft type. Options: UH-60M, UH-60L, UH-60AIL, AS332.
+  A/C Number   → The aircraft tail number. Free text (e.g. "832").
+  Sortie Type  → Select from the list above. If "Other…" is selected,
+                 a text box appears for free entry.
+  Time (hrs)   → Flight duration in decimal hours. E.g. 1.5 for 1h30m.
+                 This is ONE number for the whole flight. BOTH pilots
+                 receive this duration in their own respective buckets.
+  MSN/Duty     → Mission name or duty description. Optional. Free text.
+
+FLIGHT CONDITION (three separate buttons, pick one):
+  [ DAY ]   [ NIGHT ]   [ NVG ]
+  These are mutually exclusive. Only one can be selected.
+  This determines which hour bucket ALL the hours go into.
+
+PILOT SECTION (for the first crew member):
+  Name         → Dropdown of all pilots on the squadron roster.
+  Status       → Three buttons. Pick one:
+                   [1st Officer]  [2nd Officer]  [Dual]
+                 This is INDEPENDENT from the Co-Pilot's status.
+                 The Ops Officer picks whatever is true for this pilot.
+  Captain      → Checkbox: "Captain (CAP)"
+                 Tick this if this pilot is the Aircraft Commander
+                 for this sortie. Independent from Co-Pilot's checkbox.
+
+CO-PILOT SECTION (for the second crew member — fully independent):
+  Name         → Dropdown of all pilots on the squadron roster.
+  Status       → Three buttons. Pick one:
+                   [1st Officer]  [2nd Officer]  [Dual]
+                 COMPLETELY SEPARATE from the Pilot's status.
+                 The Ops Officer can set any combination.
+  Captain      → Checkbox: "Captain (CAP)"
+                 Completely separate from the Pilot's checkbox.
+
+INSTRUMENT FLIGHT SECTION (optional, shown when checkbox is ticked):
+  SIM hours    → Time spent under instrument conditions in a simulator.
+  Actual hrs   → Time spent under instrument conditions in real flight.
+  ILS          → Number of ILS approaches completed this sortie.
+  VOR          → Number of VOR approaches completed this sortie.
+  These do NOT add to Day/Night/NVG totals. Tracked separately for IRT.
+
+REMARKS (optional):
+  Free text. Anything the Ops Officer wants to note:
+  weather conditions, aborted sortie, maintenance issue, etc.
+
+
+================================================================
+PART 12 — WHAT HAPPENS WHEN A SORTIE IS SAVED
+================================================================
+
+When the Ops Officer clicks "ADD SORTIE", the following happens
+in this exact order:
+
+STEP 1 — Validation:
+  • Time must be greater than zero.
+  • Pilot and Co-Pilot cannot be the same person.
+  • Both crew sections must have a pilot selected.
+
+STEP 2 — Hour bucket calculation:
+  For the Pilot:
+    Take the flight time and route it into the correct bucket.
+    The bucket is determined by CONDITION + this pilot's STATUS.
+    Examples:
+      Condition=Day,   Status=1st → goes into day1
+      Condition=Night, Status=2nd → goes into night2
+      Condition=NVG,   Status=Dual → goes into nvgDual
+
+  For the Co-Pilot:
+    Same process, but using the CO-PILOT'S OWN status.
+    Completely independent calculation.
+    Examples:
+      Condition=Day,   Status=2nd → goes into day2
+      Condition=NVG,   Status=1st → goes into nvg1
+
+  For Captain hours:
+    If Pilot's Captain checkbox is ticked → add time to pilotIsCaptain
+    If Co-Pilot's Captain checkbox is ticked → add time to coPilotIsCaptain
+    These are independent flags stored on the sortie record.
+
+STEP 3 — Write to database:
+  The sortie record is written to Supabase with all fields populated.
+  Including: all bucket values, both pilot IDs, both status flags,
+  both captain flags, condition, time, instrument data, remarks.
+
+STEP 4 — Currency auto-update:
+  For BOTH the Pilot AND the Co-Pilot, the system checks their
+  currency expiry dates and bumps them forward:
+    Day sortie   → bumps the Day expiry date forward
+    Night sortie → bumps the Night expiry date forward
+    NVG sortie   → bumps the Night expiry date forward
+                   (because Night and NVG share one currency)
+  Rule: only move forward. Never backwards.
+
+STEP 5 — UI refresh:
+  React Query cache is invalidated.
+  Every open page in the app that shows pilot data updates immediately.
+  No page refresh needed. It happens automatically.
+
+STEP 6 — Mobile sync:
+  The mobile app polls for new data every 15 seconds.
+  Within 15 seconds of the sortie being saved, the pilot can see
+  their updated hours on their phone.
+
+
+================================================================
+PART 13 — THE MOBILE APP IN DETAIL
+================================================================
+
+The mobile app is the pilot's personal logbook on their phone.
+It is strictly READ ONLY. Pilots cannot add or change anything.
+
+FIRST TIME SETUP (linking the phone):
+  1. Ops Officer opens the pilot's profile in the PC app.
+  2. Ops Officer clicks "Issue Link Code."
+  3. A 6-digit number code is generated and shown ONCE.
+  4. Ops Officer gives this code to the pilot (by phone, radio, etc.)
+  5. Pilot opens the mobile app for the first time.
+  6. Pilot enters their Military Number + the 6-digit code.
+  7. App connects to the server, validates the code, links the device.
+  8. The code is immediately marked as used — it cannot be reused.
+  9. The code expires in 7 days if not used.
+  10. If a pilot gets a new phone or reinstalls, the Ops Officer must
+      issue a new code.
+
+WHAT THE PILOT SEES:
+  Home screen:
+    • Their name, rank, squadron
+    • Grand total hours (Day / Night / NVG / Total)
+    • This month's hours breakdown
+    • Half-year breakdown: H1 (Jan-Jun) and H2 (Jul-Dec)
+
+  Currency tab:
+    • Day currency: expiry date + status color
+    • Night currency: expiry date + status color
+    • IRT currency: expiry date + status color
+    • Medical: expiry date + status color
+    • Simulator: last session date + status color
+
+  Log tab:
+    • All sorties this pilot has flown (both as Pilot and Co-Pilot)
+    • Sorted by date, newest first
+    • Each entry shows: date, aircraft, sortie type, condition, hours
+
+  Settings tab:
+    • Language preference
+    • Notifications for expiring currencies
+    • Change PIN
+    • Sign out
+
+OFFLINE MODE:
+  The app saves a snapshot of all data to encrypted storage on the device.
+  If the pilot has no internet, they still see their last synced data.
+  The screen shows when the data was last updated.
+  Pull-to-refresh manually forces a new sync when online.
+
+PIN LOCK:
+  Optional. The pilot can set a 4-digit PIN for privacy.
+  After entering the PIN once, the app trusts the device and
+  auto-unlocks on future opens. The PIN is only required again
+  after signing out or a password change.
+  If the pilot forgets their PIN, they must re-pair with a new
+  6-digit code from the Ops Officer.
+
+
+================================================================
+PART 14 — WHAT THE COMMANDER SEES (PC - READ ONLY VIEW)
+================================================================
+
+Squadron commanders and HQ commanders use the PC app but in
+a read-only mode. They CANNOT add sorties or edit pilots.
+
+What they can see:
+  • Cross-squadron pilot tables (HQ sees all squadrons)
+  • Squadron commander sees their own squadron only
+  • Pilot hour totals per category
+  • Currency status for every pilot (color coded)
+  • Alerts: who is expired, who is expiring soon
+  • Simulator records
+  • Flight records
+
+The data they see is live from the same Supabase database.
+When an Ops Officer logs a sortie, the commander's screen
+updates automatically.
+
+
+================================================================
+PART 15 — THE 7 RULES THAT MUST NEVER BE BROKEN
+================================================================
+
+These are absolute. Non-negotiable. Do not look for exceptions.
+
+RULE 1:
+  NVG hours NEVER go into the Night bucket.
+  Night hours NEVER go into the NVG bucket.
+  They are permanently, always, completely separate.
+
+RULE 2:
+  The Pilot and Co-Pilot status are ALWAYS independent.
+  Never use a single toggle that sets both at once.
+  The Ops Officer sets each seat separately every time.
+
+RULE 3:
+  Both pilots ALWAYS receive the full sortie duration.
+  Do not split the hours. Do not share them.
+  If the flight is 2.0 hours, both pilots each get 2.0 hours
+  in their respective bucket.
+
+RULE 4:
+  Currency expiry dates NEVER move backwards.
+  If the new calculated date is earlier than what is already stored,
+  keep the stored date. Always take the later date.
+
+RULE 5:
+  When the system is connected to the live database (Supabase),
+  an empty result means there is no data.
+  NEVER substitute demo data or mock data into official views
+  when the system is live. Empty is correct. Demo data is wrong.
+
+RULE 6:
+  A pilot's hours only update based on sorties they were personally
+  on (as Pilot or Co-Pilot). A sortie they were not part of
+  must never affect their totals in any way.
+
+RULE 7:
+  Instrument flight hours (ifSim, ifAct) are NEVER added to the
+  Day, Night, or NVG totals. They are a completely separate track
+  for IRT (Instrument Rating) currency purposes only.
+
+
+================================================================
+SUMMARY — THE CORE CONCEPT IN SIMPLE WORDS
+================================================================
+
+An Ops Officer enters a flight. The flight has:
+  • A duration (e.g. 1.5 hours)
+  • A condition (Day, Night, or NVG — never mixed)
+  • Two crew members, each with:
+      - Their own status (1st Officer, 2nd Officer, or Dual)
+      - Their own Captain flag (yes or no)
+
+The system takes that 1.5 hours and routes it:
+  → Into the Pilot's bucket (based on their status + condition)
+  → Into the Co-Pilot's bucket (based on THEIR status + condition)
+  → Into Captain totals if either flag is ticked
+
+Both pilots' currency expiry dates advance automatically.
+
+The mobile app shows each pilot their own data only, within 15 seconds.
+
+That is the entire system. Everything else is presentation and security.
+
+
+================================================================
+END OF DOCUMENT
+Written from direct reading of full application source code.
+All rules reflect the actual implementation.
+================================================================

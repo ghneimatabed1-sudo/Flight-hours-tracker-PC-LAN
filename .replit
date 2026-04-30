@@ -1,0 +1,95 @@
+modules = ["nodejs-24", "postgresql-16"]
+
+[deployment]
+router = "application"
+deploymentTarget = "autoscale"
+
+[deployment.postBuild]
+args = ["pnpm", "store", "prune"]
+env = { "CI" = "true" }
+
+[workflows]
+runButton = "Project"
+
+[agent]
+stack = "PNPM_WORKSPACE"
+expertMode = true
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 20000
+
+[[ports]]
+localPort = 8080
+externalPort = 8080
+
+[[ports]]
+localPort = 8081
+externalPort = 80
+
+[[ports]]
+localPort = 8082
+externalPort = 3001
+
+[[ports]]
+localPort = 8083
+externalPort = 4200
+
+[[ports]]
+localPort = 8084
+externalPort = 5173
+
+[[ports]]
+localPort = 8085
+externalPort = 6000
+
+[[ports]]
+localPort = 8086
+externalPort = 8008
+
+[[ports]]
+localPort = 8087
+externalPort = 9000
+
+[[ports]]
+localPort = 18428
+externalPort = 8081
+
+[[ports]]
+localPort = 25875
+externalPort = 3000
+
+[[ports]]
+localPort = 25876
+externalPort = 3002
+
+[[ports]]
+localPort = 25877
+externalPort = 3003
+
+[[ports]]
+localPort = 25878
+externalPort = 5000
+
+[[ports]]
+localPort = 25879
+externalPort = 6800
+
+[[ports]]
+localPort = 25880
+externalPort = 8000
+
+[[ports]]
+localPort = 25881
+externalPort = 8099
+
+[userenv]
+
+[userenv.shared]
+VITE_SUPABASE_URL = "https://nklrdhfsbevckovqqkah.supabase.co"
+EXPO_PUBLIC_SUPABASE_URL = "https://nklrdhfsbevckovqqkah.supabase.co"
+VITE_SUPABASE_ANON_KEY = "sb_publishable_qeCAqVTqnwkS3lP7Dfch_w_weAb_l4_"
+EXPO_PUBLIC_SUPABASE_ANON_KEY = "sb_publishable_qeCAqVTqnwkS3lP7Dfch_w_weAb_l4_"
+
+[nix]
+channel = "stable-25_05"

@@ -1,0 +1,104 @@
+{
+  "driver": "I",
+  "source": "audit-evidence/2026-04-26/evidence/I/i-focused.json",
+  "round2_runId": "AUD_IF_6f7167",
+  "surfaces": [
+    {
+      "id": "snapshots",
+      "round2_verdict": "PASS",
+      "live_re_verification": {
+        "type": "snapshot_rollup_state_probe",
+        "snapshot_rows_in_prod": 3,
+        "snap_select_policy": {
+          "polname": "xpc_snap_select",
+          "using_expr": "((xpc_caller_role() = ANY (ARRAY['super_admin'::text, 'superadmin'::text, 'admin'::text])) OR (squadron_id = ANY (xpc_my_pc_ids())) OR ((xpc_caller_squadron_ids() IS NOT NULL) AND (squadron_id = ANY (xpc_caller_squadron_ids()))))"
+        },
+        "scoped_select_assertions": {
+          "wingCmdr_seesAlphaBravo": true,
+          "baseCmdr_seesBravoCharlie": true,
+          "wingCmdr_doesNotSeeCharlie": true,
+          "baseCmdr_doesNotSeeAlpha": true
+        },
+        "verdict": "PASS — verify-rollup confirms wing/base commanders read scoped subsets correctly"
+      }
+    },
+    {
+      "id": "ci1",
+      "round2_verdict": "PASS",
+      "live_re_verification": {
+        "type": "snapshot_rollup_state_probe",
+        "snapshot_rows_in_prod": 3,
+        "snap_select_policy": {
+          "polname": "xpc_snap_select",
+          "using_expr": "((xpc_caller_role() = ANY (ARRAY['super_admin'::text, 'superadmin'::text, 'admin'::text])) OR (squadron_id = ANY (xpc_my_pc_ids())) OR ((xpc_caller_squadron_ids() IS NOT NULL) AND (squadron_id = ANY (xpc_caller_squadron_ids()))))"
+        },
+        "scoped_select_assertions": {
+          "wingCmdr_seesAlphaBravo": true,
+          "baseCmdr_seesBravoCharlie": true,
+          "wingCmdr_doesNotSeeCharlie": true,
+          "baseCmdr_doesNotSeeAlpha": true
+        },
+        "verdict": "PASS — verify-rollup confirms wing/base commanders read scoped subsets correctly"
+      }
+    },
+    {
+      "id": "ci2",
+      "round2_verdict": "PASS",
+      "live_re_verification": {
+        "type": "snapshot_rollup_state_probe",
+        "snapshot_rows_in_prod": 3,
+        "snap_select_policy": {
+          "polname": "xpc_snap_select",
+          "using_expr": "((xpc_caller_role() = ANY (ARRAY['super_admin'::text, 'superadmin'::text, 'admin'::text])) OR (squadron_id = ANY (xpc_my_pc_ids())) OR ((xpc_caller_squadron_ids() IS NOT NULL) AND (squadron_id = ANY (xpc_caller_squadron_ids()))))"
+        },
+        "scoped_select_assertions": {
+          "wingCmdr_seesAlphaBravo": true,
+          "baseCmdr_seesBravoCharlie": true,
+          "wingCmdr_doesNotSeeCharlie": true,
+          "baseCmdr_doesNotSeeAlpha": true
+        },
+        "verdict": "PASS — verify-rollup confirms wing/base commanders read scoped subsets correctly"
+      }
+    },
+    {
+      "id": "ci3",
+      "round2_verdict": "PASS",
+      "live_re_verification": {
+        "type": "snapshot_rollup_state_probe",
+        "snapshot_rows_in_prod": 3,
+        "snap_select_policy": {
+          "polname": "xpc_snap_select",
+          "using_expr": "((xpc_caller_role() = ANY (ARRAY['super_admin'::text, 'superadmin'::text, 'admin'::text])) OR (squadron_id = ANY (xpc_my_pc_ids())) OR ((xpc_caller_squadron_ids() IS NOT NULL) AND (squadron_id = ANY (xpc_caller_squadron_ids()))))"
+        },
+        "scoped_select_assertions": {
+          "wingCmdr_seesAlphaBravo": true,
+          "baseCmdr_seesBravoCharlie": true,
+          "wingCmdr_doesNotSeeCharlie": true,
+          "baseCmdr_doesNotSeeAlpha": true
+        },
+        "verdict": "PASS — verify-rollup confirms wing/base commanders read scoped subsets correctly"
+      }
+    },
+    {
+      "id": "ci4",
+      "round2_verdict": "PASS",
+      "live_re_verification": {
+        "type": "snapshot_rollup_state_probe",
+        "snapshot_rows_in_prod": 3,
+        "snap_select_policy": {
+          "polname": "xpc_snap_select",
+          "using_expr": "((xpc_caller_role() = ANY (ARRAY['super_admin'::text, 'superadmin'::text, 'admin'::text])) OR (squadron_id = ANY (xpc_my_pc_ids())) OR ((xpc_caller_squadron_ids() IS NOT NULL) AND (squadron_id = ANY (xpc_caller_squadron_ids()))))"
+        },
+        "scoped_select_assertions": {
+          "wingCmdr_seesAlphaBravo": true,
+          "baseCmdr_seesBravoCharlie": true,
+          "wingCmdr_doesNotSeeCharlie": true,
+          "baseCmdr_doesNotSeeAlpha": true
+        },
+        "verdict": "PASS — verify-rollup confirms wing/base commanders read scoped subsets correctly"
+      }
+    }
+  ],
+  "verdict": "PASS",
+  "summary": "5/5 I surfaces re-verified"
+}

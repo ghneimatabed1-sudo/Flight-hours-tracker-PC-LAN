@@ -1,0 +1,22 @@
+{
+  "cell": "R7",
+  "name": "Squadron rename propagates into xpc_registry.squadron_name",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:25:45.147Z",
+  "note": "",
+  "method": "Rename squadron via UPDATE squadrons.name. The xpc_squadron_rename_sync trigger (migration 0050) must update every xpc_registry row whose squadron_name matched the previous value (xpc_registry is keyed by pc id; squadron membership is denormalized via the squadron_name column).",
+  "observed": {
+    "new_name": "TEST_T303_R3_SqnR3_RENAMED",
+    "xpc_registry_squadron_names_before": [
+      "TEST_T303_R3_SqnR3",
+      "TEST_T303_R3_SqnR3"
+    ],
+    "xpc_registry_squadron_names_after": [
+      "TEST_T303_R3_SqnR3_RENAMED",
+      "TEST_T303_R3_SqnR3_RENAMED"
+    ]
+  },
+  "expected": {
+    "all_rows_renamed": true
+  }
+}

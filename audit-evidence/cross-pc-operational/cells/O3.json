@@ -1,0 +1,29 @@
+{
+  "cell": "O3",
+  "name": "Sortie DELETE has RLS coverage (FOR ALL or explicit DELETE policy)",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:30:30.948Z",
+  "note": "",
+  "method": "Direct probe of pg_policies for public.sorties. A FOR ALL policy is credited as covering DELETE; an explicit DELETE policy is also accepted.",
+  "observed": {
+    "policies": [
+      {
+        "name": "sorties_pilot_squadron_read",
+        "cmd": "SELECT"
+      },
+      {
+        "name": "sorties_rw",
+        "cmd": "ALL"
+      },
+      {
+        "name": "sorties_self_select",
+        "cmd": "SELECT"
+      }
+    ],
+    "for_all_policy": "sorties_rw",
+    "explicit_delete_policy": null
+  },
+  "expected": {
+    "covered": true
+  }
+}

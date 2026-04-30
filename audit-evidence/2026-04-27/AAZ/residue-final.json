@@ -1,0 +1,5 @@
+{
+  "capturedAt": "2026-04-24T21:20:14.020Z",
+  "source": "residue-scan.mjs (post all AAZ probes)",
+  "summaryText": "users: total=9\n  aud_sim=0 (test residue)\n  audit_test=0 (test residue)\n  aud_fix=0 (test residue)\n  aa2_probe=0 (test residue)\n  test_t171=0 (test residue)\n  real=9\nsquadrons: total=2 residue=0 real=2\nxpc_registry: total=1 residue=0\nusers table: total=0 residue=0\nReal users:\n  - cmd@99.rjaf.local role=admin tier=squadron\n  - ops@rjaf.rjaf.local role=ops tier=ops\n  - bilal@rjaf.rjaf.local role=admin tier=squadron\n  - ops@8.rjaf.local role=ops tier=ops\n  - flight1@8.rjaf.local role=undefined tier=undefined\n  - uh60mno8@8.rjaf.local role=admin tier=squadron\n  - radwan2@8.rjaf.local role=ops tier=ops\n  - pilot+p001@rjaf.local role=pilot tier=undefined\n  - radwan@8.rjaf.local role=ops tier=ops\nReal squadrons:\n  - NO.8 (#8, base=KING ABDULLAH II AIRBASE) id=9d2415b0-600a-44d2-8de9-12c64e53727c\n  - Test Squadron (#99, base=Test Base) id=d29fddd5-4858-4c96-b490-b63f27d2a60d\n"
+}

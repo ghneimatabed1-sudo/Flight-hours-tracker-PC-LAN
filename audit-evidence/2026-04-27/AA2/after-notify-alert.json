@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:09:38.949Z",
+  "slug": "notify-alert",
+  "meta": {
+    "verify_jwt": true,
+    "id": "7fcf113a-89a8-4d8c-b5d1-85fc2ff96d94",
+    "slug": "notify-alert",
+    "version": 3,
+    "name": "notify-alert",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_7fcf113a-89a8-4d8c-b5d1-85fc2ff96d94_3/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776706714121,
+    "updated_at": 1777061378561,
+    "ezbr_sha256": "35aa5b796c4aa8804a2ba6228c8f9a7f9aaf72a05e9be5cb5195f0c052dcba5c"
+  },
+  "body_sha256": "4f4bd9dbe51fafd552c8a5a5d6e032e62ba6215c41c3dd670081fd783f219262",
+  "body_size": 500016,
+  "source_sha256": "c980529251b00de0014a87b957a3a50cb3905bdc1379e64f5e78e2c39e0456b1",
+  "source_has_role_guard_marker": false,
+  "config_verify_jwt": true
+}

@@ -1,0 +1,12 @@
+{
+  "cell": "G3",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:34.033Z",
+  "note": "xpc_schedule_shares.origin_squadron_name updated by rename trigger",
+  "sh": [
+    {
+      "id": "TEST_T303_SHARE_G_1777081589318",
+      "origin_squadron_name": "TEST_T303_SQN_ALPHA_RENAMED"
+    }
+  ]
+}

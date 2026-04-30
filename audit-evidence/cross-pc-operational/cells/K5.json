@@ -1,0 +1,20 @@
+{
+  "cell": "K5",
+  "status": "PASS",
+  "note": "OK: SELECT+INSERT+UPDATE+DELETE all present",
+  "writtenAt": "2026-04-25T02:02:36.988Z",
+  "table": "xpc_pair_links",
+  "required": [
+    "SELECT",
+    "INSERT",
+    "UPDATE",
+    "DELETE"
+  ],
+  "present": {
+    "SELECT": 1,
+    "INSERT": 1,
+    "UPDATE": 1,
+    "DELETE": 1
+  },
+  "missing": []
+}

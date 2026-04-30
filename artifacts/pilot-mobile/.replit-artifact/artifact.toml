@@ -1,0 +1,26 @@
+kind = "mobile"
+previewPath = "/pilot-mobile/"
+title = "RJAF Pilot Logbook"
+version = "1.0.0"
+id = "artifacts/pilot-mobile"
+router = "expo-domain"
+
+[[integratedSkills]]
+name = "expo"
+version = "1.0.0"
+
+[[services]]
+name = "expo"
+paths = [ "/pilot-mobile/" ]
+localPort = 18428
+
+[services.development]
+run = "pnpm --filter @workspace/pilot-mobile run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/pilot-mobile", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/pilot-mobile", "run", "serve" ]
+
+[services.env]
+PORT = "18428"
+BASE_PATH = "/pilot-mobile/"

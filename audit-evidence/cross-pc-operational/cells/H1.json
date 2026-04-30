@@ -1,0 +1,12 @@
+{
+  "cell": "H1",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:35.613Z",
+  "note": "Heartbeat keeps PC active (age < 90s)",
+  "fresh": [
+    {
+      "id": "TEST_T303_PC_OPS_ALPHA",
+      "age_s": "1.467467"
+    }
+  ]
+}

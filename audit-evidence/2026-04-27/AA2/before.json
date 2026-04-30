@@ -1,0 +1,38 @@
+{
+  "capturedAt": "2026-04-24T20:06:42.139Z",
+  "projectRef": "nklrdhfsbevckovqqkah",
+  "meta": {
+    "verify_jwt": false,
+    "id": "ab6caf53-68ee-452e-82c6-55db89eda2c4",
+    "slug": "provision-commander",
+    "version": 4,
+    "name": "provision-commander",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_ab6caf53-68ee-452e-82c6-55db89eda2c4_1/source/supabase/functions/provision-commander/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776515973833,
+    "updated_at": 1776515973833,
+    "ezbr_sha256": "d1613313b6a677f855983756578fad32dcee8be7e17e78aeb013b54470e6a735"
+  },
+  "body_sha256": "e7b2b514b0dd3c301d60b63ef9c0f245d2f647500a790d27a6f04562117a80be",
+  "body_size": 227181,
+  "probe": [
+    {
+      "label": "no-auth",
+      "status": 200,
+      "snippet": "{\"ok\":true,\"userId\":\"b70255e6-2cd1-41ec-ac1b-5307323985d8\",\"supabaseEmail\":\"aa2-probe-noauth-should-never-exist@0.rjaf.local\",\"supabasePassword\":\"5ba1e2216388758c7767928a40db7a211ba5dcda2ff33edd\"}"
+    },
+    {
+      "label": "anon-bearer",
+      "status": 200,
+      "snippet": "{\"ok\":true,\"userId\":\"8e2f6335-c357-4b64-aef5-1adcdaf147ee\",\"supabaseEmail\":\"aa2-probe-anon-should-never-exist@0.rjaf.local\",\"supabasePassword\":\"75ea03bbc57b6b6aeb996738c354ca71ecf999b7a1377240\"}"
+    }
+  ],
+  "notes": [
+    "ezbr_sha256 in meta is Supabase's own deployment fingerprint.",
+    "body_sha256 is our independent SHA of the downloaded eszip.",
+    "Probe statuses: 200 = role guard missing (P-1 confirmed), 401/403 = guard present.",
+    "verify_jwt in meta should ideally be true; if false the runtime will not pre-validate the JWT."
+  ]
+}

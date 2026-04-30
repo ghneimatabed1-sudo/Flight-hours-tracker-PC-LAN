@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:08:17.635Z",
+  "slug": "provision-commander",
+  "meta": {
+    "verify_jwt": true,
+    "id": "ab6caf53-68ee-452e-82c6-55db89eda2c4",
+    "slug": "provision-commander",
+    "version": 5,
+    "name": "provision-commander",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_ab6caf53-68ee-452e-82c6-55db89eda2c4_5/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776515973833,
+    "updated_at": 1777061297208,
+    "ezbr_sha256": "247747e87fc61ea0f777eb9dfb10f642397ae147a231a1607347cfe8b0258ec3"
+  },
+  "body_sha256": "1a925ad515681913449c269d3f4d228306020d306ecb89473cf1c9dd3d57e9a8",
+  "body_size": 242589,
+  "source_sha256": "cd56ad029b18339a634f7d94be46fc8106de9d43c01c06c6ab6fa11dd6c2c866",
+  "source_has_role_guard_marker": true,
+  "config_verify_jwt": true
+}

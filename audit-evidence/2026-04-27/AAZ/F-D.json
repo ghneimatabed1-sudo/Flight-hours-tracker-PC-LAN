@@ -1,0 +1,75 @@
+{
+  "item": "F-D monthly_report_close immutability",
+  "ts": "2026-04-24T21:14:07.142Z",
+  "checks": [
+    {
+      "label": "table_exists",
+      "ok": true,
+      "rows": [
+        {
+          "exists": "monthly_report_close"
+        }
+      ]
+    },
+    {
+      "label": "rls_state",
+      "ok": true,
+      "rows": [
+        {
+          "rls": true,
+          "forced": false
+        }
+      ]
+    },
+    {
+      "label": "triggers",
+      "ok": true,
+      "rows": []
+    },
+    {
+      "label": "policies",
+      "ok": true,
+      "rows": [
+        {
+          "polname": "monthly_report_close_select",
+          "polcmd": "r",
+          "using_expr": "true",
+          "wc": null
+        }
+      ]
+    },
+    {
+      "label": "columns",
+      "ok": true,
+      "rows": [
+        {
+          "column_name": "squadron_id",
+          "data_type": "uuid"
+        },
+        {
+          "column_name": "year_month",
+          "data_type": "text"
+        },
+        {
+          "column_name": "closed_at",
+          "data_type": "timestamp with time zone"
+        },
+        {
+          "column_name": "closed_by",
+          "data_type": "uuid"
+        },
+        {
+          "column_name": "reason",
+          "data_type": "text"
+        }
+      ]
+    },
+    {
+      "label": "authenticated_insert_blocked",
+      "ok": true,
+      "rows": []
+    }
+  ],
+  "verdict": "PASS",
+  "notes": "Immutability is enforced passively: RLS enabled, only SELECT policy declared (no INSERT/UPDATE/DELETE policy). Authenticated callers cannot mutate; service-role mutates via direct path. Followup #286 will add explicit BEFORE-UPDATE trigger for defense-in-depth."
+}

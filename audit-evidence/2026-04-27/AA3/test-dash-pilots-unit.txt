@@ -1,0 +1,16 @@
+
+> @workspace/pilot-dashboard@1.1.109 test:dash-pilots /home/runner/workspace/artifacts/pilot-dashboard
+> TSX_TSCONFIG_PATH=$PWD/tests/tsconfig.json tsx --test --test-force-exit tests/dash-pilots-snapshot.test.ts
+
+✔ adaptSnapshotPilot echoes fully-populated hour fields and sums grandTotalHours (0.79349ms)
+✔ adaptSnapshotPilot falls through to 0 for pre-AA3 (sparse) payloads (0.22402ms)
+✔ adaptSnapshotPilot guards against non-finite (NaN/Infinity/junk) hour fields (0.16228ms)
+✔ adaptSnapshotPilot coerces null and undefined hour fields to 0 (0.12952ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 822.591643

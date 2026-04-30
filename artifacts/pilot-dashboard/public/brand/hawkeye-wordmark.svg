@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" width="720" height="180" role="img" aria-label="Hawk Eye">
+  <defs>
+    <linearGradient id="wm-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5d98a"/>
+      <stop offset="55%" stop-color="#d8b25a"/>
+      <stop offset="100%" stop-color="#8a6420"/>
+    </linearGradient>
+    <linearGradient id="wm-divider" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b88a2e" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#e6c97a" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#b88a2e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Logo glyph (compact, scaled-down version of the disc logo) -->
+  <g transform="translate(20,20) scale(0.55)">
+    <circle cx="128" cy="128" r="120" fill="#0a1220"/>
+    <circle cx="128" cy="128" r="119" fill="none" stroke="url(#wm-gold)" stroke-width="2.5" opacity="0.9"/>
+    <path d="M 38 102 Q 96 56 152 76 Q 196 92 222 110"
+          fill="none" stroke="url(#wm-gold)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M 40 142 Q 128 70 216 142 Q 128 196 40 142 Z"
+          fill="#0a1220" stroke="url(#wm-gold)" stroke-width="5"/>
+    <circle cx="128" cy="146" r="34" fill="#c9962f"/>
+    <circle cx="128" cy="146" r="14" fill="#0a0600"/>
+    <circle cx="123" cy="141" r="3.4" fill="#fff8e0" opacity="0.85"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(180,0)">
+    <text x="0" y="92"
+          font-family="Inter, 'Segoe UI', system-ui, sans-serif"
+          font-weight="700"
+          font-size="68"
+          letter-spacing="14"
+          fill="url(#wm-gold)">HAWK EYE</text>
+
+    <!-- Divider -->
+    <rect x="2" y="108" width="430" height="1.2" fill="url(#wm-divider)"/>
+
+    <!-- Tagline (English) -->
+    <text x="2" y="134"
+          font-family="Inter, 'Segoe UI', system-ui, sans-serif"
+          font-weight="500"
+          font-size="13"
+          letter-spacing="6"
+          fill="#e6c97a"
+          opacity="0.85">ROYAL JORDANIAN AIR FORCE  ·  SQUADRON OPS</text>
+
+    <!-- Tagline (Arabic) -->
+    <text x="2" y="158"
+          font-family="'Noto Naskh Arabic', 'Segoe UI', serif"
+          font-size="14"
+          fill="#e6c97a"
+          opacity="0.7">عين الصقر · سلاح الجو الملكي الأردني</text>
+  </g>
+</svg>

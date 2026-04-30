@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:09:33.622Z",
+  "slug": "register-license",
+  "meta": {
+    "verify_jwt": false,
+    "id": "0a4bba60-5f23-4765-86d6-0b723a70261a",
+    "slug": "register-license",
+    "version": 6,
+    "name": "register-license",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_0a4bba60-5f23-4765-86d6-0b723a70261a_6/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776515310518,
+    "updated_at": 1777061373192,
+    "ezbr_sha256": "1978d76a6c8d86d6416e596bae8adb680ac05fd074272df5bbead6493d8d6739"
+  },
+  "body_sha256": "f4c914feb9f16c37528824359dadce4685c80503ff7322582b798b05b8d48eeb",
+  "body_size": 240532,
+  "source_sha256": "e5f513d3bf9c1ee903f4baa9865ddf6b49d08ae4f8bf455a88a1d1819aef4d32",
+  "source_has_role_guard_marker": true,
+  "config_verify_jwt": false
+}

@@ -1,0 +1,11 @@
+{
+  "cell": "C4",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:23.280Z",
+  "note": "Same-squadron pilot sees alert",
+  "seePA": [
+    {
+      "id": "e622e5a3-2b9e-4206-97fe-9c04e62ebbdb"
+    }
+  ]
+}

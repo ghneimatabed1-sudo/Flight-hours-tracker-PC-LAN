@@ -1,0 +1,12 @@
+{
+  "cell": "A7",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:12.485Z",
+  "note": "Wing reject appends to rejected_by_pc_ids[]",
+  "rejRow": {
+    "status": "rejected",
+    "rejected_by_pc_ids": [
+      "TEST_T303_PC_WING_N"
+    ]
+  }
+}

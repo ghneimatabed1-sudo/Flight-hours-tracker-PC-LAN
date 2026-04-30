@@ -1,0 +1,195 @@
+name: Supabase Health Checks
+
+# CI guards that exercise the deployed Supabase project end-to-end so a
+# silent backend regression is caught before operators see it. Each
+# step here corresponds to a defect class that has bitten production
+# at least once and where the only existing safety net was "an
+# operator notices and files a bug".
+#
+# Triggers:
+#   - push to main         — every code/migration change is checked
+#   - manual dispatch      — re-run on demand without committing
+#   - daily schedule       — catches drift from out-of-band changes
+#                            (manual SQL edits, secret rotations, etc)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 03:17 UTC daily — outside the operator workday, after the
+    # nightly cron jobs in the Supabase project have settled.
+    - cron: "17 3 * * *"
+
+jobs:
+  super-admin-jwt-gate:
+    name: Super-admin JWT vs xpc_is_super_admin() gate
+    runs-on: ubuntu-latest
+    # The probe never mutates production data — it calls
+    # xpc_admin_create_pair with intentionally-invalid inputs that
+    # bail before any INSERT — so it is safe to run on every push.
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Check required secrets
+        id: preflight
+        env:
+          SUPABASE_URL:               ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY:          ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPER_ADMIN_PASSWORD:       ${{ secrets.SUPER_ADMIN_PASSWORD }}
+          SUPER_ADMIN_TOTP_SECRET:    ${{ secrets.SUPER_ADMIN_TOTP_SECRET }}
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ] && [ -n "$SUPER_ADMIN_PASSWORD" ] && [ -n "$SUPER_ADMIN_TOTP_SECRET" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip notice (missing secrets)
+        if: steps.preflight.outputs.ready != 'true'
+        run: |
+          echo "Skipping super-admin gate probe because required repository secrets are not configured."
+
+      - name: Run super-admin JWT-vs-gate probe
+        if: steps.preflight.outputs.ready == 'true'
+        # Task #290 — fails the build if the JWT minted by the
+        # `super-admin-2fa` edge function does not satisfy
+        # xpc_is_super_admin(). This is the regression class that
+        # produced the operator-reported "Reset failed: reset
+        # requires super_admin" defect (Task #289).
+        env:
+          SUPABASE_URL:               ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY:          ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPER_ADMIN_PASSWORD:       ${{ secrets.SUPER_ADMIN_PASSWORD }}
+          SUPER_ADMIN_TOTP_SECRET:    ${{ secrets.SUPER_ADMIN_TOTP_SECRET }}
+          SUPER_ADMIN_USERNAME:       ${{ secrets.SUPER_ADMIN_USERNAME }}
+        run: node scripts/src/check-super-admin-jwt-gate.mjs --require
+
+  provision-commander-jwt-gate:
+    name: provision-commander JWT vs commander RPC gate
+    runs-on: ubuntu-latest
+    # The probe (re)provisions a deterministic CI test commander via
+    # the deployed `provision-commander` edge function, then asserts
+    # the freshly-minted JWT passes the role gate of a representative
+    # commander RPC. The commander RPC raises BEFORE any INSERT, so
+    # the only persistent side effect is the audit_log row that
+    # `provision-commander` itself writes — exactly what a real
+    # dashboard call would do.
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Check required secrets
+        id: preflight
+        env:
+          SUPABASE_URL:                       ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY:                  ${{ secrets.SUPABASE_ANON_KEY }}
+          CI_PROVISION_CALLER_EMAIL:          ${{ secrets.CI_PROVISION_CALLER_EMAIL }}
+          CI_PROVISION_CALLER_PASSWORD:       ${{ secrets.CI_PROVISION_CALLER_PASSWORD }}
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ] && [ -n "$CI_PROVISION_CALLER_EMAIL" ] && [ -n "$CI_PROVISION_CALLER_PASSWORD" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip notice (missing secrets)
+        if: steps.preflight.outputs.ready != 'true'
+        run: |
+          echo "Skipping provision-commander gate probe because required repository secrets are not configured."
+
+      - name: Run provision-commander JWT-vs-gate probe
+        if: steps.preflight.outputs.ready == 'true'
+        # Task #293 — fails the build if the JWT minted by the
+        # `provision-commander` edge function does not satisfy a
+        # representative commander-only RPC. Catches the same defect
+        # class as Task #290 (super-admin) but for the commander /
+        # deputy / wing / base provisioning path.
+        env:
+          SUPABASE_URL:                       ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY:                  ${{ secrets.SUPABASE_ANON_KEY }}
+          CI_PROVISION_CALLER_EMAIL:          ${{ secrets.CI_PROVISION_CALLER_EMAIL }}
+          CI_PROVISION_CALLER_PASSWORD:       ${{ secrets.CI_PROVISION_CALLER_PASSWORD }}
+          CI_PROVISION_TEST_USERNAME:         ${{ secrets.CI_PROVISION_TEST_USERNAME }}
+          CI_PROVISION_TEST_SQUADRON_NUMBER:  ${{ secrets.CI_PROVISION_TEST_SQUADRON_NUMBER }}
+          CI_PROVISION_TEST_SQUADRON_NAME:    ${{ secrets.CI_PROVISION_TEST_SQUADRON_NAME }}
+        run: node scripts/src/check-provision-commander-jwt-gate.mjs --require
+
+  validate-license-jwt-gate:
+    name: validate-license output vs cached ops JWT
+    runs-on: ubuntu-latest
+    # The probe POSTs to `validate-license` with a CI test license
+    # key + matching fingerprint, signs in as the ops account paired
+    # with that license, and asserts the JWT's
+    # app_metadata.squadron_id matches the function's squadronId.
+    # Then it calls xpc_caller_squadron_ids() to confirm the JWT
+    # reaches the snapshot SELECT policy's helper. No writes —
+    # `validate-license` is a no-op against an already-bound license,
+    # and xpc_caller_squadron_ids() only reads the JWT.
+    #
+    # IMPORTANT: in --require mode (which this job uses) ALL of
+    # CI_LICENSE_KEY, CI_LICENSE_FINGERPRINT, CI_LICENSE_OPS_EMAIL
+    # and CI_LICENSE_OPS_PASSWORD are mandatory. The probe deliberately
+    # treats the ops creds as required in CI so a missing secret cannot
+    # silently downgrade the run to a function-shape smoke test and
+    # leave the JWT-vs-gate parity (the whole point of this guard)
+    # untested. If any of those secrets is removed, the build will
+    # fail loudly here — that is intended.
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Check required secrets
+        id: preflight
+        env:
+          SUPABASE_URL:                       ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY:                  ${{ secrets.SUPABASE_ANON_KEY }}
+          CI_LICENSE_KEY:                     ${{ secrets.CI_LICENSE_KEY }}
+          CI_LICENSE_FINGERPRINT:             ${{ secrets.CI_LICENSE_FINGERPRINT }}
+          CI_LICENSE_OPS_EMAIL:               ${{ secrets.CI_LICENSE_OPS_EMAIL }}
+          CI_LICENSE_OPS_PASSWORD:            ${{ secrets.CI_LICENSE_OPS_PASSWORD }}
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ] && [ -n "$CI_LICENSE_KEY" ] && [ -n "$CI_LICENSE_FINGERPRINT" ] && [ -n "$CI_LICENSE_OPS_EMAIL" ] && [ -n "$CI_LICENSE_OPS_PASSWORD" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip notice (missing secrets)
+        if: steps.preflight.outputs.ready != 'true'
+        run: |
+          echo "Skipping validate-license gate probe because required repository secrets are not configured."
+
+      - name: Run validate-license JWT-vs-gate probe
+        if: steps.preflight.outputs.ready == 'true'
+        # Task #293 — fails the build if `validate-license` returns a
+        # squadronId that drifts from the JWT every desktop client
+        # signs in with right after. That mismatch is invisible at
+        # the API layer (no error) but causes every operational read
+        # to silently filter to zero rows in production.
+        env:
+          SUPABASE_URL:                       ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY:                  ${{ secrets.SUPABASE_ANON_KEY }}
+          CI_LICENSE_KEY:                     ${{ secrets.CI_LICENSE_KEY }}
+          CI_LICENSE_FINGERPRINT:             ${{ secrets.CI_LICENSE_FINGERPRINT }}
+          CI_LICENSE_EXPECTED_SQUADRON_ID:    ${{ secrets.CI_LICENSE_EXPECTED_SQUADRON_ID }}
+          CI_LICENSE_OPS_EMAIL:               ${{ secrets.CI_LICENSE_OPS_EMAIL }}
+          CI_LICENSE_OPS_PASSWORD:            ${{ secrets.CI_LICENSE_OPS_PASSWORD }}
+        run: node scripts/src/check-validate-license-jwt-gate.mjs --require

@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:11:45.660Z",
+  "slug": "heal-claims",
+  "meta": {
+    "verify_jwt": true,
+    "id": "708d73b0-d216-4fa5-95f0-d77a0f7b11f2",
+    "slug": "heal-claims",
+    "version": 1,
+    "name": "heal-claims",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_708d73b0-d216-4fa5-95f0-d77a0f7b11f2_1/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1777061505163,
+    "updated_at": 1777061505163,
+    "ezbr_sha256": "d1f39b9f35d7cea35cdc07127b3aa06901d4119faed64fe024bc38d8297ccc1c"
+  },
+  "body_sha256": "d950300e347b62a7ec6da214d506606b4af3c371f42eb612ceb46ef728f58451",
+  "body_size": 553086,
+  "source_sha256": "64b2fcb45b2d49a930777c830e504e23b500301e86efe3b2ba3827aa9abb9a8d",
+  "source_has_role_guard_marker": false,
+  "config_verify_jwt": true
+}

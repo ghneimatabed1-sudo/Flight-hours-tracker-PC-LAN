@@ -1,0 +1,32 @@
+{
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "preinstall": "node ./scripts/preinstall.mjs",
+    "build": "pnpm run typecheck && pnpm -r --if-present run build",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
+    "check:migration-prefixes": "node scripts/src/check-migration-prefixes.mjs",
+    "check:super-admin-jwt-gate": "node scripts/src/check-super-admin-jwt-gate.mjs",
+    "lan:host:start": "powershell -ExecutionPolicy Bypass -File ./scripts/lan-host/start-api-host.ps1",
+    "lan:host:setup-env": "powershell -ExecutionPolicy Bypass -File ./scripts/lan-host/setup-api-lan-env.ps1",
+    "lan:host:preflight": "powershell -ExecutionPolicy Bypass -File ./scripts/lan-host/verify-host-prereqs.ps1",
+    "lan:host:health": "powershell -ExecutionPolicy Bypass -File ./scripts/lan-host/check-host-health.ps1",
+    "lan:host:backup": "powershell -ExecutionPolicy Bypass -File ./scripts/lan-host/backup-postgres.ps1",
+    "lan:host:restore": "powershell -ExecutionPolicy Bypass -File ./scripts/lan-host/restore-postgres.ps1",
+    "lan:host:install-startup-task": "powershell -ExecutionPolicy Bypass -File ./scripts/lan-host/install-api-startup-task.ps1",
+    "lan:host:install-backup-task": "powershell -ExecutionPolicy Bypass -File ./scripts/lan-host/install-backup-task.ps1",
+    "lan:client:setup-env": "powershell -ExecutionPolicy Bypass -File ./scripts/lan-host/setup-dashboard-lan-env.ps1",
+    "lan:pilot:verify": "pnpm run typecheck && pnpm --filter @workspace/api-server run build && pnpm --filter @workspace/pilot-dashboard run test"
+  },
+  "private": true,
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "tsx": "catalog:",
+    "typescript": "~5.9.2"
+  },
+  "dependencies": {
+    "libsodium-wrappers": "^0.8.3"
+  }
+}

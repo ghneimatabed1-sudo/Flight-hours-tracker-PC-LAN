@@ -1,0 +1,19 @@
+{
+  "cell": "R6",
+  "name": "Closed-month immutability: UPDATE and DELETE blocked while month closed",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:25:41.243Z",
+  "note": "",
+  "method": "Close the month for the target sortie via monthly_report_close_close, then attempt UPDATE and DELETE. Both must error. Reopen for cleanup.",
+  "observed": {
+    "target_sortie_id": "dffae2d3-ef69-4aad-81f1-e47c219418fd",
+    "year": 2026,
+    "month": 2,
+    "update_error": "SQL 400: {\"message\":\"Failed to run sql query: ERROR:  P0001: Cannot modify sortie — month is closed for this squadron. Re-open via super_admin only.\\nCONTEXT:  PL/pgSQL function _sortie_closed_month_guard() line 30 at RAISE\\n\"}",
+    "delete_error": "SQL 400: {\"message\":\"Failed to run sql query: ERROR:  P0001: Cannot delete sortie dated 2026-02-24  — month 2026-02 is closed for this squadron. Re-open via super_admin only.\\nCONTEXT:  PL/pgSQL function _sortie_closed_month_guard() line 37 at RAISE\\n\"}"
+  },
+  "expected": {
+    "update_error_present": true,
+    "delete_error_present": true
+  }
+}

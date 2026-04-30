@@ -1,0 +1,1150 @@
+{
+  "ts": "2026-04-24T21:30:49.983Z",
+  "run": "aaz_rolewalk_modfd24f",
+  "roles": [
+    {
+      "role": "super_admin",
+      "app_metadata": {
+        "role": "super_admin",
+        "tier": "hq"
+      },
+      "jwt_payload": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "super_admin",
+        "tier": "hq"
+      },
+      "probes": {
+        "xpc_squadron_snapshot": {
+          "status": 200,
+          "rows": 3,
+          "content_range": "0-2/3",
+          "error": null
+        },
+        "xpc_pending": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_outbox": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_messages": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log_archive": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "monthly_report_close": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "runtime_errors": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "sorties": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "pilots": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "squadrons": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "license_registry": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "users": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_registry": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_user_pcs": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        }
+      },
+      "failed_probes": [],
+      "verdict": "PASS"
+    },
+    {
+      "role": "admin",
+      "app_metadata": {
+        "role": "admin",
+        "tier": "squadron"
+      },
+      "jwt_payload": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "admin",
+        "tier": "squadron"
+      },
+      "probes": {
+        "xpc_squadron_snapshot": {
+          "status": 200,
+          "rows": 3,
+          "content_range": "0-2/3",
+          "error": null
+        },
+        "xpc_pending": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_outbox": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_messages": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log_archive": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "monthly_report_close": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "runtime_errors": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "sorties": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "pilots": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "squadrons": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "license_registry": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "users": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_registry": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_user_pcs": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        }
+      },
+      "failed_probes": [],
+      "verdict": "PASS"
+    },
+    {
+      "role": "hq_commander",
+      "app_metadata": {
+        "role": "commander",
+        "tier": "hq",
+        "squadron_ids": [
+          "NO.8"
+        ]
+      },
+      "jwt_payload": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "commander",
+        "squadron_ids": [
+          "NO.8"
+        ],
+        "tier": "hq"
+      },
+      "probes": {
+        "xpc_squadron_snapshot": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_pending": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_outbox": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_messages": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log_archive": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "monthly_report_close": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "runtime_errors": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "sorties": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "pilots": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "squadrons": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "license_registry": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "users": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_registry": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_user_pcs": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        }
+      },
+      "failed_probes": [],
+      "verdict": "PASS"
+    },
+    {
+      "role": "base_commander",
+      "app_metadata": {
+        "role": "commander",
+        "tier": "base",
+        "squadron_ids": [
+          "NO.8"
+        ]
+      },
+      "jwt_payload": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "commander",
+        "squadron_ids": [
+          "NO.8"
+        ],
+        "tier": "base"
+      },
+      "probes": {
+        "xpc_squadron_snapshot": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_pending": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_outbox": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_messages": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log_archive": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "monthly_report_close": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "runtime_errors": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "sorties": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "pilots": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "squadrons": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "license_registry": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "users": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_registry": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_user_pcs": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        }
+      },
+      "failed_probes": [],
+      "verdict": "PASS"
+    },
+    {
+      "role": "wing_commander",
+      "app_metadata": {
+        "role": "commander",
+        "tier": "wing",
+        "squadron_ids": [
+          "NO.8"
+        ]
+      },
+      "jwt_payload": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "commander",
+        "squadron_ids": [
+          "NO.8"
+        ],
+        "tier": "wing"
+      },
+      "probes": {
+        "xpc_squadron_snapshot": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_pending": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_outbox": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_messages": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log_archive": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "monthly_report_close": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "runtime_errors": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "sorties": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "pilots": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "squadrons": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "license_registry": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "users": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_registry": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_user_pcs": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        }
+      },
+      "failed_probes": [],
+      "verdict": "PASS"
+    },
+    {
+      "role": "squadron_commander",
+      "app_metadata": {
+        "role": "commander",
+        "tier": "squadron",
+        "squadron_ids": [
+          "NO.8"
+        ],
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "jwt_payload": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "commander",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "squadron_ids": [
+          "NO.8"
+        ],
+        "tier": "squadron"
+      },
+      "probes": {
+        "xpc_squadron_snapshot": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_pending": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_outbox": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_messages": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log": {
+          "status": 206,
+          "rows": 5,
+          "content_range": "0-4/83",
+          "error": null
+        },
+        "audit_log_archive": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "monthly_report_close": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "runtime_errors": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "sorties": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "pilots": {
+          "status": 200,
+          "rows": 2,
+          "content_range": "0-1/2",
+          "error": null
+        },
+        "squadrons": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "license_registry": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "users": {
+          "status": 200,
+          "rows": 4,
+          "content_range": "0-3/4",
+          "error": null
+        },
+        "xpc_registry": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_user_pcs": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        }
+      },
+      "failed_probes": [],
+      "verdict": "PASS"
+    },
+    {
+      "role": "flight_commander",
+      "app_metadata": {
+        "role": "commander",
+        "tier": "flight",
+        "squadron_ids": [
+          "NO.8"
+        ],
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "jwt_payload": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "commander",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "squadron_ids": [
+          "NO.8"
+        ],
+        "tier": "flight"
+      },
+      "probes": {
+        "xpc_squadron_snapshot": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_pending": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_outbox": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_messages": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log": {
+          "status": 206,
+          "rows": 5,
+          "content_range": "0-4/83",
+          "error": null
+        },
+        "audit_log_archive": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "monthly_report_close": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "runtime_errors": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "sorties": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "pilots": {
+          "status": 200,
+          "rows": 2,
+          "content_range": "0-1/2",
+          "error": null
+        },
+        "squadrons": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "license_registry": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "users": {
+          "status": 200,
+          "rows": 4,
+          "content_range": "0-3/4",
+          "error": null
+        },
+        "xpc_registry": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_user_pcs": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        }
+      },
+      "failed_probes": [],
+      "verdict": "PASS"
+    },
+    {
+      "role": "deputy",
+      "app_metadata": {
+        "role": "deputy",
+        "tier": "squadron",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "jwt_payload": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "deputy",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "tier": "squadron"
+      },
+      "probes": {
+        "xpc_squadron_snapshot": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_pending": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_outbox": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_messages": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log": {
+          "status": 206,
+          "rows": 5,
+          "content_range": "0-4/83",
+          "error": null
+        },
+        "audit_log_archive": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "monthly_report_close": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "runtime_errors": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "sorties": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "pilots": {
+          "status": 200,
+          "rows": 2,
+          "content_range": "0-1/2",
+          "error": null
+        },
+        "squadrons": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "license_registry": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "users": {
+          "status": 200,
+          "rows": 4,
+          "content_range": "0-3/4",
+          "error": null
+        },
+        "xpc_registry": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_user_pcs": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        }
+      },
+      "failed_probes": [],
+      "verdict": "PASS"
+    },
+    {
+      "role": "ops",
+      "app_metadata": {
+        "role": "ops",
+        "tier": "ops",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "jwt_payload": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "ops",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "tier": "ops"
+      },
+      "probes": {
+        "xpc_squadron_snapshot": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_pending": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_outbox": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_messages": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log": {
+          "status": 206,
+          "rows": 5,
+          "content_range": "0-4/83",
+          "error": null
+        },
+        "audit_log_archive": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "monthly_report_close": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "runtime_errors": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "sorties": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "pilots": {
+          "status": 200,
+          "rows": 2,
+          "content_range": "0-1/2",
+          "error": null
+        },
+        "squadrons": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "license_registry": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "users": {
+          "status": 200,
+          "rows": 4,
+          "content_range": "0-3/4",
+          "error": null
+        },
+        "xpc_registry": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_user_pcs": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        }
+      },
+      "failed_probes": [],
+      "verdict": "PASS"
+    },
+    {
+      "role": "pilot",
+      "app_metadata": {
+        "role": "pilot",
+        "tier": "squadron",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      },
+      "jwt_payload": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "pilot",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "tier": "squadron"
+      },
+      "probes": {
+        "xpc_squadron_snapshot": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_pending": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_outbox": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "xpc_messages": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "audit_log": {
+          "status": 206,
+          "rows": 5,
+          "content_range": "0-4/83",
+          "error": null
+        },
+        "audit_log_archive": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "monthly_report_close": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "runtime_errors": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "sorties": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "pilots": {
+          "status": 200,
+          "rows": 2,
+          "content_range": "0-1/2",
+          "error": null
+        },
+        "squadrons": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "license_registry": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        },
+        "users": {
+          "status": 200,
+          "rows": 4,
+          "content_range": "0-3/4",
+          "error": null
+        },
+        "xpc_registry": {
+          "status": 200,
+          "rows": 1,
+          "content_range": "0-0/1",
+          "error": null
+        },
+        "xpc_user_pcs": {
+          "status": 200,
+          "rows": 0,
+          "content_range": "*/0",
+          "error": null
+        }
+      },
+      "failed_probes": [],
+      "verdict": "PASS"
+    }
+  ],
+  "teardown": {
+    "77dea655-6aed-4c81-b0f4-a5a0f18a11a7": "deleted",
+    "b3198305-09c8-44c5-88e0-415ab0b58d15": "deleted",
+    "beb7fedf-7faf-446f-9f8a-bd2f3593f4cc": "deleted",
+    "1d24973e-d3cf-46a0-8da8-657b881910f7": "deleted",
+    "3b7bdbe3-5e80-44ab-9887-0b06e56b635f": "deleted",
+    "ddcfe7af-6eef-4620-8f24-c6ad18154bb2": "deleted",
+    "3a9cca8a-502b-463c-9a14-d2a78c188602": "deleted",
+    "69ae30a9-424b-4338-acf9-b600a1246230": "deleted",
+    "4582556a-55f7-48cb-b14d-a421993fab74": "deleted",
+    "5bb7a3c1-6980-4a8b-b2bf-e37a3f87d87e": "deleted"
+  },
+  "verdict": "PASS",
+  "summary": "10/10 roles clean (no 500s)"
+}

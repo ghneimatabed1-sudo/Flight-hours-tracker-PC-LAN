@@ -1,0 +1,15 @@
+{
+  "cell": "O2",
+  "name": "Sortie UPDATE propagates to peer PCs (read-back matches new value)",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:30:29.630Z",
+  "note": "",
+  "method": "Update ac_number on PC-A's sortie. PC-B's read query must return the new value.",
+  "observed": {
+    "id": "1262b4ba-087d-4089-9225-92bcd16a0853",
+    "ac_number_observed": "T303-S-O2-UPDATED"
+  },
+  "expected": {
+    "ac_number": "T303-S-O2-UPDATED"
+  }
+}

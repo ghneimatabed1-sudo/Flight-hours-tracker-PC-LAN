@@ -1,0 +1,13 @@
+{
+  "run": "T303_S",
+  "residue_by_table": {
+    "wings": 0,
+    "bases": 0,
+    "squadrons": 0,
+    "pilots": 0,
+    "sorties": 0,
+    "xpc_registry": 0
+  },
+  "total_residue": 0,
+  "run_at": "2026-04-25T02:29:18.600Z"
+}

@@ -1,0 +1,760 @@
+{
+  "capturedAt": "2026-04-24T20:49:39.151Z",
+  "userBuckets": {
+    "total": 9,
+    "audSim": 0,
+    "auditTest": 0,
+    "audFix": 0,
+    "aa2Probe": 0,
+    "testT171": 0,
+    "real": 9
+  },
+  "audSimUsers": [],
+  "auditTestUsers": [],
+  "audFixUsers": [],
+  "aa2ProbeUsers": [],
+  "testT171Users": [],
+  "realUsers": [
+    {
+      "id": "404ed906-9235-4f85-9c7d-e90568e92a2b",
+      "email": "cmd@99.rjaf.local",
+      "app_metadata": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "admin",
+        "squadron_id": "d29fddd5-4858-4c96-b490-b63f27d2a60d",
+        "squadron_number": "99",
+        "tier": "squadron"
+      }
+    },
+    {
+      "id": "a040dee8-408c-4721-9e27-a8cb23263fba",
+      "email": "ops@rjaf.rjaf.local",
+      "app_metadata": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "ops",
+        "tier": "ops"
+      }
+    },
+    {
+      "id": "1087e6d6-e042-4479-9435-d43657d879ba",
+      "email": "bilal@rjaf.rjaf.local",
+      "app_metadata": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "admin",
+        "tier": "squadron"
+      }
+    },
+    {
+      "id": "1d3785a2-f64c-4968-92ed-87e58fc0f866",
+      "email": "ops@8.rjaf.local",
+      "app_metadata": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "ops",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "squadron_number": "8",
+        "tier": "ops"
+      }
+    },
+    {
+      "id": "873160dd-6333-4b96-a393-9dacc7fa9d5a",
+      "email": "flight1@8.rjaf.local",
+      "app_metadata": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ]
+      }
+    },
+    {
+      "id": "c10ac765-6726-4517-ae57-c45aed566a2f",
+      "email": "uh60mno8@8.rjaf.local",
+      "app_metadata": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "admin",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "squadron_number": "8",
+        "tier": "squadron"
+      }
+    },
+    {
+      "id": "7186e654-6c44-4ce0-9413-c1504049c97f",
+      "email": "radwan2@8.rjaf.local",
+      "app_metadata": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "ops",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "squadron_number": "8",
+        "tier": "ops"
+      }
+    },
+    {
+      "id": "2fd000c8-faff-411e-ace1-bbb93462e026",
+      "email": "pilot+p001@rjaf.local",
+      "app_metadata": {
+        "pilot_id": "P001",
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "pilot",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      }
+    },
+    {
+      "id": "d63160f4-0fc2-44b9-b8f3-f3ae01730b66",
+      "email": "radwan@8.rjaf.local",
+      "app_metadata": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "ops",
+        "squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "squadron_number": "8",
+        "tier": "ops"
+      }
+    }
+  ],
+  "squadrons": {
+    "total": 2,
+    "residue": [],
+    "real": [
+      {
+        "id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "name": "NO.8",
+        "number": "8",
+        "base": "KING ABDULLAH II AIRBASE"
+      },
+      {
+        "id": "d29fddd5-4858-4c96-b490-b63f27d2a60d",
+        "name": "Test Squadron",
+        "number": "99",
+        "base": "Test Base"
+      }
+    ]
+  },
+  "xpcRegistry": {
+    "total": 1,
+    "residue": []
+  },
+  "usersTable": {
+    "total": 0,
+    "residue": []
+  },
+  "recentAuditLog": [
+    {
+      "id": 993,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "a4acfa33-6297-4bb1-a598-e90b0b5c30e2",
+      "occurred_at": "2026-04-24T19:11:31.968127+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "column": "to_pc_id",
+        "from_pc_id": "AUD_FIX_P_PC_OPS_BRAVO",
+        "message_id": "AUD_FIX_P_MSG_B2A_1777057889196"
+      }
+    },
+    {
+      "id": 992,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "a4acfa33-6297-4bb1-a598-e90b0b5c30e2",
+      "occurred_at": "2026-04-24T19:11:31.968127+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_BRAVO",
+        "column": "from_pc_id",
+        "to_pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "message_id": "AUD_FIX_P_MSG_B2A_1777057889196"
+      }
+    },
+    {
+      "id": 990,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "654d617f-6ca6-4a11-98b6-6471ed8f5029",
+      "occurred_at": "2026-04-24T19:11:31.318676+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "column": "from_pc_id",
+        "to_pc_id": "AUD_FIX_P_PC_OPS_CHARLIE",
+        "message_id": "AUD_FIX_P_MSG_A2C_1777057889196"
+      }
+    },
+    {
+      "id": 991,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "654d617f-6ca6-4a11-98b6-6471ed8f5029",
+      "occurred_at": "2026-04-24T19:11:31.318676+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_CHARLIE",
+        "column": "to_pc_id",
+        "from_pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "message_id": "AUD_FIX_P_MSG_A2C_1777057889196"
+      }
+    },
+    {
+      "id": 988,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "654d617f-6ca6-4a11-98b6-6471ed8f5029",
+      "occurred_at": "2026-04-24T19:11:31.034409+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "column": "from_pc_id",
+        "to_pc_id": "AUD_FIX_P_PC_OPS_BRAVO",
+        "message_id": "AUD_FIX_P_MSG_A2B_1777057889196"
+      }
+    },
+    {
+      "id": 989,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "654d617f-6ca6-4a11-98b6-6471ed8f5029",
+      "occurred_at": "2026-04-24T19:11:31.034409+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_BRAVO",
+        "column": "to_pc_id",
+        "from_pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "message_id": "AUD_FIX_P_MSG_A2B_1777057889196"
+      }
+    },
+    {
+      "id": 981,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "79c10b5b-46f3-4058-a89e-e721749721ee",
+      "occurred_at": "2026-04-24T19:02:40.046933+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "column": "to_pc_id",
+        "from_pc_id": "AUD_FIX_P_PC_OPS_BRAVO",
+        "message_id": "AUD_FIX_P_MSG_B2A_1777057357013"
+      }
+    },
+    {
+      "id": 980,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "79c10b5b-46f3-4058-a89e-e721749721ee",
+      "occurred_at": "2026-04-24T19:02:40.046933+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_BRAVO",
+        "column": "from_pc_id",
+        "to_pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "message_id": "AUD_FIX_P_MSG_B2A_1777057357013"
+      }
+    },
+    {
+      "id": 979,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "4fa32213-1a5b-4292-bdc0-b65444852aa7",
+      "occurred_at": "2026-04-24T19:02:39.250659+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_CHARLIE",
+        "column": "to_pc_id",
+        "from_pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "message_id": "AUD_FIX_P_MSG_A2C_1777057357013"
+      }
+    },
+    {
+      "id": 978,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "4fa32213-1a5b-4292-bdc0-b65444852aa7",
+      "occurred_at": "2026-04-24T19:02:39.250659+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "column": "from_pc_id",
+        "to_pc_id": "AUD_FIX_P_PC_OPS_CHARLIE",
+        "message_id": "AUD_FIX_P_MSG_A2C_1777057357013"
+      }
+    },
+    {
+      "id": 977,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "4fa32213-1a5b-4292-bdc0-b65444852aa7",
+      "occurred_at": "2026-04-24T19:02:38.988134+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_BRAVO",
+        "column": "to_pc_id",
+        "from_pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "message_id": "AUD_FIX_P_MSG_A2B_1777057357013"
+      }
+    },
+    {
+      "id": 976,
+      "type": "xpc.message.autoclaim_blocked",
+      "action": "xpc.message.autoclaim_blocked",
+      "actor": "4fa32213-1a5b-4292-bdc0-b65444852aa7",
+      "occurred_at": "2026-04-24T19:02:38.988134+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "AUD_FIX_P_PC_OPS_ALPHA",
+        "column": "from_pc_id",
+        "to_pc_id": "AUD_FIX_P_PC_OPS_BRAVO",
+        "message_id": "AUD_FIX_P_MSG_A2B_1777057357013"
+      }
+    },
+    {
+      "id": 969,
+      "type": "ops.runtime_errors.digest",
+      "action": "ops.runtime_errors.digest",
+      "actor": "system.cron",
+      "occurred_at": "2026-04-24T18:53:42.644962+00:00",
+      "detail": {
+        "count": 1,
+        "by_app": {
+          "dashboard": 1
+        },
+        "window": "24h",
+        "by_name": {
+          "TestError": 1
+        },
+        "top_messages": [
+          {
+            "count": 1,
+            "message": "Synthetic test error from task-265 drill",
+            "last_seen": "2026-04-24T18:53:39.667506+00:00"
+          }
+        ]
+      }
+    },
+    {
+      "id": 968,
+      "type": "ops.audit_log.size",
+      "action": "ops.audit_log.size",
+      "actor": "system.cron",
+      "occurred_at": "2026-04-24T18:53:20.628888+00:00",
+      "detail": {
+        "rows": 193,
+        "bytes": 180224,
+        "thresholds": {
+          "rows": 5000000,
+          "bytes": 2147483648
+        }
+      }
+    },
+    {
+      "id": 716,
+      "type": "super_admin.2fa.verified",
+      "action": "super_admin.2fa.verified",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T13:01:51.468203+00:00",
+      "detail": {}
+    },
+    {
+      "id": 709,
+      "type": "super_admin.2fa.verified",
+      "action": "super_admin.2fa.verified",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T12:58:22.852518+00:00",
+      "detail": {}
+    },
+    {
+      "id": 701,
+      "type": "super_admin.2fa.verified",
+      "action": "super_admin.2fa.verified",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T12:56:25.856991+00:00",
+      "detail": {}
+    },
+    {
+      "id": 697,
+      "type": "super_admin.2fa.verified",
+      "action": "super_admin.2fa.verified",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T12:56:07.704316+00:00",
+      "detail": {}
+    },
+    {
+      "id": 694,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:53:15.841608+00:00",
+      "detail": {
+        "op": "UPDATE",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 693,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:53:15.841608+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 692,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:53:03.056292+00:00",
+      "detail": {
+        "op": "UPDATE",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 691,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:53:03.056292+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 690,
+      "type": "login.ok",
+      "action": "login.ok",
+      "actor": "task29-preview-test",
+      "occurred_at": "2026-04-24T12:52:55.079+00:00",
+      "detail": {}
+    },
+    {
+      "id": 689,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:49:37.93444+00:00",
+      "detail": {
+        "op": "UPDATE",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 688,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:49:37.93444+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 686,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:49:18.431756+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 687,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:49:18.431756+00:00",
+      "detail": {
+        "op": "UPDATE",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 685,
+      "type": "login.ok",
+      "action": "login.ok",
+      "actor": "task29-preview-test",
+      "occurred_at": "2026-04-24T12:49:12.339+00:00",
+      "detail": {}
+    },
+    {
+      "id": 683,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:45:09.822459+00:00",
+      "detail": {
+        "op": "UPDATE",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 682,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:45:09.822459+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 680,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:44:52.655321+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 681,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:44:52.655321+00:00",
+      "detail": {
+        "op": "UPDATE",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 679,
+      "type": "login.ok",
+      "action": "login.ok",
+      "actor": "task29-preview-test",
+      "occurred_at": "2026-04-24T12:44:46.636+00:00",
+      "detail": {}
+    },
+    {
+      "id": 677,
+      "type": "super_admin.2fa.verified",
+      "action": "super_admin.2fa.verified",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T12:44:02.347091+00:00",
+      "detail": {}
+    },
+    {
+      "id": 674,
+      "type": "super_admin.2fa.verified",
+      "action": "super_admin.2fa.verified",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T12:42:57.793899+00:00",
+      "detail": {}
+    },
+    {
+      "id": 669,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:41:54.952249+00:00",
+      "detail": {
+        "op": "INSERT",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 670,
+      "type": "xpc.snapshot.autoclaim_blocked",
+      "action": "xpc.snapshot.autoclaim_blocked",
+      "actor": "b64dcbe6-7b22-4e1e-ac43-4dbc574bafbf",
+      "occurred_at": "2026-04-24T12:41:54.952249+00:00",
+      "detail": {
+        "op": "UPDATE",
+        "pc_id": "NO.8 SQDN",
+        "column": "ops_pc_id",
+        "squadron_id": "NO.8 SQDN"
+      }
+    },
+    {
+      "id": 668,
+      "type": "login.ok",
+      "action": "login.ok",
+      "actor": "task29-preview-test",
+      "occurred_at": "2026-04-24T12:41:48.347+00:00",
+      "detail": {}
+    },
+    {
+      "id": 663,
+      "type": "super_admin.2fa.verified",
+      "action": "super_admin.2fa.verified",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T12:38:20.837055+00:00",
+      "detail": {}
+    },
+    {
+      "id": 658,
+      "type": "supabase.creds.resynced",
+      "action": "supabase.creds.resynced",
+      "actor": "cmd",
+      "occurred_at": "2026-04-24T12:33:29.294+00:00",
+      "detail": {
+        "trigger": "startup"
+      }
+    },
+    {
+      "id": 657,
+      "type": "user.provision",
+      "action": "user.provision",
+      "actor": "cmd",
+      "occurred_at": "2026-04-24T12:33:28.749228+00:00",
+      "detail": {
+        "role": "admin",
+        "tier": "squadron",
+        "squadronNumber": "99"
+      }
+    },
+    {
+      "id": 654,
+      "type": "super_admin.2fa.verified",
+      "action": "super_admin.2fa.verified",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T12:31:02.508435+00:00",
+      "detail": {}
+    },
+    {
+      "id": 644,
+      "type": "xpc.user_pcs.backfill_purge",
+      "action": "xpc.user_pcs.backfill_purge",
+      "actor": "migration-0051",
+      "occurred_at": "2026-04-24T12:22:59.271469+00:00",
+      "detail": {
+        "reason": "task-191-autoclaim-no-recipient-grant",
+        "removed": 5
+      }
+    },
+    {
+      "id": 634,
+      "type": "super_admin.2fa.recovery_regenerated",
+      "action": "super_admin.2fa.recovery_regenerated",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T11:34:29.506141+00:00",
+      "detail": {
+        "count": 10
+      }
+    },
+    {
+      "id": 633,
+      "type": "super_admin.2fa.recovery_regenerated",
+      "action": "super_admin.2fa.recovery_regenerated",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T11:33:25.449463+00:00",
+      "detail": {
+        "count": 10
+      }
+    },
+    {
+      "id": 632,
+      "type": "reminders.run_now",
+      "action": "reminders.run_now",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T11:33:20.632722+00:00",
+      "detail": {
+        "sent": 0,
+        "error": null,
+        "failed": 0,
+        "candidates": 0,
+        "httpStatus": 200
+      }
+    },
+    {
+      "id": 629,
+      "type": "super_admin.2fa.verified",
+      "action": "super_admin.2fa.verified",
+      "actor": "admin",
+      "occurred_at": "2026-04-24T11:31:28.114992+00:00",
+      "detail": {}
+    },
+    {
+      "id": 628,
+      "type": "user.provision",
+      "action": "user.provision",
+      "actor": "test_t156_provisioned_cmdr",
+      "occurred_at": "2026-04-24T10:27:09.201186+00:00",
+      "detail": {
+        "role": "admin",
+        "tier": "squadron",
+        "squadronNumber": null
+      }
+    },
+    {
+      "id": 627,
+      "type": "user.provision",
+      "action": "user.provision",
+      "actor": "test_t156_provisioned_cmdr",
+      "occurred_at": "2026-04-24T10:23:17.897098+00:00",
+      "detail": {
+        "role": "admin",
+        "tier": "squadron",
+        "squadronNumber": null
+      }
+    },
+    {
+      "id": 625,
+      "type": "user.provision",
+      "action": "user.provision",
+      "actor": "test_t156_provisioned_cmdr",
+      "occurred_at": "2026-04-24T10:05:36.912417+00:00",
+      "detail": {
+        "role": "admin",
+        "tier": "squadron",
+        "squadronNumber": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "cell": "R1",
+  "name": "Sortie DELETE → 30-day currency recompute (cross-PC visibility via polling)",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:25:23.257Z",
+  "note": "",
+  "method": "PC-A deletes a sortie inside the 30-day window. The same SELECT (which is what PC-B's polling fetch runs every 30s) shows the count drop by exactly 1. Realtime is not in the publication so propagation is bounded by the polling cadence (30s) — verified separately in P5.",
+  "observed": {
+    "count_before": 4,
+    "count_after": 3,
+    "deleted_sortie_id": "a58daa08-a04b-46e8-a0f5-bfdfe496d9d5",
+    "deleted_dOff_days": 5
+  },
+  "expected": {
+    "count_after": 3
+  }
+}

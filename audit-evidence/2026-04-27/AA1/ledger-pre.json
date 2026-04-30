@@ -1,0 +1,7 @@
+Captured at: 2026-04-24T20:06:05Z
+
+Query: ledger rows where filename matches ^006[0-3]_ or ^0056_
+[{"filename":"0056_audit_log_archive.sql","applied_by":"task-265","applied_at":"2026-04-24 18:51:55.561757+00","sha256":"c8e19149b1c5135f6c176ef2af95a39aa392b02de3e0c2fd54c76602c1924e07"},{"filename":"0056_schedchain_align_current_tier.sql","applied_by":"manual-task-262","applied_at":"2026-04-24 18:49:59.443738+00","sha256":"92d8601d56c52ac99b655a0e7c06ebc3935ff280618f28fb428c5f8631514dbf"},{"filename":"0060_schema_drift_check.sql","applied_by":"task-265","applied_at":"2026-04-24 18:52:06.297203+00","sha256":"1672c6204b28e5e69d676046762ec2cf6b379341631994897c543212e62d3750"}]
+
+Query: assert public.migration_ledger does NOT exist (typo target)
+[{"t":null}]

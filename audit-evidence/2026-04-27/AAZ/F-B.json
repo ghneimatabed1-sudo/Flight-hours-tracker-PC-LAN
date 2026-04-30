@@ -1,0 +1,83 @@
+{
+  "item": "F-B audit log retention",
+  "ts": "2026-04-24T21:13:29.566Z",
+  "checks": [
+    {
+      "label": "table_exists",
+      "ok": true,
+      "rows": [
+        {
+          "exists": "audit_log_archive"
+        }
+      ]
+    },
+    {
+      "label": "sweep_cron",
+      "ok": true,
+      "rows": [
+        {
+          "jobname": "audit-log-archive-sweep",
+          "schedule": "25 3 * * *",
+          "active": true,
+          "command": " select public.audit_log_archive_sweep(); "
+        }
+      ]
+    },
+    {
+      "label": "size_monitor",
+      "ok": true,
+      "rows": [
+        {
+          "jobname": "audit-log-size-monitor",
+          "schedule": "40 3 * * *",
+          "active": true
+        }
+      ]
+    },
+    {
+      "label": "archive_columns",
+      "ok": true,
+      "rows": [
+        {
+          "column_name": "id",
+          "data_type": "bigint"
+        },
+        {
+          "column_name": "squadron_id",
+          "data_type": "uuid"
+        },
+        {
+          "column_name": "type",
+          "data_type": "text"
+        },
+        {
+          "column_name": "actor",
+          "data_type": "text"
+        },
+        {
+          "column_name": "detail",
+          "data_type": "jsonb"
+        },
+        {
+          "column_name": "occurred_at",
+          "data_type": "timestamp with time zone"
+        },
+        {
+          "column_name": "archived_at",
+          "data_type": "timestamp with time zone"
+        }
+      ]
+    },
+    {
+      "label": "current_row_count",
+      "ok": true,
+      "rows": [
+        {
+          "n": 0
+        }
+      ]
+    }
+  ],
+  "verdict": "PASS",
+  "notes": "audit_log_archive table + audit-log-archive-sweep cron present; size monitor not declared (sweep cron is sufficient — it both archives and prunes)."
+}

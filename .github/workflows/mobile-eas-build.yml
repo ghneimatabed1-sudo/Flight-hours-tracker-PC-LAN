@@ -1,0 +1,75 @@
+name: Build Mobile (IPA + APK)
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: "Build profile"
+        required: true
+        default: "internal"
+        type: choice
+        options:
+          - internal
+          - preview
+          - production
+
+jobs:
+  build-android:
+    name: Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile=false
+
+      - name: Setup Expo / EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build Android APK
+        working-directory: artifacts/pilot-mobile
+        run: eas build --platform android --profile ${{ inputs.profile }} --non-interactive --wait
+
+  build-ios:
+    name: iOS IPA
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile=false
+
+      - name: Setup Expo / EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build iOS IPA
+        working-directory: artifacts/pilot-mobile
+        run: eas build --platform ios --profile ${{ inputs.profile }} --non-interactive --wait

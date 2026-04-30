@@ -1,0 +1,27 @@
+{
+  "cell": "R2",
+  "name": "NOTAM expiry: rows past valid_until disappear within auto-refresh tick (acceptance bullet D)",
+  "status": "FAIL",
+  "writtenAt": "2026-04-25T02:25:27.162Z",
+  "note": "",
+  "method": "Probe information_schema for any expiry column (valid_until / expires_on / expires_at / expiry_date) on public.notams. Insert one row with a posted_on of 2024-01-01 (long past) and one current row. Run the dashboard's NOTAM list query and count visible rows — if expiry filtering existed and were applied, count would be 1, not 2.",
+  "observed": {
+    "notams_columns": [
+      "id",
+      "squadron_id",
+      "notam_no",
+      "posted_on",
+      "body",
+      "created_at",
+      "priority"
+    ],
+    "has_expiry_column": false,
+    "rows_visible_after_query": 2
+  },
+  "expected": {
+    "has_expiry_column": true,
+    "rows_visible_after_query": 1
+  },
+  "residual": "notams table has no expiry column (valid_until / expires_on / expires_at / expiry_date). Acceptance bullet D for NOTAM expiry cannot be satisfied by the current schema. Either: (a) add a `valid_until` column + auto-refresh filter, or (b) formally drop this acceptance bullet from the spec. Filed as a defect candidate in this report.",
+  "acceptance_status": "FAIL — required behaviour cannot be observed because the underlying column does not exist; there is no client-side expiry filtering either (verified by lack of any matching grep in the dashboard source)."
+}

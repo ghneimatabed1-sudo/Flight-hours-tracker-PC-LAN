@@ -1,0 +1,12 @@
+{
+  "cell": "N4",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:47:11.939Z",
+  "note": "in_history=true is recorded for retention exemption",
+  "persisted": [
+    {
+      "id": "TEST_T303_MSG_N4_1777081630352",
+      "in_history": true
+    }
+  ]
+}

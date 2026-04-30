@@ -1,0 +1,13 @@
+There are a lot of things that need to be addressed. 
+
+Okay, let's start with question one: the PC license roll device. I also need to have the option to change it, like, you know, reset the ID. I don't know, for whatever purpose—maybe the PC changed or the PC got messed up. Just to make sure, the currently signed-in user identity, their rank will display and everything.
+
+For question one, I think it says: Do all squadrons share one super base project or one project per squadron? I'm not going to have every squadron have their own project; I want to put them on one project if that's possible and ensure it survives long-term. Long-term revoked, long-term unpair, long-term auto-delete, auto-expired, auto-remove from the server, or whatever. Yes, please. If we can build one project for all the squadrons.
+
+For question number two: Should personal turnover be surveyed automatically or after a number of months? I think I mentioned that after three months of inactivity, the account will be removed from the server, and I would have to re-sign it or rebuild it again to get it back on the server and connected with the relevant squadron.
+
+For the super admin connection map, please make it simple for me. Make the registered PCs appear to me, and I can connect them with each other. For example, for Squadron number 8, this is the PC for number 8 Squadron, and if I want to install for Squadron number 5, this is the PC for number 5 Squadron. I should be able to connect each PC with each other the way we sort it out.
+
+I'm very frustrated because there’s a lot of stuff going on in my head, and I can't seem to organize it. I've been dealing with this for more than two weeks, building the whole app.
+
+For question number four: Should Ops PCs be allowed to pair with each other? I told you, in special cases only, which includes external pilots and guest pilots. I don't know; I forgot the conditions. That's it—no pairing with each other, like no talking to each other. I don't know if you understand what’s in my head. Tell me what you think. 

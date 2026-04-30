@@ -1,0 +1,11 @@
+{
+  "cell": "P4",
+  "status": "FAIL",
+  "note": "Alert visible to same-squadron PCs ≤5s — observed: polling (15-30s)",
+  "writtenAt": "2026-04-25T02:02:35.649Z",
+  "table": "public.alerts",
+  "bullet": "Alert visible to same-squadron PCs ≤5s",
+  "sla_seconds": 5,
+  "realtime_eligible": false,
+  "observed_propagation_mode": "polling (15-30s)"
+}

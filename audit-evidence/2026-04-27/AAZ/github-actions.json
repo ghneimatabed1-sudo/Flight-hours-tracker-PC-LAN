@@ -1,0 +1,382 @@
+{
+  "ts": "2026-04-24T21:18:01.167Z",
+  "repo": "ghneimatabed1-sudo/Flight-hours-tracker-PC",
+  "repo_info": {
+    "default_branch": "main",
+    "pushed_at": "2026-04-24T20:53:16Z",
+    "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC"
+  },
+  "head": {
+    "sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+    "message": "Task #281 (Round 4 AA4) — CI hardening + e2e + evidence-mirror",
+    "date": "2026-04-24T20:38:47Z"
+  },
+  "workflows": [
+    {
+      "id": 265501553,
+      "name": "Apply Supabase Migrations",
+      "state": "active",
+      "path": ".github/workflows/apply-migrations.yml"
+    },
+    {
+      "id": 265492788,
+      "name": "Apply Supabase migrations to production",
+      "state": "active",
+      "path": ".github/workflows/apply-supabase-migrations.yml"
+    },
+    {
+      "id": 262612696,
+      "name": "Build Windows Installer (RJAF Squadron Ops)",
+      "state": "active",
+      "path": ".github/workflows/dashboard-windows-installer.yml"
+    },
+    {
+      "id": 266030361,
+      "name": "E2E — multi-squadron commander provisioning (Task",
+      "state": "active",
+      "path": ".github/workflows/e2e-commander-provisioning.yml"
+    },
+    {
+      "id": 266030362,
+      "name": "Migration completion alert",
+      "state": "active",
+      "path": ".github/workflows/migration-completion-alert.yml"
+    },
+    {
+      "id": 262612697,
+      "name": "Build Mobile (IPA + APK)",
+      "state": "active",
+      "path": ".github/workflows/mobile-eas-build.yml"
+    },
+    {
+      "id": 263281902,
+      "name": "Hawk Eye — Unsigned Mobile Builds",
+      "state": "active",
+      "path": ".github/workflows/mobile-unsigned-builds.yml"
+    },
+    {
+      "id": 263797251,
+      "name": "Promote pre-release to Latest",
+      "state": "active",
+      "path": ".github/workflows/promote-release.yml"
+    }
+  ],
+  "latest_runs": [
+    {
+      "workflow": "Apply Supabase Migrations",
+      "path": ".github/workflows/apply-migrations.yml",
+      "runs": [
+        {
+          "id": 24911367159,
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+          "created_at": "2026-04-24T20:53:21Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911367159",
+          "run_number": 2,
+          "event": "push"
+        },
+        {
+          "id": 24863942165,
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "04dae644d5ff928ecf2b1fb9c193d6df3a4ed7b8",
+          "created_at": "2026-04-23T23:25:58Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24863942165",
+          "run_number": 1,
+          "event": "push"
+        }
+      ]
+    },
+    {
+      "workflow": "Apply Supabase migrations to production",
+      "path": ".github/workflows/apply-supabase-migrations.yml",
+      "runs": [
+        {
+          "id": 24911367138,
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+          "created_at": "2026-04-24T20:53:21Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911367138",
+          "run_number": 4,
+          "event": "push"
+        },
+        {
+          "id": 24863942166,
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "04dae644d5ff928ecf2b1fb9c193d6df3a4ed7b8",
+          "created_at": "2026-04-23T23:25:58Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24863942166",
+          "run_number": 3,
+          "event": "push"
+        },
+        {
+          "id": 24863068828,
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "070e68f83d2e864d2656b5454c747d0d7c6a9c73",
+          "created_at": "2026-04-23T22:58:43Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24863068828",
+          "run_number": 2,
+          "event": "push"
+        }
+      ]
+    },
+    {
+      "workflow": "Build Windows Installer (RJAF Squadron Ops)",
+      "path": ".github/workflows/dashboard-windows-installer.yml",
+      "runs": [
+        {
+          "id": 24911367125,
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+          "created_at": "2026-04-24T20:53:21Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911367125",
+          "run_number": 224,
+          "event": "push"
+        },
+        {
+          "id": 24863942177,
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "04dae644d5ff928ecf2b1fb9c193d6df3a4ed7b8",
+          "created_at": "2026-04-23T23:25:58Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24863942177",
+          "run_number": 223,
+          "event": "push"
+        },
+        {
+          "id": 24863068821,
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "070e68f83d2e864d2656b5454c747d0d7c6a9c73",
+          "created_at": "2026-04-23T22:58:43Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24863068821",
+          "run_number": 222,
+          "event": "push"
+        }
+      ]
+    },
+    {
+      "workflow": "E2E — multi-squadron commander provisioning (Task",
+      "path": ".github/workflows/e2e-commander-provisioning.yml",
+      "runs": [
+        {
+          "id": 24911367167,
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+          "created_at": "2026-04-24T20:53:21Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911367167",
+          "run_number": 1,
+          "event": "push"
+        }
+      ]
+    },
+    {
+      "workflow": "Migration completion alert",
+      "path": ".github/workflows/migration-completion-alert.yml",
+      "runs": [
+        {
+          "id": 24911390912,
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+          "created_at": "2026-04-24T20:53:56Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911390912",
+          "run_number": 1,
+          "event": "workflow_run"
+        }
+      ]
+    },
+    {
+      "workflow": "Build Mobile (IPA + APK)",
+      "path": ".github/workflows/mobile-eas-build.yml",
+      "runs": [
+        {
+          "id": 24722685138,
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "1ef6a0e5235e62f6eca59e186b22131b15e5b75a",
+          "created_at": "2026-04-21T12:36:20Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24722685138",
+          "run_number": 4,
+          "event": "workflow_dispatch"
+        },
+        {
+          "id": 24693252905,
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "0f04179d036463a214c3b7c4f4ce36e0a65e97aa",
+          "created_at": "2026-04-20T22:18:02Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24693252905",
+          "run_number": 3,
+          "event": "workflow_dispatch"
+        },
+        {
+          "id": 24686929195,
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "912d8880a9cfcbe0dc1a13ef150584d88fc8c559",
+          "created_at": "2026-04-20T19:48:36Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24686929195",
+          "run_number": 2,
+          "event": "workflow_dispatch"
+        }
+      ]
+    },
+    {
+      "workflow": "Hawk Eye — Unsigned Mobile Builds",
+      "path": ".github/workflows/mobile-unsigned-builds.yml",
+      "runs": [
+        {
+          "id": 24911367130,
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+          "created_at": "2026-04-24T20:53:21Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911367130",
+          "run_number": 19,
+          "event": "push"
+        },
+        {
+          "id": 24815716332,
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "891127ebdae993cf49c06ec77dc582cb89415d18",
+          "created_at": "2026-04-23T03:51:55Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24815716332",
+          "run_number": 18,
+          "event": "workflow_dispatch"
+        },
+        {
+          "id": 24810049034,
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "3168714163b77c166472cebd25864d16d381c79a",
+          "created_at": "2026-04-23T00:35:34Z",
+          "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24810049034",
+          "run_number": 17,
+          "event": "push"
+        }
+      ]
+    },
+    {
+      "workflow": "Promote pre-release to Latest",
+      "path": ".github/workflows/promote-release.yml",
+      "runs": []
+    }
+  ],
+  "recent_runs_default_branch": [
+    {
+      "id": 24911390912,
+      "name": "Migration completion alert",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+      "created_at": "2026-04-24T20:53:56Z",
+      "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911390912"
+    },
+    {
+      "id": 24911367138,
+      "name": "Apply Supabase migrations to production",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+      "created_at": "2026-04-24T20:53:21Z",
+      "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911367138"
+    },
+    {
+      "id": 24911367159,
+      "name": "Apply Supabase Migrations",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+      "created_at": "2026-04-24T20:53:21Z",
+      "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911367159"
+    },
+    {
+      "id": 24911367167,
+      "name": "E2E — multi-squadron commander provisioning (Task",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+      "created_at": "2026-04-24T20:53:21Z",
+      "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911367167"
+    },
+    {
+      "id": 24911367125,
+      "name": "Build Windows Installer (RJAF Squadron Ops)",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+      "created_at": "2026-04-24T20:53:21Z",
+      "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911367125"
+    },
+    {
+      "id": 24911367130,
+      "name": "Hawk Eye — Unsigned Mobile Builds",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "dbc24a778d34fa25d95655909bf9e5c8192c0cde",
+      "created_at": "2026-04-24T20:53:21Z",
+      "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24911367130"
+    },
+    {
+      "id": 24863942165,
+      "name": "Apply Supabase Migrations",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "04dae644d5ff928ecf2b1fb9c193d6df3a4ed7b8",
+      "created_at": "2026-04-23T23:25:58Z",
+      "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24863942165"
+    },
+    {
+      "id": 24863942166,
+      "name": "Apply Supabase migrations to production",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "04dae644d5ff928ecf2b1fb9c193d6df3a4ed7b8",
+      "created_at": "2026-04-23T23:25:58Z",
+      "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24863942166"
+    },
+    {
+      "id": 24863942177,
+      "name": "Build Windows Installer (RJAF Squadron Ops)",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "04dae644d5ff928ecf2b1fb9c193d6df3a4ed7b8",
+      "created_at": "2026-04-23T23:25:58Z",
+      "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24863942177"
+    },
+    {
+      "id": 24863068828,
+      "name": "Apply Supabase migrations to production",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "070e68f83d2e864d2656b5454c747d0d7c6a9c73",
+      "created_at": "2026-04-23T22:58:43Z",
+      "html_url": "https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC/actions/runs/24863068828"
+    }
+  ],
+  "summary": {
+    "total_workflows": 8,
+    "workflows_with_recent_runs": 7,
+    "last_10_runs_default_branch": 10,
+    "last_run_conclusions": [
+      "Migration completion alert=success",
+      "Apply Supabase migrations to production=failure",
+      "Apply Supabase Migrations=failure",
+      "E2E — multi-squadron commander provisioning (Task=success",
+      "Build Windows Installer (RJAF Squadron Ops)=success",
+      "Hawk Eye — Unsigned Mobile Builds=success",
+      "Apply Supabase Migrations=failure",
+      "Apply Supabase migrations to production=failure",
+      "Build Windows Installer (RJAF Squadron Ops)=success",
+      "Apply Supabase migrations to production=failure"
+    ]
+  }
+}

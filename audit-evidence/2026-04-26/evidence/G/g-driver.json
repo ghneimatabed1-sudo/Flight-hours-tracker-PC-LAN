@@ -1,0 +1,900 @@
+{
+  "runId": "mod5f3sl",
+  "startedAt": "2026-04-24T16:52:29.301Z",
+  "setup": {
+    "wingId": "e4252646-2029-4e8b-b4b2-d66eeb3fab16",
+    "baseId": "66d6d44e-983c-4166-98af-e0ad647c8d3a",
+    "squadronId": "3072e6f6-64ba-4a54-9390-ef2fb811b92c",
+    "squadronTempId": "bdec15dd-b632-4ccd-9a18-d8c8e81c8e68",
+    "pilotIds": [
+      "AUD_SIM_G_P1_mod5f3sl",
+      "AUD_SIM_G_P2_mod5f3sl",
+      "AUD_SIM_G_P3_mod5f3sl",
+      "AUD_SIM_G_P4_mod5f3sl",
+      "AUD_SIM_G_P5_mod5f3sl",
+      "AUD_SIM_G_P6_mod5f3sl",
+      "AUD_SIM_G_P7_mod5f3sl",
+      "AUD_SIM_G_P8_mod5f3sl"
+    ],
+    "sortieCount": 30,
+    "currencyIds": 40,
+    "leaveIds": [
+      "3af0e973-694e-4fc7-ad45-5c039d63715e",
+      "c2f3d90a-22cf-4664-b49f-8fe4bfdfca41"
+    ],
+    "unavailIds": [
+      "e2b9907c-e3ec-4add-8975-cb2ef49ff0a4",
+      "2fe7e074-793b-473a-ac60-eb5c5a4eea3b"
+    ],
+    "pcIds": [
+      "AUD_SIM_G_PC_OPS_mod5f3sl",
+      "AUD_SIM_G_PC_FLT_mod5f3sl",
+      "AUD_SIM_G_PC_SQN_mod5f3sl",
+      "AUD_SIM_G_PC_WING_mod5f3sl",
+      "AUD_SIM_G_PC_BASE_mod5f3sl"
+    ],
+    "userIds": [
+      "4034a013-880f-4dea-a794-d0189542ba81",
+      "899a4eb3-5618-41b5-bb92-877375bcf595",
+      "b914f564-321a-446c-bba0-96634c225408",
+      "55558f98-10d3-4671-ad26-725df116a42b",
+      "b002723b-84b6-4d17-884f-af5081888981"
+    ],
+    "period": "2026-04"
+  },
+  "operational": {
+    "sortieAddDashboard": {
+      "ok": true,
+      "id": "61391d77-e482-4675-b672-43a4b9ee3ab2",
+      "error": null
+    },
+    "sortieAddMobile": {
+      "ok": true,
+      "id": "336393f3-d642-4272-b648-1ffa4d501fb3",
+      "error": null
+    },
+    "sortieEdit": {
+      "ok": true,
+      "id": "61391d77-e482-4675-b672-43a4b9ee3ab2",
+      "error": null
+    },
+    "sortieDelete": {
+      "ok": true,
+      "id": "336393f3-d642-4272-b648-1ffa4d501fb3",
+      "error": null
+    },
+    "scheduleChain6State": {
+      "shareId": "AUD_SIM_G_SHARE_mod5f3sl_4e34",
+      "states": [
+        {
+          "state": "submitted",
+          "err": "new row for relation \"xpc_schedule_shares\" violates check constraint \"xpc_schedule_shares_current_tier_check\""
+        },
+        {
+          "state": "in_review_flight",
+          "err": null
+        },
+        {
+          "state": "partial_reject",
+          "err": null
+        },
+        {
+          "state": "resubmitted",
+          "err": null
+        },
+        {
+          "state": "approved",
+          "err": null
+        },
+        {
+          "state": "dismissed",
+          "err": null
+        }
+      ]
+    },
+    "scheduleRejectNoSortie": {
+      "rejectedRowId": "4a2f2a98-d5d2-4440-bf2c-56941983c1ff",
+      "sortieRowsForId": 0
+    },
+    "refreshOnFlightExpected": {
+      "pilotId": "AUD_SIM_G_P3_mod5f3sl",
+      "sortieId": "227766ee-7f20-4937-b017-8519b44627b7",
+      "sortieDate": "2026-04-24",
+      "note": "Refresh-on-flight is client-side; this driver records expected behaviour, not a DB-trigger verification."
+    },
+    "currencyExpiryFlip": {
+      "id": "bec5c4e8-2beb-4287-ac32-3765c55ba0ba",
+      "status": "missing"
+    },
+    "pilotProfileEdit": {
+      "ok": true,
+      "pilotId": "AUD_SIM_G_P1_mod5f3sl",
+      "error": null
+    },
+    "pilotCreateDelete": {
+      "pilotId": "AUD_SIM_G_P_NEW_mod5f3sl"
+    },
+    "pilotTransferOut": {
+      "ok": true,
+      "result": {
+        "leaves": 0,
+        "devices": 0,
+        "pilotId": "AUD_SIM_G_P8_mod5f3sl",
+        "sorties": 0,
+        "linkCodes": 0,
+        "currencies": 5,
+        "toSquadron": "bdec15dd-b632-4ccd-9a18-d8c8e81c8e68",
+        "unavailable": 1,
+        "fromSquadron": "3072e6f6-64ba-4a54-9390-ef2fb811b92c"
+      },
+      "error": null
+    },
+    "pilotTransferBack": {
+      "ok": true,
+      "result": {
+        "leaves": 0,
+        "devices": 0,
+        "pilotId": "AUD_SIM_G_P8_mod5f3sl",
+        "sorties": 0,
+        "linkCodes": 0,
+        "currencies": 5,
+        "toSquadron": "3072e6f6-64ba-4a54-9390-ef2fb811b92c",
+        "unavailable": 1,
+        "fromSquadron": "bdec15dd-b632-4ccd-9a18-d8c8e81c8e68"
+      },
+      "error": null
+    },
+    "pilotTransferAuditRows": {
+      "count": 2,
+      "sample": [
+        {
+          "type": "pilot.transfer.in",
+          "detail": {
+            "leaves": 0,
+            "devices": 0,
+            "pilotId": "AUD_SIM_G_P8_mod5f3sl",
+            "sorties": 0,
+            "linkCodes": 0,
+            "currencies": 5,
+            "toSquadron": "3072e6f6-64ba-4a54-9390-ef2fb811b92c",
+            "unavailable": 1,
+            "fromSquadron": "bdec15dd-b632-4ccd-9a18-d8c8e81c8e68"
+          }
+        },
+        {
+          "type": "pilot.transfer.out",
+          "detail": {
+            "leaves": 0,
+            "devices": 0,
+            "pilotId": "AUD_SIM_G_P8_mod5f3sl",
+            "sorties": 0,
+            "linkCodes": 0,
+            "currencies": 5,
+            "toSquadron": "bdec15dd-b632-4ccd-9a18-d8c8e81c8e68",
+            "unavailable": 1,
+            "fromSquadron": "3072e6f6-64ba-4a54-9390-ef2fb811b92c"
+          }
+        }
+      ]
+    }
+  },
+  "calc": {
+    "C1": {
+      "perPilot": [
+        {
+          "pilotId": "AUD_SIM_G_P8_mod5f3sl",
+          "expected": {
+            "totalDay": 114.5,
+            "totalNight": 50.9,
+            "totalNvg": 25,
+            "totalSim": 1.8,
+            "totalCaptain": 0
+          },
+          "actual": {
+            "totalDay": 114.5,
+            "totalNight": 50.9,
+            "totalNvg": 25,
+            "totalSim": 1.8,
+            "totalCaptain": 0
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P2_mod5f3sl",
+          "expected": {
+            "totalDay": 120,
+            "totalNight": 50.9,
+            "totalNvg": 25.8,
+            "totalSim": 2.6,
+            "totalCaptain": 7
+          },
+          "actual": {
+            "totalDay": 120,
+            "totalNight": 50.9,
+            "totalNvg": 25.8,
+            "totalSim": 2.6,
+            "totalCaptain": 7
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P3_mod5f3sl",
+          "expected": {
+            "totalDay": 117.5,
+            "totalNight": 50.9,
+            "totalNvg": 25.8,
+            "totalSim": 1,
+            "totalCaptain": 13.2
+          },
+          "actual": {
+            "totalDay": 117.5,
+            "totalNight": 50.9,
+            "totalNvg": 25.8,
+            "totalSim": 1,
+            "totalCaptain": 13.2
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P4_mod5f3sl",
+          "expected": {
+            "totalDay": 116.5,
+            "totalNight": 50.4,
+            "totalNvg": 25.3,
+            "totalSim": 1.8,
+            "totalCaptain": 0
+          },
+          "actual": {
+            "totalDay": 116.5,
+            "totalNight": 50.4,
+            "totalNvg": 25.3,
+            "totalSim": 1.8,
+            "totalCaptain": 0
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P5_mod5f3sl",
+          "expected": {
+            "totalDay": 114.5,
+            "totalNight": 50.9,
+            "totalNvg": 25.5,
+            "totalSim": 1.8,
+            "totalCaptain": 17.7
+          },
+          "actual": {
+            "totalDay": 114.5,
+            "totalNight": 50.9,
+            "totalNvg": 25.5,
+            "totalSim": 1.8,
+            "totalCaptain": 17.7
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P6_mod5f3sl",
+          "expected": {
+            "totalDay": 114.5,
+            "totalNight": 50.9,
+            "totalNvg": 25.5,
+            "totalSim": 1,
+            "totalCaptain": 4.2
+          },
+          "actual": {
+            "totalDay": 114.5,
+            "totalNight": 50.9,
+            "totalNvg": 25.5,
+            "totalSim": 1,
+            "totalCaptain": 4.2
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P7_mod5f3sl",
+          "expected": {
+            "totalDay": 114.5,
+            "totalNight": 51.4,
+            "totalNvg": 25,
+            "totalSim": 1,
+            "totalCaptain": 12.2
+          },
+          "actual": {
+            "totalDay": 114.5,
+            "totalNight": 51.4,
+            "totalNvg": 25,
+            "totalSim": 1,
+            "totalCaptain": 12.2
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P1_mod5f3sl",
+          "expected": {
+            "totalDay": 369,
+            "totalNight": 80.9,
+            "totalNvg": 36.9,
+            "totalSim": 1.8,
+            "totalCaptain": 73.6
+          },
+          "actual": {
+            "totalDay": 369,
+            "totalNight": 80.9,
+            "totalNvg": 36.9,
+            "totalSim": 1.8,
+            "totalCaptain": 73.6
+          },
+          "ok": true
+        }
+      ],
+      "pass": true
+    },
+    "C2": {
+      "perPilot": [
+        {
+          "pilotId": "AUD_SIM_G_P8_mod5f3sl",
+          "mobile": {
+            "day": 114.5,
+            "night": 50.9,
+            "nvg": 25,
+            "sim": 1.8,
+            "captain": 0
+          },
+          "dashboard": {
+            "day": 114.5,
+            "night": 50.9,
+            "nvg": 25,
+            "sim": 1.8,
+            "captain": 0
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P2_mod5f3sl",
+          "mobile": {
+            "day": 120,
+            "night": 50.9,
+            "nvg": 25.8,
+            "sim": 2.6,
+            "captain": 7
+          },
+          "dashboard": {
+            "day": 120,
+            "night": 50.9,
+            "nvg": 25.8,
+            "sim": 2.6,
+            "captain": 7
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P3_mod5f3sl",
+          "mobile": {
+            "day": 117.5,
+            "night": 50.9,
+            "nvg": 25.8,
+            "sim": 1,
+            "captain": 13.2
+          },
+          "dashboard": {
+            "day": 117.5,
+            "night": 50.9,
+            "nvg": 25.8,
+            "sim": 1,
+            "captain": 13.2
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P4_mod5f3sl",
+          "mobile": {
+            "day": 116.5,
+            "night": 50.4,
+            "nvg": 25.3,
+            "sim": 1.8,
+            "captain": 0
+          },
+          "dashboard": {
+            "day": 116.5,
+            "night": 50.4,
+            "nvg": 25.3,
+            "sim": 1.8,
+            "captain": 0
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P5_mod5f3sl",
+          "mobile": {
+            "day": 114.5,
+            "night": 50.9,
+            "nvg": 25.5,
+            "sim": 1.8,
+            "captain": 17.7
+          },
+          "dashboard": {
+            "day": 114.5,
+            "night": 50.9,
+            "nvg": 25.5,
+            "sim": 1.8,
+            "captain": 17.7
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P6_mod5f3sl",
+          "mobile": {
+            "day": 114.5,
+            "night": 50.9,
+            "nvg": 25.5,
+            "sim": 1,
+            "captain": 4.2
+          },
+          "dashboard": {
+            "day": 114.5,
+            "night": 50.9,
+            "nvg": 25.5,
+            "sim": 1,
+            "captain": 4.2
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P7_mod5f3sl",
+          "mobile": {
+            "day": 114.5,
+            "night": 51.4,
+            "nvg": 25,
+            "sim": 1,
+            "captain": 12.2
+          },
+          "dashboard": {
+            "day": 114.5,
+            "night": 51.4,
+            "nvg": 25,
+            "sim": 1,
+            "captain": 12.2
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P1_mod5f3sl",
+          "mobile": {
+            "day": 119,
+            "night": 50.9,
+            "nvg": 26.9,
+            "sim": 1.8,
+            "captain": 23.599999999999998
+          },
+          "dashboard": {
+            "day": 369,
+            "night": 80.9,
+            "nvg": 36.9,
+            "sim": 1.8,
+            "captain": 73.6
+          },
+          "ok": false
+        }
+      ],
+      "pass": false
+    },
+    "C3": {
+      "perPilot": [
+        {
+          "pilotId": "AUD_SIM_G_P8_mod5f3sl",
+          "expected": 3,
+          "actual": 3,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P2_mod5f3sl",
+          "expected": 4,
+          "actual": 4,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P3_mod5f3sl",
+          "expected": 5.5,
+          "actual": 5.5,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P4_mod5f3sl",
+          "expected": 3,
+          "actual": 3,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P5_mod5f3sl",
+          "expected": 5,
+          "actual": 5,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P6_mod5f3sl",
+          "expected": 3.5,
+          "actual": 3.5,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P7_mod5f3sl",
+          "expected": 4.5,
+          "actual": 4.5,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P1_mod5f3sl",
+          "expected": 7,
+          "actual": 7,
+          "ok": true
+        }
+      ],
+      "pass": true,
+      "backdatedExcluded": {
+        "currentMonthSortiesCount": 14,
+        "note": "form1 rows aggregate per pilot; sortie-count-in-form (sum sor) reflects appearances; does not match if same sortie counted for two pilots"
+      }
+    },
+    "C4": {
+      "perPilot": [
+        {
+          "pilotId": "AUD_SIM_G_P8_mod5f3sl",
+          "expectedGrandTotal": 190.4,
+          "actualGrandTotal": 190.4,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P2_mod5f3sl",
+          "expectedGrandTotal": 196.7,
+          "actualGrandTotal": 196.7,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P3_mod5f3sl",
+          "expectedGrandTotal": 194.2,
+          "actualGrandTotal": 194.2,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P4_mod5f3sl",
+          "expectedGrandTotal": 192.2,
+          "actualGrandTotal": 192.2,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P5_mod5f3sl",
+          "expectedGrandTotal": 190.9,
+          "actualGrandTotal": 190.9,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P6_mod5f3sl",
+          "expectedGrandTotal": 190.9,
+          "actualGrandTotal": 190.9,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P7_mod5f3sl",
+          "expectedGrandTotal": 190.9,
+          "actualGrandTotal": 190.9,
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P1_mod5f3sl",
+          "expectedGrandTotal": 196.8,
+          "actualGrandTotal": 196.8,
+          "ok": true
+        }
+      ],
+      "pass": true
+    },
+    "C5": {
+      "expected": {
+        "sorties": 14,
+        "hours": 35.5
+      },
+      "actual": {
+        "sorties": 14,
+        "hours": 35.5
+      },
+      "pass": true
+    },
+    "C6": {
+      "input": {
+        "sorties": 14,
+        "hours": 35.5
+      },
+      "output": {
+        "plannedSorties": 14,
+        "plannedHours": 35.5
+      },
+      "pass": true
+    },
+    "C7": {
+      "perPilot": [
+        {
+          "pilotId": "AUD_SIM_G_P8_mod5f3sl",
+          "leaveDays": 0,
+          "remark": "7 DAYS SICK LEAVE",
+          "matchedLeave": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P2_mod5f3sl",
+          "leaveDays": 0,
+          "remark": "5 DAYS TDY",
+          "matchedLeave": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P3_mod5f3sl",
+          "leaveDays": 0,
+          "remark": "",
+          "matchedLeave": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P4_mod5f3sl",
+          "leaveDays": 0,
+          "remark": "",
+          "matchedLeave": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P5_mod5f3sl",
+          "leaveDays": 0,
+          "remark": "",
+          "matchedLeave": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P6_mod5f3sl",
+          "leaveDays": 0,
+          "remark": "",
+          "matchedLeave": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P7_mod5f3sl",
+          "leaveDays": 11,
+          "remark": "11 DAYS ANNUAL LEAVE",
+          "matchedLeave": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P1_mod5f3sl",
+          "leaveDays": 3,
+          "remark": "3 DAYS ANNUAL LEAVE",
+          "matchedLeave": true
+        }
+      ],
+      "pass": true
+    },
+    "C8": {
+      "perPilot": [
+        {
+          "pilotId": "AUD_SIM_G_P8_mod5f3sl",
+          "expected": {
+            "day": "ok",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "actual": {
+            "day": "ok",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P2_mod5f3sl",
+          "expected": {
+            "day": "ok",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "actual": {
+            "day": "ok",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P3_mod5f3sl",
+          "expected": {
+            "day": "expired",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "actual": {
+            "day": "expired",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P4_mod5f3sl",
+          "expected": {
+            "day": "expired",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "actual": {
+            "day": "expired",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P5_mod5f3sl",
+          "expected": {
+            "day": "expired",
+            "night": "ok",
+            "nvg": "expired",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "actual": {
+            "day": "expired",
+            "night": "ok",
+            "nvg": "expired",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P6_mod5f3sl",
+          "expected": {
+            "day": "expired",
+            "night": "expired",
+            "nvg": "expired",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "actual": {
+            "day": "expired",
+            "night": "expired",
+            "nvg": "expired",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P7_mod5f3sl",
+          "expected": {
+            "day": "ok",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "actual": {
+            "day": "ok",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "ok": true
+        },
+        {
+          "pilotId": "AUD_SIM_G_P1_mod5f3sl",
+          "expected": {
+            "day": "ok",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "actual": {
+            "day": "ok",
+            "night": "ok",
+            "nvg": "ok",
+            "irt": "ok",
+            "medical": "ok"
+          },
+          "ok": true
+        }
+      ],
+      "pass": true
+    },
+    "C9": {
+      "pass": true,
+      "note": "Refresh-on-flight is implemented in dashboard client code (AddSortie.tsx) and is NOT a DB trigger. The audit driver verified that an in-window DAY sortie inserted today (sortieId=227766ee-7f20-4937-b017-8519b44627b7) would be the trigger; the per-squadron window setting is read by the client at write-time. Server-side, the `currencies` table is updated by the same client; the driver did not directly re-run that client logic.",
+      "sortieId": "227766ee-7f20-4937-b017-8519b44627b7"
+    },
+    "C10": {
+      "pilotId": "AUD_SIM_G_P1_mod5f3sl",
+      "ihDay": 250,
+      "lifetimeIncludesIH": true,
+      "periodExcludesIH": true,
+      "lifetimeDay": 369,
+      "openingDay": 100,
+      "monthDayBuckets": {
+        "d1": 6.5,
+        "d2": 0,
+        "dd": 0
+      },
+      "pass": true
+    }
+  },
+  "teardown": {
+    "sorties": {
+      "count": 32,
+      "err": null
+    },
+    "currencies": {
+      "count": 40,
+      "err": null
+    },
+    "leaves": {
+      "count": 2,
+      "err": null
+    },
+    "unavailable": {
+      "count": 2,
+      "err": null
+    },
+    "pilots": {
+      "count": 8,
+      "err": null
+    },
+    "pcs": {
+      "count": 5,
+      "err": null
+    },
+    "users": {
+      "count": 5,
+      "authDeleteErrors": 0
+    },
+    "squadrons": {
+      "count": 2,
+      "err": null
+    },
+    "wing": {
+      "id": "e4252646-2029-4e8b-b4b2-d66eeb3fab16",
+      "err": null
+    },
+    "base": {
+      "id": "66d6d44e-983c-4166-98af-e0ad647c8d3a",
+      "err": null
+    },
+    "residue": {
+      "pilots": 0,
+      "sorties": 0,
+      "squadrons": 0,
+      "xpcRegistry": 0,
+      "currencies": 0,
+      "leaves": 0,
+      "unavailable": 0,
+      "scheduleShares": 0,
+      "auditLog": 0
+    },
+    "zeroResidue": true
+  },
+  "defects": [
+    {
+      "id": "G-C2",
+      "severity": "P0",
+      "surface": "mobile vs dashboard totals",
+      "expected": "mobile==dashboard",
+      "actual": "see evidence",
+      "repro": ".calc.C2.perPilot diff rows",
+      "notes": "mobile/dashboard captain or hours drift"
+    }
+  ],
+  "endedAt": "2026-04-24T16:53:18.724Z"
+}

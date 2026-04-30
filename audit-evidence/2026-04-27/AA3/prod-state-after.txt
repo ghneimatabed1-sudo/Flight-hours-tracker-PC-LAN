@@ -1,0 +1,71 @@
+--- LEDGER 0064-0066 ---
+[
+  {
+    "filename": "0064_xpc_pending_rls_realignment.sql",
+    "applied_at": "2026-04-24 20:11:39.171297+00",
+    "applied_by": "task-280"
+  },
+  {
+    "filename": "0065_schema_drift_restoration.sql",
+    "applied_at": "2026-04-24 20:11:40.663329+00",
+    "applied_by": "task-280"
+  },
+  {
+    "filename": "0066_snapshot_payload_hours_marker.sql",
+    "applied_at": "2026-04-24 20:11:42.036061+00",
+    "applied_by": "task-280"
+  }
+]
+--- xpc_pending_select policy after ---
+[
+  {
+    "polname": "xpc_pending_select",
+    "using_expr": "((xpc_caller_role() = ANY (ARRAY['super_admin'::text, 'superadmin'::text, 'admin'::text])) OR (hosting_squadron_id = ANY (xpc_my_pc_ids())) OR (home_squadron_id = ANY (xpc_my_pc_ids())) OR ((xpc_caller_squadron_ids() IS NOT NULL) AND ((hosting_squadron_id = ANY (xpc_caller_squadron_ids())) OR (home_squadron_id = ANY (xpc_caller_squadron_ids())))))"
+  }
+]
+--- audit_log.action ---
+[
+  {
+    "column_name": "action",
+    "data_type": "text"
+  }
+]
+--- reminder_schedules columns ---
+[
+  {
+    "column_name": "id",
+    "data_type": "uuid"
+  },
+  {
+    "column_name": "name",
+    "data_type": "text"
+  },
+  {
+    "column_name": "cron",
+    "data_type": "text"
+  },
+  {
+    "column_name": "target_url",
+    "data_type": "text"
+  },
+  {
+    "column_name": "enabled",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "squadron_id",
+    "data_type": "uuid"
+  },
+  {
+    "column_name": "created_at",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "column_name": "updated_at",
+    "data_type": "timestamp with time zone"
+  },
+  {
+    "column_name": "created_by",
+    "data_type": "text"
+  }
+]

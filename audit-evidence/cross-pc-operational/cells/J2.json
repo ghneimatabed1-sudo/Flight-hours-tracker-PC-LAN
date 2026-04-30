@@ -1,0 +1,7 @@
+{
+  "cell": "J2",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:40.583Z",
+  "note": "Bravo ops cannot INSERT into alpha sorties",
+  "jInsErr": "new row violates row-level security policy for table \"sorties\""
+}

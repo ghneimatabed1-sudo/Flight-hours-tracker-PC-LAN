@@ -1,0 +1,12 @@
+{
+  "cell": "A6",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:11.361Z",
+  "note": "Resolved by migration 0083 (Task #308). Re-verified 2026-04-25 via .local/scripts/task-308-verify.mjs (verdict GO, residue 0). The xpc_schedule_select policy now also matches xpc_my_pc_ids() && chain_pc_ids, so PostgREST's RETURNING-clause SELECT no longer rejects the forwarder's UPDATE.",
+  "app": null,
+  "previousStatus": "FAIL",
+  "previousNote": "HQ approve sets status+approved_at+approved_by",
+  "fixedBy": "migration 0083_xpc_schedule_select_chain_pc_ids.sql",
+  "fixedAt": "2026-04-25T02:43:25Z",
+  "fixVerification": "audit-evidence/cross-pc-operational/task-308-verify.json"
+}

@@ -1,0 +1,15 @@
+{
+  "cell": "A1",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:07.851Z",
+  "note": "Wing reads share at current_tier=wing",
+  "wingError": null,
+  "wingRows": [
+    {
+      "id": "TEST_T303_SHARE_1777081566542",
+      "current_tier": "wing",
+      "status": "submitted",
+      "origin_squadron_id": "TEST_T303_PC_SQN_ALPHA"
+    }
+  ]
+}

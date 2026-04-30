@@ -1,0 +1,146 @@
+{
+  "task": "308",
+  "startedAt": "2026-04-25T02:45:20.715Z",
+  "runId": "TEST_T308_1777085120714",
+  "steps": [
+    {
+      "name": "policy.includes_chain_pc_ids",
+      "ok": true,
+      "detail": {
+        "policy": "((origin_squadron_id = ANY (xpc_my_pc_ids())) OR (current_pc_id = ANY (xpc_my_pc_ids())) OR (xpc_my_pc_ids() && chain_pc_ids))"
+      }
+    },
+    {
+      "name": "provision.three_users",
+      "ok": true,
+      "detail": {
+        "sqn": "c19d21cc-0f14-487c-9e33-242c44cf6d13",
+        "wing": "44ca35d7-ce22-4f58-9ecc-b2b6b6ede9fb",
+        "base": "71cbab9e-6cd7-498b-b977-987af02eda51"
+      }
+    },
+    {
+      "name": "claim.xpc_user_pcs",
+      "ok": true,
+      "detail": {
+        "sqnPc": "SQN_TEST_T308_1777085120714",
+        "wingPc": "WING_TEST_T308_1777085120714",
+        "basePc": "BASE_TEST_T308_1777085120714"
+      }
+    },
+    {
+      "name": "seed.share_inserted",
+      "ok": true,
+      "detail": {
+        "shareId": "T308_share_TEST_T308_1777085120714"
+      }
+    },
+    {
+      "name": "forward.sqn_to_wing (cell A1 baseline)",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "error": null,
+        "code": null
+      }
+    },
+    {
+      "name": "forward.wing_to_base (cell A2 — root cause)",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "error": null,
+        "code": null
+      }
+    },
+    {
+      "name": "approve.base_terminal (cell A6)",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "error": null,
+        "code": null
+      }
+    },
+    {
+      "name": "readback.originator_sees_approved (cell A5)",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "row": {
+          "id": "T308_share_TEST_T308_1777085120714",
+          "status": "approved",
+          "current_pc_id": "BASE_TEST_T308_1777085120714",
+          "chain_pc_ids": [
+            "SQN_TEST_T308_1777085120714",
+            "WING_TEST_T308_1777085120714",
+            "BASE_TEST_T308_1777085120714"
+          ]
+        },
+        "error": null
+      }
+    },
+    {
+      "name": "readback.wing_sees_after_forward (cell M3)",
+      "ok": true,
+      "detail": {
+        "ok": true,
+        "row": {
+          "id": "T308_share_TEST_T308_1777085120714",
+          "status": "approved",
+          "current_pc_id": "BASE_TEST_T308_1777085120714"
+        },
+        "error": null
+      }
+    }
+  ],
+  "cells": {
+    "A1_sqn_to_wing": {
+      "ok": true,
+      "error": null,
+      "code": null
+    },
+    "A2_wing_to_base": {
+      "ok": true,
+      "error": null,
+      "code": null
+    },
+    "A6_base_approve": {
+      "ok": true,
+      "error": null,
+      "code": null
+    },
+    "A5_originator_readback": {
+      "ok": true,
+      "row": {
+        "id": "T308_share_TEST_T308_1777085120714",
+        "status": "approved",
+        "current_pc_id": "BASE_TEST_T308_1777085120714",
+        "chain_pc_ids": [
+          "SQN_TEST_T308_1777085120714",
+          "WING_TEST_T308_1777085120714",
+          "BASE_TEST_T308_1777085120714"
+        ]
+      },
+      "error": null
+    },
+    "M3_wing_inbox_after_forward": {
+      "ok": true,
+      "row": {
+        "id": "T308_share_TEST_T308_1777085120714",
+        "status": "approved",
+        "current_pc_id": "BASE_TEST_T308_1777085120714"
+      },
+      "error": null
+    }
+  },
+  "policy": "((origin_squadron_id = ANY (xpc_my_pc_ids())) OR (current_pc_id = ANY (xpc_my_pc_ids())) OR (xpc_my_pc_ids() && chain_pc_ids))",
+  "verdict": "GO",
+  "teardown": "ok",
+  "residue": {
+    "shares": 0,
+    "claims": 0,
+    "users": 0
+  },
+  "finishedAt": "2026-04-25T02:45:38.036Z"
+}

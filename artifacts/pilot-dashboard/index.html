@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <!-- Content Security Policy — defence-in-depth.
+         Electron sets webSecurity:false so Chromium will evaluate the
+         Vite ES module bundle from file://. This CSP gives back the
+         protections that flag would otherwise turn off:
+         * scripts only from 'self' (no remote/inline JS execution)
+         * inline styles allowed (Tailwind generates them)
+         * connections only to Supabase, the published api-server
+           on replit.app / replit.dev, and same-origin
+         * fonts from Google Fonts (the renderer's only remote dep)
+         * frames disabled (no clickjacking surface)
+         If a future bundle introduces an inline <script> it will be
+         blocked here — that's intentional. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-IVi+H7qbZuOiGfHhpZBeSdYf4BJ6rn7QqR3uS+dibGk='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co https://*.supabase.in wss://*.supabase.co https://*.replit.app https://*.replit.dev; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';" />
+    <title>Hawk Eye</title>
+    <!-- Relative paths so the bundle works under file:// inside Electron. -->
+    <link rel="icon" type="image/png" href="brand/emblem.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#0b0f14" />
+    <meta name="application-name" content="Flight Hour Tracker" />
+    <meta name="apple-mobile-web-app-title" content="Flight Hour Tracker" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- Non-blocking font load: the desktop installer must launch even on
+         PCs without internet. We load Inter asynchronously and fall back
+         to the system UI font (system-ui) until the web font arrives. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Standard stylesheet load. We previously used the
+         media="print" + onload="this.media='all'" trick to make the
+         font load non-blocking, but inline event handlers can't be
+         covered by a CSP hash and would be blocked in production.
+         Inter is ~30 KB gzipped and the dashboard already paints a
+         system-font fallback while it streams in. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    >
+    <!-- Inline pre-bundle error trap. Runs SYNCHRONOUSLY before the
+         module bundle is even fetched, so if the bundle 404s, fails
+         CSP, or throws during evaluation we still paint a visible
+         error overlay instead of a silent black screen. The bundle's
+         own try/catch (in main.tsx) only fires once the bundle has
+         been parsed — useless when the bundle itself never loads. -->
+    <script>
+      (function () {
+        function paint(msg) {
+          var root = document.getElementById("root") || document.body;
+          if (!root) return;
+          if (root.children && root.children.length > 0) return;
+          root.innerHTML =
+            '<div style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0a1226;color:#e6c97a;font-family:Inter,system-ui,sans-serif;padding:32px;text-align:center;">' +
+            '<div style="max-width:760px;">' +
+            '<div style="font-size:14px;letter-spacing:0.32em;text-transform:uppercase;color:#e6c97a;opacity:0.85;margin-bottom:16px;">Hawk Eye — startup error (early)</div>' +
+            '<div style="font-size:13px;line-height:1.6;color:#e6e6e6;background:rgba(255,255,255,0.04);border:1px solid rgba(230,201,122,0.25);border-radius:8px;padding:18px;text-align:left;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;max-height:60vh;overflow:auto;">' +
+            String(msg).replace(/[<>&]/g, function (c) { return ({"<":"&lt;",">":"&gt;","&":"&amp;"})[c]; }) +
+            '</div>' +
+            '<div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:18px;">Press Ctrl+Shift+I for DevTools · Send screenshot to Super Admin</div>' +
+            '</div></div>';
+        }
+        window.addEventListener("error", function (e) {
+          var detail = e.error ? (e.error.stack || e.error.message || String(e.error))
+                                : (e.message || "unknown error") + (e.filename ? "\n  at " + e.filename + ":" + e.lineno : "");
+          paint(detail);
+        }, true);
+        window.addEventListener("unhandledrejection", function (e) {
+          paint(e.reason && e.reason.stack ? e.reason.stack : String(e.reason));
+        });
+        // If after 8 seconds nothing rendered, assume the bundle silently
+        // failed to load (the most common cause: 404 on the script src
+        // under file://) and show a generic message + dump what we know.
+        setTimeout(function () {
+          var root = document.getElementById("root");
+          if (!root || root.children.length === 0) {
+            var scripts = Array.prototype.slice.call(document.scripts).map(function (s) { return s.src || "[inline]"; });
+            paint(
+              "Bundle did not execute within 8 seconds.\n\n" +
+              "Location: " + location.href + "\n\n" +
+              "Scripts on page:\n" + scripts.join("\n") + "\n\n" +
+              "Most likely cause: the JavaScript bundle file is missing from the install, " +
+              "or Electron blocked it under file://. Please send this screen to support."
+            );
+          }
+        }, 8000);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

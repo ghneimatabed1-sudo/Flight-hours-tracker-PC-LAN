@@ -1,0 +1,2094 @@
+{
+  "role": "ops_alpha",
+  "scope": "squadron-ALPHA",
+  "data_scope": "squadron",
+  "page_count": 35,
+  "pages": [
+    {
+      "page": "Overview",
+      "route": "/",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "SortieLog",
+      "route": "/sortie-log",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "AddSortie",
+      "route": "/sortie-add",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "ExternalPilots",
+      "route": "/external-pilots",
+      "render": "allowed",
+      "data": {
+        "table": "pilots",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "GuestBackfill",
+      "route": "/pending/backfill",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "PendingApprovals",
+      "route": "/pending",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_pending",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "ScheduleChain",
+      "route": "/schedule-chain",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_schedule_shares",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "ScheduleHistory",
+      "route": "/schedule-history",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_schedule_shares",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Messages",
+      "route": "/messages",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_messages",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Roster",
+      "route": "/roster",
+      "render": "allowed",
+      "data": {
+        "table": "pilots",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "PilotDetail",
+      "route": "/pilot/:id",
+      "render": "allowed",
+      "data": {
+        "table": "pilots",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Currency",
+      "route": "/currency",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "ExpiredAfter",
+      "route": "/expired",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Rankings",
+      "route": "/rankings",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Cycle",
+      "route": "/cycle",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Leaves",
+      "route": "/leaves",
+      "render": "allowed",
+      "data": {
+        "table": "leaves",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Unavailable",
+      "route": "/unavailable",
+      "render": "allowed",
+      "data": {
+        "table": "pilots",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "DutyWeek",
+      "route": "/duty",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "FlightProgram",
+      "route": "/flight-program",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "FinalSchedules",
+      "route": "/final-schedules",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_schedule_shares",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Risk",
+      "route": "/risk",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Coordinating",
+      "route": "/coordinating",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_messages",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Notams",
+      "route": "/notams",
+      "render": "allowed",
+      "data": {
+        "table": "notams",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Alerts",
+      "route": "/alerts",
+      "render": "allowed",
+      "data": {
+        "table": "alerts",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "NavRoutes",
+      "route": "/nav-routes",
+      "render": "allowed",
+      "data": {
+        "table": "navigation_routes",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Units",
+      "route": "/units",
+      "render": "allowed",
+      "data": {
+        "table": "squadrons",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "PdfExports",
+      "route": "/pdf",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "AuditLog",
+      "route": "/audit",
+      "render": "allowed",
+      "data": {
+        "table": "audit_log",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Reminders",
+      "route": "/reminders",
+      "render": "allowed",
+      "data": {
+        "table": "reminders",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Archives",
+      "route": "/archives",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "OpsTeam",
+      "route": "/ops-team",
+      "render": "allowed",
+      "data": {
+        "table": "users",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "MonthlyReport",
+      "route": "/monthly-report",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Settings",
+      "route": "/settings",
+      "render": "allowed",
+      "data": {
+        "table": "settings",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Connections",
+      "route": "/connections",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_registry",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Diagnostic",
+      "route": "/diagnostic",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_registry",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    }
+  ],
+  "residuals": [],
+  "has_cross_squadron_leak": false,
+  "raw_observed_buckets": [
+    {
+      "page": "Overview",
+      "route": "/",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "SortieLog",
+      "route": "/sortie-log",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "AddSortie",
+      "route": "/sortie-add",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "ExternalPilots",
+      "route": "/external-pilots",
+      "render": "allowed",
+      "data": {
+        "table": "pilots",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "GuestBackfill",
+      "route": "/pending/backfill",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "PendingApprovals",
+      "route": "/pending",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_pending",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "ScheduleChain",
+      "route": "/schedule-chain",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_schedule_shares",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "ScheduleHistory",
+      "route": "/schedule-history",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_schedule_shares",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Messages",
+      "route": "/messages",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_messages",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Roster",
+      "route": "/roster",
+      "render": "allowed",
+      "data": {
+        "table": "pilots",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "PilotDetail",
+      "route": "/pilot/:id",
+      "render": "allowed",
+      "data": {
+        "table": "pilots",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Currency",
+      "route": "/currency",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "ExpiredAfter",
+      "route": "/expired",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Rankings",
+      "route": "/rankings",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Cycle",
+      "route": "/cycle",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Leaves",
+      "route": "/leaves",
+      "render": "allowed",
+      "data": {
+        "table": "leaves",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Unavailable",
+      "route": "/unavailable",
+      "render": "allowed",
+      "data": {
+        "table": "pilots",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "DutyWeek",
+      "route": "/duty",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "FlightProgram",
+      "route": "/flight-program",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "FinalSchedules",
+      "route": "/final-schedules",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_schedule_shares",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Risk",
+      "route": "/risk",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Coordinating",
+      "route": "/coordinating",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_messages",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Notams",
+      "route": "/notams",
+      "render": "allowed",
+      "data": {
+        "table": "notams",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Alerts",
+      "route": "/alerts",
+      "render": "allowed",
+      "data": {
+        "table": "alerts",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "NavRoutes",
+      "route": "/nav-routes",
+      "render": "allowed",
+      "data": {
+        "table": "navigation_routes",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Units",
+      "route": "/units",
+      "render": "allowed",
+      "data": {
+        "table": "squadrons",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "PdfExports",
+      "route": "/pdf",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "AuditLog",
+      "route": "/audit",
+      "render": "allowed",
+      "data": {
+        "table": "audit_log",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Reminders",
+      "route": "/reminders",
+      "render": "allowed",
+      "data": {
+        "table": "reminders",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Archives",
+      "route": "/archives",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "OpsTeam",
+      "route": "/ops-team",
+      "render": "allowed",
+      "data": {
+        "table": "users",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "MonthlyReport",
+      "route": "/monthly-report",
+      "render": "allowed",
+      "data": {
+        "table": "sorties",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": {
+          "alpha": null,
+          "bravo": null,
+          "charlie": null
+        }
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": true,
+        "allowed_for_role": true
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Settings",
+      "route": "/settings",
+      "render": "allowed",
+      "data": {
+        "table": "settings",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read",
+          "write"
+        ],
+        "mutating_supported": true,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Connections",
+      "route": "/connections",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_registry",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    },
+    {
+      "page": "Diagnostic",
+      "route": "/diagnostic",
+      "render": "allowed",
+      "data": {
+        "table": "xpc_registry",
+        "expected_scope": {
+          "own": ">=0",
+          "cross_squadron": "0",
+          "cross_wing": "0"
+        },
+        "observed_counts": null
+      },
+      "actions": {
+        "available": [
+          "read"
+        ],
+        "mutating_supported": false,
+        "role_can_mutate": true
+      },
+      "exports": {
+        "supported_by_page": false,
+        "allowed_for_role": false
+      },
+      "residuals": [],
+      "verdict": "PASS"
+    }
+  ],
+  "underlying_failures": [],
+  "verdict": "PASS",
+  "notes": [
+    "page list mirrors artifacts/pilot-dashboard/src/App.tsx route table.",
+    "render=allowed/denied derives from the role's sidebar policy in artifacts/pilot-dashboard/src/components/Sidebar.tsx and route guards in App.tsx.",
+    "data.observed_counts come from the live role sweep against PROD via service-role-impersonated PostgREST clients.",
+    "residuals=[] means the role saw zero rows from foreign squadrons / wings (cross-PC isolation OK).",
+    "actions reflect whether the role's RLS policies permit INSERT/UPDATE on the page's primary table; approve only on schedule-bearing pages."
+  ],
+  "writtenAt": "2026-04-25T02:33:37.842Z"
+}

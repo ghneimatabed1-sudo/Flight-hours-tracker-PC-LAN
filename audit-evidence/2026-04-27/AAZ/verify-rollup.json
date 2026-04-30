@@ -1,0 +1,143 @@
+{
+  "runId": "aaz_verify_1777063755238",
+  "capturedAt": "2026-04-24T20:49:15.238Z",
+  "steps": [
+    {
+      "label": "infra.base+wing",
+      "value": {
+        "baseId": "945bbe60-34f7-46cf-a41d-3d2c448796f3",
+        "wingId": "ebb4d616-82b5-4bad-8678-a9cb9adb7f96"
+      }
+    },
+    {
+      "label": "infra.squadrons",
+      "value": [
+        {
+          "id": "f594e4cd-2a2f-4c7e-bf68-c9ccc7c0c217",
+          "name": "AAZ_VERIFY_SQN_ALPHA_aaz_verify_1777063755238"
+        },
+        {
+          "id": "551145b6-74af-4682-ba90-fb59f9eb99d5",
+          "name": "AAZ_VERIFY_SQN_BRAVO_aaz_verify_1777063755238"
+        },
+        {
+          "id": "2f85cc38-d054-4338-97e1-e1fec429203f",
+          "name": "AAZ_VERIFY_SQN_CHARLIE_aaz_verify_1777063755238"
+        }
+      ]
+    },
+    {
+      "label": "infra.snapshots",
+      "value": {
+        "count": 3
+      }
+    },
+    {
+      "label": "provision.wingCmdr",
+      "value": {
+        "id": "f4ce3300-1e96-4264-964f-0ed1684fa5e4",
+        "email": "aaz-verify-wing-aaz_verify_1777063755238@audit-test.local",
+        "squadron_ids": [
+          "AAZ_VERIFY_SQN_ALPHA_aaz_verify_1777063755238",
+          "AAZ_VERIFY_SQN_BRAVO_aaz_verify_1777063755238"
+        ]
+      }
+    },
+    {
+      "label": "provision.baseCmdr",
+      "value": {
+        "id": "99defe09-891b-4ab1-80d6-b26621f14124",
+        "email": "aaz-verify-base-aaz_verify_1777063755238@audit-test.local",
+        "squadron_ids": [
+          "AAZ_VERIFY_SQN_BRAVO_aaz_verify_1777063755238",
+          "AAZ_VERIFY_SQN_CHARLIE_aaz_verify_1777063755238"
+        ]
+      }
+    },
+    {
+      "label": "jwt.wingCmdr.app_metadata",
+      "value": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "commander",
+        "squadron_ids": [
+          "AAZ_VERIFY_SQN_ALPHA_aaz_verify_1777063755238",
+          "AAZ_VERIFY_SQN_BRAVO_aaz_verify_1777063755238"
+        ],
+        "tier": "wing"
+      }
+    },
+    {
+      "label": "jwt.baseCmdr.app_metadata",
+      "value": {
+        "provider": "email",
+        "providers": [
+          "email"
+        ],
+        "role": "commander",
+        "squadron_ids": [
+          "AAZ_VERIFY_SQN_BRAVO_aaz_verify_1777063755238",
+          "AAZ_VERIFY_SQN_CHARLIE_aaz_verify_1777063755238"
+        ],
+        "tier": "base"
+      }
+    },
+    {
+      "label": "rollup.wingCmdr.snapshot",
+      "value": {
+        "http": 200,
+        "body": [
+          {
+            "squadron_id": "AAZ_VERIFY_SQN_BRAVO_aaz_verify_1777063755238"
+          },
+          {
+            "squadron_id": "AAZ_VERIFY_SQN_ALPHA_aaz_verify_1777063755238"
+          }
+        ]
+      }
+    },
+    {
+      "label": "rollup.baseCmdr.snapshot",
+      "value": {
+        "http": 200,
+        "body": [
+          {
+            "squadron_id": "AAZ_VERIFY_SQN_BRAVO_aaz_verify_1777063755238"
+          },
+          {
+            "squadron_id": "AAZ_VERIFY_SQN_CHARLIE_aaz_verify_1777063755238"
+          }
+        ]
+      }
+    },
+    {
+      "label": "assertions",
+      "value": {
+        "wingCmdr_seesAlphaBravo": true,
+        "baseCmdr_seesBravoCharlie": true,
+        "wingCmdr_doesNotSeeCharlie": true,
+        "baseCmdr_doesNotSeeAlpha": true
+      }
+    }
+  ],
+  "cleanup": {
+    "user_f9b7b1b9-23a0-454d-8fb3-227300df1602": "deleted",
+    "user_f4ce3300-1e96-4264-964f-0ed1684fa5e4": "deleted",
+    "user_99defe09-891b-4ab1-80d6-b26621f14124": "deleted",
+    "sq_f594e4cd-2a2f-4c7e-bf68-c9ccc7c0c217": "deleted",
+    "sq_551145b6-74af-4682-ba90-fb59f9eb99d5": "deleted",
+    "sq_2f85cc38-d054-4338-97e1-e1fec429203f": "deleted",
+    "wing": "deleted",
+    "base": "deleted",
+    "audit_log_swept": 0
+  },
+  "assertions": {
+    "wingCmdr_seesAlphaBravo": true,
+    "baseCmdr_seesBravoCharlie": true,
+    "wingCmdr_doesNotSeeCharlie": true,
+    "baseCmdr_doesNotSeeAlpha": true
+  },
+  "verdict": "PASS"
+}

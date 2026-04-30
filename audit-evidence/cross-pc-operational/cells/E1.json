@@ -1,0 +1,10 @@
+{
+  "cell": "E1",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:28.795Z",
+  "note": "Same-squadron PC-B sees pilot rename",
+  "updErr": null,
+  "editedRow": {
+    "name": "TEST_T303_Pilot Alpha 1 EDITED"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "cell": "R4",
+  "name": "30/90-day window arithmetic matches fixture counts exactly",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:25:31.431Z",
+  "note": "",
+  "method": "Insert 6 sorties at known day-offsets (1,5,12,25,60,120), delete the 5-day-offset sortie in R1, then run the same 30-day, 90-day, and total counts the dashboard runs. Fixture-derived expectations must equal observed.",
+  "observed": {
+    "window_30d": 3,
+    "window_90d": 4,
+    "total": 5,
+    "fixture_dOffsets": [
+      1,
+      12,
+      25,
+      60,
+      120
+    ]
+  },
+  "expected": {
+    "window_30d": 3,
+    "window_90d": 4,
+    "total": 5
+  }
+}

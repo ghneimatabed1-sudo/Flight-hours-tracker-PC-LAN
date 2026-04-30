@@ -1,0 +1,18 @@
+{
+  "cell": "L_pilot",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:47:04.766Z",
+  "note": "Per-role page sweep for pilot_alpha",
+  "pages": {
+    "sorties_alpha": 1,
+    "sorties_bravo": 0,
+    "sorties_charlie": 0,
+    "pilots_alpha": 2,
+    "pilots_bravo": 0,
+    "alerts_alpha": 1,
+    "alerts_bravo": 0,
+    "notams_alpha": 1,
+    "notams_bravo": 0
+  },
+  "failures": []
+}

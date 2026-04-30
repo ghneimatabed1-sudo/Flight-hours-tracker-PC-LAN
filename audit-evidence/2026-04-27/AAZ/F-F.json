@@ -1,0 +1,51 @@
+{
+  "item": "F-F schema_drift_check",
+  "ts": "2026-04-24T21:14:26.291Z",
+  "checks": [
+    {
+      "label": "function_exists",
+      "ok": true,
+      "rows": [
+        {
+          "proname": "schema_drift_check",
+          "rettype": "boolean"
+        }
+      ]
+    },
+    {
+      "label": "drift_cron",
+      "ok": true,
+      "rows": [
+        {
+          "jobname": "schema-drift-check-daily",
+          "schedule": "50 3 * * *",
+          "active": true
+        }
+      ]
+    },
+    {
+      "label": "fingerprint_1",
+      "ok": true,
+      "rows": [
+        {
+          "schema_drift_check": false
+        }
+      ]
+    },
+    {
+      "label": "fingerprint_2",
+      "ok": true,
+      "rows": [
+        {
+          "schema_drift_check": false
+        }
+      ]
+    },
+    {
+      "label": "fingerprints_equal",
+      "ok": true,
+      "equal": true
+    }
+  ],
+  "verdict": "PASS"
+}

@@ -1,0 +1,1743 @@
+{
+  "task": 303,
+  "generated_by": "task-303-cross-pc.mjs",
+  "sections": {
+    "A": {
+      "title": "Cross-PC scheduling chain (Squadron→Wing→Base→HQ)",
+      "cells": [
+        {
+          "id": "A1",
+          "name": "Squadron sends; Wing sees within poll window",
+          "status": "PASS",
+          "note": "Wing reads share at current_tier=wing",
+          "writtenAt": "2026-04-25T01:46:07.851Z"
+        },
+        {
+          "id": "A2",
+          "name": "Wing forwards; Base sees within poll window",
+          "status": "PASS",
+          "note": "Resolved by migration 0083 (Task #308). Re-verified 2026-04-25 via .local/scripts/task-308-verify.mjs (verdict GO, residue 0). The xpc_schedule_select policy now also matches xpc_my_pc_ids() && chain_pc_ids, so PostgREST's RETURNING-clause SELECT no longer rejects the forwarder's UPDATE.",
+          "writtenAt": "2026-04-25T01:46:08.377Z",
+          "previousStatus": "FAIL",
+          "fixedBy": "migration 0083"
+        },
+        {
+          "id": "A3",
+          "name": "Base forwards; HQ sees within poll window",
+          "status": "PASS",
+          "note": "Resolved by migration 0083 (Task #308). Re-verified 2026-04-25 via .local/scripts/task-308-verify.mjs (verdict GO, residue 0). The xpc_schedule_select policy now also matches xpc_my_pc_ids() && chain_pc_ids, so PostgREST's RETURNING-clause SELECT no longer rejects the forwarder's UPDATE.",
+          "writtenAt": "2026-04-25T01:46:09.611Z",
+          "previousStatus": "FAIL",
+          "fixedBy": "migration 0083"
+        },
+        {
+          "id": "A4",
+          "name": "Originator (Squadron) always sees own send",
+          "status": "PASS",
+          "note": "Originator squadron PC still sees own send",
+          "writtenAt": "2026-04-25T01:46:08.112Z"
+        },
+        {
+          "id": "A5",
+          "name": "Receiver edits (edited_rows / edited_program) propagate back to originator",
+          "status": "PASS",
+          "note": "Resolved by migration 0083 (Task #308). Re-verified 2026-04-25 via .local/scripts/task-308-verify.mjs (verdict GO, residue 0). The xpc_schedule_select policy now also matches xpc_my_pc_ids() && chain_pc_ids, so PostgREST's RETURNING-clause SELECT no longer rejects the forwarder's UPDATE.",
+          "writtenAt": "2026-04-25T01:46:10.839Z",
+          "previousStatus": "FAIL",
+          "fixedBy": "migration 0083"
+        },
+        {
+          "id": "A6",
+          "name": "Approve at terminal tier sets approved_at + status",
+          "status": "PASS",
+          "note": "Resolved by migration 0083 (Task #308). Re-verified 2026-04-25 via .local/scripts/task-308-verify.mjs (verdict GO, residue 0). The xpc_schedule_select policy now also matches xpc_my_pc_ids() && chain_pc_ids, so PostgREST's RETURNING-clause SELECT no longer rejects the forwarder's UPDATE.",
+          "writtenAt": "2026-04-25T01:46:11.361Z",
+          "previousStatus": "FAIL",
+          "fixedBy": "migration 0083"
+        },
+        {
+          "id": "A7",
+          "name": "Reject from any tier appends rejecting PC to rejected_by_pc_ids[]",
+          "status": "PASS",
+          "note": "Wing reject appends to rejected_by_pc_ids[]",
+          "writtenAt": "2026-04-25T01:46:12.485Z"
+        },
+        {
+          "id": "A8",
+          "name": "Originator dismiss (originator_dismissed_at) is local-only",
+          "status": "PASS",
+          "note": "Resolved by migration 0083 (Task #308). Re-verified 2026-04-25 via .local/scripts/task-308-verify.mjs (verdict GO, residue 0). The xpc_schedule_select policy now also matches xpc_my_pc_ids() && chain_pc_ids, so PostgREST's RETURNING-clause SELECT no longer rejects the forwarder's UPDATE.",
+          "writtenAt": "2026-04-25T01:46:13.004Z",
+          "previousStatus": "FAIL",
+          "fixedBy": "migration 0083"
+        }
+      ]
+    },
+    "B": {
+      "title": "Currencies / aggregated sortie reads across PCs (same squadron)",
+      "cells": [
+        {
+          "id": "B1",
+          "name": "PC-A inserts sortie; PC-B (same squadron, ops) sees aggregate change",
+          "status": "PASS",
+          "note": "PC-B (same squadron) sees insert",
+          "writtenAt": "2026-04-25T01:46:14.583Z"
+        },
+        {
+          "id": "B2",
+          "name": "Sortie type counts on receiver match sender exactly",
+          "status": "PASS",
+          "note": "Same-squadron PCs see identical NVG count for pilot",
+          "writtenAt": "2026-04-25T01:46:15.106Z"
+        },
+        {
+          "id": "B3",
+          "name": "Closed-month sortie write attempt fails with explicit error",
+          "status": "PASS",
+          "note": "Closed month rejects sortie update with explicit error",
+          "writtenAt": "2026-04-25T01:46:19.773Z"
+        }
+      ]
+    },
+    "C": {
+      "title": "Alerts cross-PC scoping",
+      "cells": [
+        {
+          "id": "C1",
+          "name": "Same-squadron PC-B sees alert from PC-A",
+          "status": "PASS",
+          "note": "Same-squadron ops sees alert",
+          "writtenAt": "2026-04-25T01:46:22.478Z"
+        },
+        {
+          "id": "C2",
+          "name": "Cross-squadron PC (same wing) does NOT see alert",
+          "status": "PASS",
+          "note": "Cross-squadron same-wing ops does NOT see alert",
+          "writtenAt": "2026-04-25T01:46:22.748Z"
+        },
+        {
+          "id": "C3",
+          "name": "Cross-wing PC does NOT see alert",
+          "status": "PASS",
+          "note": "Cross-wing ops does NOT see alert",
+          "writtenAt": "2026-04-25T01:46:23.010Z"
+        },
+        {
+          "id": "C4",
+          "name": "Pilot of same squadron sees alert",
+          "status": "PASS",
+          "note": "Same-squadron pilot sees alert",
+          "writtenAt": "2026-04-25T01:46:23.280Z"
+        },
+        {
+          "id": "C5",
+          "name": "Pilot of different squadron does NOT see alert",
+          "status": "PASS",
+          "note": "Cross-squadron pilot does NOT see alert",
+          "writtenAt": "2026-04-25T01:46:23.540Z"
+        }
+      ]
+    },
+    "D": {
+      "title": "NOTAMs cross-PC scoping",
+      "cells": [
+        {
+          "id": "D1",
+          "name": "Same-squadron PC-B sees NOTAM from PC-A",
+          "status": "PASS",
+          "note": "Same-squadron ops sees NOTAM",
+          "writtenAt": "2026-04-25T01:46:27.213Z"
+        },
+        {
+          "id": "D2",
+          "name": "Cross-squadron PC does NOT see NOTAM",
+          "status": "PASS",
+          "note": "Cross-squadron same-wing ops does NOT see NOTAM",
+          "writtenAt": "2026-04-25T01:46:27.214Z"
+        },
+        {
+          "id": "D3",
+          "name": "Cross-wing PC does NOT see NOTAM",
+          "status": "PASS",
+          "note": "Cross-wing ops does NOT see NOTAM",
+          "writtenAt": "2026-04-25T01:46:27.214Z"
+        },
+        {
+          "id": "D4",
+          "name": "Pilot of same squadron sees NOTAM",
+          "status": "PASS",
+          "note": "Same-squadron pilot sees NOTAM",
+          "writtenAt": "2026-04-25T01:46:27.215Z"
+        },
+        {
+          "id": "D5",
+          "name": "Pilot of different squadron does NOT see NOTAM",
+          "status": "PASS",
+          "note": "Cross-squadron pilot does NOT see NOTAM",
+          "writtenAt": "2026-04-25T01:46:27.215Z"
+        }
+      ]
+    },
+    "E": {
+      "title": "Pilot data cross-PC propagation",
+      "cells": [
+        {
+          "id": "E1",
+          "name": "PC-A edits pilot; PC-B (same squadron) sees update on next poll",
+          "status": "PASS",
+          "note": "Same-squadron PC-B sees pilot rename",
+          "writtenAt": "2026-04-25T01:46:28.795Z"
+        },
+        {
+          "id": "E2",
+          "name": "Cross-squadron PC does not see other squadron pilots in roster query",
+          "status": "PASS",
+          "note": "Cross-squadron ops cannot see other squadron pilot",
+          "writtenAt": "2026-04-25T01:46:29.067Z"
+        }
+      ]
+    },
+    "F": {
+      "title": "Sortie log cross-PC propagation",
+      "cells": [
+        {
+          "id": "F1",
+          "name": "PC-A inserts sortie; PC-B (same squadron) sees row",
+          "status": "PASS",
+          "note": "Same as B1",
+          "writtenAt": "2026-04-25T01:46:14.584Z"
+        },
+        {
+          "id": "F2",
+          "name": "PC-A edits sortie; PC-B sees edit",
+          "status": "PASS",
+          "note": "Edit on PC-A visible on PC-B",
+          "writtenAt": "2026-04-25T01:46:15.894Z"
+        },
+        {
+          "id": "F3",
+          "name": "Cross-squadron PC cannot select other squadron sorties",
+          "status": "PASS",
+          "note": "Cross-squadron ops cannot read other squadron sortie",
+          "writtenAt": "2026-04-25T01:46:16.193Z"
+        }
+      ]
+    },
+    "G": {
+      "title": "Squadron rename cascade",
+      "cells": [
+        {
+          "id": "G1",
+          "name": "Rename squadron: xpc_registry.squadron_name updates for matching rows",
+          "status": "PASS",
+          "note": "xpc_registry.squadron_name updated by rename trigger",
+          "writtenAt": "2026-04-25T01:46:31.424Z"
+        },
+        {
+          "id": "G2",
+          "name": "Rename squadron: xpc_messages.from_pc_name updates for matching rows",
+          "status": "PASS",
+          "note": "xpc_messages.from_pc_name updated by rename trigger",
+          "writtenAt": "2026-04-25T01:46:32.772Z"
+        },
+        {
+          "id": "G3",
+          "name": "Rename squadron: xpc_schedule_shares.origin_squadron_name updates",
+          "status": "PASS",
+          "note": "xpc_schedule_shares.origin_squadron_name updated by rename trigger",
+          "writtenAt": "2026-04-25T01:46:34.033Z"
+        }
+      ]
+    },
+    "H": {
+      "title": "Heartbeat / refresh / propagation latency",
+      "cells": [
+        {
+          "id": "H1",
+          "name": "Heartbeat upsert keeps PC active (last_seen within 90s window)",
+          "status": "PASS",
+          "note": "Heartbeat keeps PC active (age < 90s)",
+          "writtenAt": "2026-04-25T01:46:35.613Z"
+        },
+        {
+          "id": "H2",
+          "name": "PC with stale last_seen (>90s) is filtered out by directory query",
+          "status": "PASS",
+          "note": "Stale PC excluded from active directory query",
+          "writtenAt": "2026-04-25T01:46:37.181Z"
+        },
+        {
+          "id": "H3",
+          "name": "Schedule share insert observable to receiver tier on next SELECT",
+          "status": "PASS",
+          "note": "Share visible to receiver via SELECT within 5s (UI polls 15s)",
+          "writtenAt": "2026-04-25T01:46:38.403Z"
+        },
+        {
+          "id": "H4",
+          "name": "Realtime publication membership documented (only device_requests)",
+          "status": "FAIL",
+          "note": "Realtime publication contains only device_requests; cross-PC tables propagate via 15-30s polling — fails ≤5s SLA",
+          "writtenAt": "2026-04-25T02:02:35.646Z",
+          "sla": {
+            "required_seconds": 5,
+            "observed": "polling (15-30s)",
+            "verdict": "FAIL"
+          }
+        }
+      ]
+    },
+    "I": {
+      "title": "Calculations parity across PCs",
+      "cells": [
+        {
+          "id": "I1",
+          "name": "Same query from two PCs returns identical sortie set for pilot+window",
+          "status": "PASS",
+          "note": "Identical sortie set for same pilot from two PCs",
+          "writtenAt": "2026-04-25T01:46:16.784Z"
+        },
+        {
+          "id": "I2",
+          "name": "Closed-month total is frozen — write attempts fail",
+          "status": "PASS",
+          "note": "Closed month freezes calculations (write rejected)",
+          "writtenAt": "2026-04-25T01:46:19.773Z"
+        }
+      ]
+    },
+    "J": {
+      "title": "RLS isolation under forged claim",
+      "cells": [
+        {
+          "id": "J1",
+          "name": "Cross-squadron forged JWT cannot SELECT other squadron sorties",
+          "status": "PASS",
+          "note": "Bravo ops cannot SELECT alpha sorties",
+          "writtenAt": "2026-04-25T01:46:40.318Z"
+        },
+        {
+          "id": "J2",
+          "name": "Cross-squadron forged JWT cannot INSERT into other squadron sorties",
+          "status": "PASS",
+          "note": "Bravo ops cannot INSERT into alpha sorties",
+          "writtenAt": "2026-04-25T01:46:40.583Z"
+        },
+        {
+          "id": "J3",
+          "name": "Cross-squadron forged JWT cannot SELECT other squadron alerts",
+          "status": "PASS",
+          "note": "Bravo ops cannot SELECT alpha alerts",
+          "writtenAt": "2026-04-25T01:46:40.832Z"
+        },
+        {
+          "id": "J4",
+          "name": "Cross-squadron forged JWT cannot SELECT other squadron pilots",
+          "status": "PASS",
+          "note": "Bravo ops cannot SELECT alpha pilots",
+          "writtenAt": "2026-04-25T01:46:41.093Z"
+        },
+        {
+          "id": "J5",
+          "name": "xpc_schedule_shares hidden from non-participant tier",
+          "status": "PASS",
+          "note": "Cross-wing wing PC cannot see schedule share addressed to wing N",
+          "writtenAt": "2026-04-25T01:46:42.271Z"
+        },
+        {
+          "id": "J6",
+          "name": "xpc_messages hidden from non-participant PC",
+          "status": "PASS",
+          "note": "Cross-wing wing PC cannot see message addressed to wing N",
+          "writtenAt": "2026-04-25T01:46:42.819Z"
+        }
+      ]
+    },
+    "L": {
+      "title": "Per-role page-data sweep",
+      "cells": [
+        {
+          "id": "L_ops",
+          "name": "Ops sees own squadron sorties/pilots/alerts/notams; cannot see other squadron",
+          "status": "PASS",
+          "note": "Per-role page sweep for ops_alpha",
+          "writtenAt": "2026-04-25T01:46:45.447Z"
+        },
+        {
+          "id": "L_sqn",
+          "name": "Squadron commander same scope as ops + admin",
+          "status": "PASS",
+          "note": "Per-role page sweep for sqn_alpha",
+          "writtenAt": "2026-04-25T01:46:48.130Z"
+        },
+        {
+          "id": "L_flight",
+          "name": "Flight commander limited to own squadron",
+          "status": "PASS",
+          "note": "Per-role page sweep for flight_alpha",
+          "writtenAt": "2026-04-25T01:46:50.777Z"
+        },
+        {
+          "id": "L_deputy",
+          "name": "Deputy same scope as squadron",
+          "status": "PASS",
+          "note": "Per-role page sweep for deputy_alpha",
+          "writtenAt": "2026-04-25T01:46:54.173Z"
+        },
+        {
+          "id": "L_wing",
+          "name": "Wing commander sees aggregate of squadrons in own wing only",
+          "status": "PASS",
+          "note": "Per-role page sweep for wing_n",
+          "writtenAt": "2026-04-25T01:46:56.807Z"
+        },
+        {
+          "id": "L_base",
+          "name": "Base commander sees aggregate of squadrons in own base only",
+          "status": "PASS",
+          "note": "Per-role page sweep for base_e",
+          "writtenAt": "2026-04-25T01:46:59.439Z"
+        },
+        {
+          "id": "L_hq",
+          "name": "HQ sees all squadrons",
+          "status": "PASS",
+          "note": "Per-role page sweep for hq",
+          "writtenAt": "2026-04-25T01:47:02.080Z"
+        },
+        {
+          "id": "L_pilot",
+          "name": "Pilot sees only own pilot row + own squadron alerts/notams",
+          "status": "PASS",
+          "note": "Per-role page sweep for pilot_alpha",
+          "writtenAt": "2026-04-25T01:47:04.766Z"
+        }
+      ]
+    },
+    "M": {
+      "title": "Flight schedule sender/receiver scoping",
+      "cells": [
+        {
+          "id": "M1",
+          "name": "Wing receiver sees only shares whose origin squadron is in own wing",
+          "status": "PASS",
+          "note": "Wing N receiver sees alpha share (own wing)",
+          "writtenAt": "2026-04-25T01:47:07.527Z"
+        },
+        {
+          "id": "M2",
+          "name": "Cross-wing receiver does not see other wing shares",
+          "status": "PASS",
+          "note": "Wing N receiver does NOT see bravo share (cross-wing)",
+          "writtenAt": "2026-04-25T01:47:07.527Z"
+        },
+        {
+          "id": "M3",
+          "name": "Base receiver sees only shares whose origin squadron is in own base",
+          "status": "PASS",
+          "note": "Resolved by migration 0083 (Task #308). Re-verified 2026-04-25 via .local/scripts/task-308-verify.mjs (verdict GO, residue 0). The xpc_schedule_select policy now also matches xpc_my_pc_ids() && chain_pc_ids, so PostgREST's RETURNING-clause SELECT no longer rejects the forwarder's UPDATE.",
+          "writtenAt": "2026-04-25T01:47:08.302Z",
+          "previousStatus": "FAIL",
+          "fixedBy": "migration 0083"
+        }
+      ]
+    },
+    "N": {
+      "title": "Messages page scoping",
+      "cells": [
+        {
+          "id": "N1",
+          "name": "Sender PC sees own outgoing message",
+          "status": "PASS",
+          "note": "Sender PC sees own outgoing message",
+          "writtenAt": "2026-04-25T01:47:09.830Z"
+        },
+        {
+          "id": "N2",
+          "name": "Recipient PC sees incoming message",
+          "status": "PASS",
+          "note": "Recipient PC sees incoming message",
+          "writtenAt": "2026-04-25T01:47:10.099Z"
+        },
+        {
+          "id": "N3",
+          "name": "Third-party PC does NOT see message",
+          "status": "PASS",
+          "note": "Third-party PC does NOT see message",
+          "writtenAt": "2026-04-25T01:47:10.351Z"
+        },
+        {
+          "id": "N4",
+          "name": "in_history=true persists; in_history=false eligible for retention sweep",
+          "status": "PASS",
+          "note": "in_history=true is recorded for retention exemption",
+          "writtenAt": "2026-04-25T01:47:11.939Z"
+        }
+      ]
+    },
+    "P": {
+      "title": "Realtime / SLA assessment per cross-PC table",
+      "cells": [
+        {
+          "id": "P1",
+          "name": "Schedule chain forward visible to next tier ≤5s",
+          "status": "FAIL",
+          "note": "polling (15-30s) (SLA requires ≤5s)",
+          "writtenAt": "2026-04-25T02:02:35.648Z"
+        },
+        {
+          "id": "P2",
+          "name": "Message arrival visible to recipient ≤5s",
+          "status": "FAIL",
+          "note": "polling (15-30s) (SLA requires ≤5s)",
+          "writtenAt": "2026-04-25T02:02:35.648Z"
+        },
+        {
+          "id": "P3",
+          "name": "Pending approval visible to next tier ≤5s",
+          "status": "FAIL",
+          "note": "polling (15-30s) (SLA requires ≤5s)",
+          "writtenAt": "2026-04-25T02:02:35.649Z"
+        },
+        {
+          "id": "P4",
+          "name": "Alert visible to same-squadron PCs ≤5s",
+          "status": "FAIL",
+          "note": "polling (15-30s) (SLA requires ≤5s)",
+          "writtenAt": "2026-04-25T02:02:35.650Z"
+        },
+        {
+          "id": "P5",
+          "name": "NOTAM visible to same-squadron PCs ≤5s",
+          "status": "FAIL",
+          "note": "polling (15-30s) (SLA requires ≤5s)",
+          "writtenAt": "2026-04-25T02:02:35.650Z"
+        },
+        {
+          "id": "P6",
+          "name": "Sortie insert visible to same-squadron PCs ≤5s",
+          "status": "FAIL",
+          "note": "polling (15-30s) (SLA requires ≤5s)",
+          "writtenAt": "2026-04-25T02:02:35.650Z"
+        },
+        {
+          "id": "P7",
+          "name": "Pilot edit visible to same-squadron PCs ≤5s",
+          "status": "FAIL",
+          "note": "polling (15-30s) (SLA requires ≤5s)",
+          "writtenAt": "2026-04-25T02:02:35.651Z"
+        },
+        {
+          "id": "P8",
+          "name": "Snapshot insert visible upstream ≤5s",
+          "status": "FAIL",
+          "note": "polling (15-30s) (SLA requires ≤5s)",
+          "writtenAt": "2026-04-25T02:02:35.651Z"
+        },
+        {
+          "id": "P9",
+          "name": "PC presence visible to peers ≤5s",
+          "status": "FAIL",
+          "note": "polling (15-30s) (SLA requires ≤5s)",
+          "writtenAt": "2026-04-25T02:02:35.651Z"
+        }
+      ]
+    },
+    "K": {
+      "title": "DB-layer RLS coverage for xpc_* tables (negative-CRUD prerequisite)",
+      "cells": [
+        {
+          "id": "K1",
+          "name": "xpc_messages has policies for SELECT/INSERT/UPDATE/DELETE",
+          "status": "PASS",
+          "note": "OK: SELECT+INSERT+UPDATE+DELETE all present",
+          "writtenAt": "2026-04-25T02:02:36.987Z"
+        },
+        {
+          "id": "K2",
+          "name": "xpc_outbox is read-only (SELECT-only policy)",
+          "status": "PASS",
+          "note": "OK: SELECT all present",
+          "writtenAt": "2026-04-25T02:02:36.987Z"
+        },
+        {
+          "id": "K3",
+          "name": "xpc_pair_audit is read-only (SELECT-only policy)",
+          "status": "PASS",
+          "note": "OK: SELECT all present",
+          "writtenAt": "2026-04-25T02:02:36.988Z"
+        },
+        {
+          "id": "K4",
+          "name": "xpc_pair_codes has policies for SELECT/INSERT/UPDATE/DELETE",
+          "status": "PASS",
+          "note": "OK: SELECT+INSERT+UPDATE+DELETE all present",
+          "writtenAt": "2026-04-25T02:02:36.988Z"
+        },
+        {
+          "id": "K5",
+          "name": "xpc_pair_links has policies for SELECT/INSERT/UPDATE/DELETE",
+          "status": "PASS",
+          "note": "OK: SELECT+INSERT+UPDATE+DELETE all present",
+          "writtenAt": "2026-04-25T02:02:36.989Z"
+        },
+        {
+          "id": "K6",
+          "name": "xpc_pending has policies for SELECT/INSERT/UPDATE/DELETE",
+          "status": "PASS",
+          "note": "OK: SELECT+INSERT+UPDATE+DELETE all present",
+          "writtenAt": "2026-04-25T02:02:36.989Z"
+        },
+        {
+          "id": "K7",
+          "name": "xpc_registry has policies for SELECT/INSERT/UPDATE/DELETE",
+          "status": "PASS",
+          "note": "OK: SELECT+INSERT+UPDATE+DELETE all present",
+          "writtenAt": "2026-04-25T02:02:36.990Z"
+        },
+        {
+          "id": "K8",
+          "name": "xpc_schedule_shares has policies for SELECT/INSERT/UPDATE/DELETE",
+          "status": "PASS",
+          "note": "OK: SELECT+INSERT+UPDATE+DELETE all present",
+          "writtenAt": "2026-04-25T02:02:36.990Z"
+        },
+        {
+          "id": "K9",
+          "name": "xpc_squadron_snapshot has policies for SELECT/INSERT/UPDATE (DELETE intentionally absent)",
+          "status": "PASS",
+          "note": "OK: SELECT+INSERT+UPDATE all present",
+          "writtenAt": "2026-04-25T02:02:36.991Z"
+        },
+        {
+          "id": "K10",
+          "name": "xpc_user_pcs has policies for SELECT/INSERT/UPDATE/DELETE",
+          "status": "PASS",
+          "note": "OK: SELECT+INSERT+UPDATE+DELETE all present",
+          "writtenAt": "2026-04-25T02:02:36.991Z"
+        }
+      ]
+    },
+    "O": {
+      "title": "Sortie INSERT/UPDATE/DELETE recompute parity across rollups",
+      "cells": [
+        {
+          "id": "O1",
+          "name": "Sortie INSERT recompute — receiver count matches sender",
+          "status": "PASS",
+          "note": "Derived from B1 evidence",
+          "source": "cells/B1.json",
+          "writtenAt": "2026-04-25T02:02:38.390Z"
+        },
+        {
+          "id": "O2",
+          "name": "Sortie UPDATE recompute — receiver sees edit",
+          "status": "PASS",
+          "note": "Derived from F2 evidence",
+          "source": "cells/F2.json",
+          "writtenAt": "2026-04-25T02:02:38.390Z"
+        },
+        {
+          "id": "O3",
+          "name": "Sortie type-count parity (NVG, day, instr) across PCs",
+          "status": "PASS",
+          "note": "Derived from B2 evidence",
+          "source": "cells/B2.json",
+          "writtenAt": "2026-04-25T02:02:38.390Z"
+        },
+        {
+          "id": "O4",
+          "name": "Sortie DELETE — RLS DELETE policy exists on sorties",
+          "status": "PASS",
+          "note": "pg_policies cmd=DELETE on sorties: 1",
+          "source": "pg_policies introspection",
+          "writtenAt": "2026-04-25T02:02:38.390Z"
+        },
+        {
+          "id": "O5",
+          "name": "Cross-squadron sortie read denied (negative)",
+          "status": "PASS",
+          "note": "Derived from F3 evidence",
+          "source": "cells/F3.json",
+          "writtenAt": "2026-04-25T02:02:38.390Z"
+        }
+      ]
+    },
+    "Q": {
+      "title": "Heartbeat / reconnect / staleness invariants",
+      "cells": [
+        {
+          "id": "Q1",
+          "name": "Heartbeat upsert keeps PC active within 90s window",
+          "status": "PASS",
+          "note": "Derived from H1 evidence",
+          "writtenAt": "2026-04-25T02:02:39.670Z"
+        },
+        {
+          "id": "Q2",
+          "name": "Stale heartbeat (>90s) is filtered from directory",
+          "status": "PASS",
+          "note": "Derived from H2 evidence",
+          "writtenAt": "2026-04-25T02:02:39.670Z"
+        },
+        {
+          "id": "Q3",
+          "name": "Reconnect path — purge function exists for offline cleanup",
+          "status": "PASS",
+          "note": "xpc_purge_inactive_pcs present: true",
+          "writtenAt": "2026-04-25T02:02:39.670Z"
+        },
+        {
+          "id": "Q4",
+          "name": "Schedule share insert observable to receiver tier on next SELECT",
+          "status": "PASS",
+          "note": "Derived from H3 evidence",
+          "writtenAt": "2026-04-25T02:02:39.670Z"
+        }
+      ]
+    },
+    "R": {
+      "title": "Section R — Direct operational evidence cells (added Round-3 in response to reviewer)",
+      "description": "Each cell in this section is a direct, raw before/after operational assertion against a TEST_T303_R3_* fixture, providing one-to-one proof for an acceptance bullet that previously rolled up under broader cells. Every cell carries `observed` + `expected` blocks; the per-cell evidence files under cells/R*.json hold the raw numbers.",
+      "cells": [
+        {
+          "id": "R1",
+          "name": "Sortie DELETE → 30-day currency recompute (cross-PC visibility via polling)",
+          "status": "PASS",
+          "evidence": "audit-evidence/cross-pc-operational/cells/R1.json"
+        },
+        {
+          "id": "R2",
+          "name": "NOTAM expiry: dashboard surfaces all rows; expiry field absent from schema",
+          "status": "FAIL",
+          "evidence": "audit-evidence/cross-pc-operational/cells/R2.json"
+        },
+        {
+          "id": "R3",
+          "name": "Manual refresh wired (refetch / invalidateQueries) on dashboard pages",
+          "status": "PASS",
+          "evidence": "audit-evidence/cross-pc-operational/cells/R3.json"
+        },
+        {
+          "id": "R4",
+          "name": "30/90-day window arithmetic matches fixture counts exactly",
+          "status": "PASS",
+          "evidence": "audit-evidence/cross-pc-operational/cells/R4.json"
+        },
+        {
+          "id": "R5",
+          "name": "Role/page action validation: forbidden mutation rejected at policy layer",
+          "status": "PASS",
+          "evidence": "audit-evidence/cross-pc-operational/cells/R5.json"
+        },
+        {
+          "id": "R6",
+          "name": "Closed-month immutability: UPDATE and DELETE blocked while month closed",
+          "status": "PASS",
+          "evidence": "audit-evidence/cross-pc-operational/cells/R6.json"
+        },
+        {
+          "id": "R7",
+          "name": "Squadron rename propagates into xpc_registry.squadron_name",
+          "status": "PASS",
+          "evidence": "audit-evidence/cross-pc-operational/cells/R7.json"
+        },
+        {
+          "id": "R8",
+          "name": "Forwarder remains in chain_pc_ids after handoff (schema; visibility blocked by Family #1)",
+          "status": "PASS",
+          "evidence": "audit-evidence/cross-pc-operational/cells/R8.json"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "cellCount": 92,
+    "pass": 81,
+    "fail": 11,
+    "blocked": 0,
+    "verdict": "NO-GO",
+    "evidence_pointers": {
+      "matrix": "audit-evidence/cross-pc-operational/matrix.json",
+      "per_cell_dir": "audit-evidence/cross-pc-operational/cells/",
+      "role_sweeps": "audit-evidence/cross-pc-operational/role-sweeps/",
+      "run_summary": "audit-evidence/cross-pc-operational/run-summary.json",
+      "teardown": "audit-evidence/cross-pc-operational/teardown-residue.json",
+      "report": "audit-evidence/cross-pc-operational/REPORT.md",
+      "driver": ".local/scripts/task-303-cross-pc.mjs"
+    },
+    "failing_cells": [
+      {
+        "cell": "H4",
+        "status": "FAIL",
+        "evidence": "cells/H4.json"
+      },
+      {
+        "cell": "P1",
+        "status": "FAIL",
+        "evidence": "cells/P1.json"
+      },
+      {
+        "cell": "P2",
+        "status": "FAIL",
+        "evidence": "cells/P2.json"
+      },
+      {
+        "cell": "P3",
+        "status": "FAIL",
+        "evidence": "cells/P3.json"
+      },
+      {
+        "cell": "P4",
+        "status": "FAIL",
+        "evidence": "cells/P4.json"
+      },
+      {
+        "cell": "P5",
+        "status": "FAIL",
+        "evidence": "cells/P5.json"
+      },
+      {
+        "cell": "P6",
+        "status": "FAIL",
+        "evidence": "cells/P6.json"
+      },
+      {
+        "cell": "P7",
+        "status": "FAIL",
+        "evidence": "cells/P7.json"
+      },
+      {
+        "cell": "P8",
+        "status": "FAIL",
+        "evidence": "cells/P8.json"
+      },
+      {
+        "cell": "P9",
+        "status": "FAIL",
+        "evidence": "cells/P9.json"
+      },
+      {
+        "cell": "R2",
+        "status": "FAIL",
+        "evidence": "cells/R2.json"
+      }
+    ],
+    "previousVerdict": "NO-GO",
+    "task_308_fix": {
+      "applied": true,
+      "migration": "0083_xpc_schedule_select_chain_pc_ids.sql",
+      "verifiedAt": "2026-04-25T02:43:25Z",
+      "verificationEvidence": "audit-evidence/cross-pc-operational/task-308-verify.json",
+      "cellsFlippedToPass": [
+        "A2",
+        "A3",
+        "A5",
+        "A6",
+        "A8",
+        "M3"
+      ],
+      "remainingDefectFamilies": [
+        "realtime-publication / SLA gap (H4, P1-P9)",
+        "NOTAM expiry schema (R2)"
+      ]
+    }
+  },
+  "acceptance_map": {
+    "A": {
+      "title": "Cross-PC scheduling chain (Squadron→Wing→Base→HQ)",
+      "bullets": [
+        {
+          "bullet": "Squadron sends; Wing sees within poll window",
+          "cells": [
+            "A1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/A1.json"
+        },
+        {
+          "bullet": "Wing forwards; Base sees within poll window",
+          "cells": [
+            "A2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/A2.json",
+          "previousStatus": "FAIL"
+        },
+        {
+          "bullet": "Base forwards; HQ sees within poll window",
+          "cells": [
+            "A3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/A3.json",
+          "previousStatus": "FAIL"
+        },
+        {
+          "bullet": "Originator (Squadron) always sees own send",
+          "cells": [
+            "A4"
+          ],
+          "status": "PASS",
+          "evidence": "cells/A4.json"
+        },
+        {
+          "bullet": "Receiver edits (edited_rows / edited_program) propagate back to originator",
+          "cells": [
+            "A5"
+          ],
+          "status": "PASS",
+          "evidence": "cells/A5.json",
+          "previousStatus": "FAIL"
+        },
+        {
+          "bullet": "Approve at terminal tier sets approved_at + status",
+          "cells": [
+            "A6"
+          ],
+          "status": "PASS",
+          "evidence": "cells/A6.json",
+          "previousStatus": "FAIL"
+        },
+        {
+          "bullet": "Reject from any tier appends rejecting PC to rejected_by_pc_ids[]",
+          "cells": [
+            "A7"
+          ],
+          "status": "PASS",
+          "evidence": "cells/A7.json"
+        },
+        {
+          "bullet": "Originator dismiss (originator_dismissed_at) is local-only",
+          "cells": [
+            "A8"
+          ],
+          "status": "PASS",
+          "evidence": "cells/A8.json",
+          "previousStatus": "FAIL"
+        }
+      ],
+      "pass": 3,
+      "fail": 5,
+      "section_verdict": "FAIL"
+    },
+    "B": {
+      "title": "Currencies / aggregated sortie reads across PCs (same squadron)",
+      "bullets": [
+        {
+          "bullet": "PC-A inserts sortie; PC-B (same squadron, ops) sees aggregate change",
+          "cells": [
+            "B1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/B1.json"
+        },
+        {
+          "bullet": "Sortie type counts on receiver match sender exactly",
+          "cells": [
+            "B2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/B2.json"
+        },
+        {
+          "bullet": "Closed-month sortie write attempt fails with explicit error",
+          "cells": [
+            "B3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/B3.json"
+        }
+      ],
+      "pass": 3,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "C": {
+      "title": "Alerts cross-PC scoping",
+      "bullets": [
+        {
+          "bullet": "Same-squadron PC-B sees alert from PC-A",
+          "cells": [
+            "C1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/C1.json"
+        },
+        {
+          "bullet": "Cross-squadron PC (same wing) does NOT see alert",
+          "cells": [
+            "C2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/C2.json"
+        },
+        {
+          "bullet": "Cross-wing PC does NOT see alert",
+          "cells": [
+            "C3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/C3.json"
+        },
+        {
+          "bullet": "Pilot of same squadron sees alert",
+          "cells": [
+            "C4"
+          ],
+          "status": "PASS",
+          "evidence": "cells/C4.json"
+        },
+        {
+          "bullet": "Pilot of different squadron does NOT see alert",
+          "cells": [
+            "C5"
+          ],
+          "status": "PASS",
+          "evidence": "cells/C5.json"
+        }
+      ],
+      "pass": 5,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "D": {
+      "title": "NOTAMs cross-PC scoping",
+      "bullets": [
+        {
+          "bullet": "Same-squadron PC-B sees NOTAM from PC-A",
+          "cells": [
+            "D1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/D1.json"
+        },
+        {
+          "bullet": "Cross-squadron PC does NOT see NOTAM",
+          "cells": [
+            "D2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/D2.json"
+        },
+        {
+          "bullet": "Cross-wing PC does NOT see NOTAM",
+          "cells": [
+            "D3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/D3.json"
+        },
+        {
+          "bullet": "Pilot of same squadron sees NOTAM",
+          "cells": [
+            "D4"
+          ],
+          "status": "PASS",
+          "evidence": "cells/D4.json"
+        },
+        {
+          "bullet": "Pilot of different squadron does NOT see NOTAM",
+          "cells": [
+            "D5"
+          ],
+          "status": "PASS",
+          "evidence": "cells/D5.json"
+        }
+      ],
+      "pass": 5,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "E": {
+      "title": "Pilot data cross-PC propagation",
+      "bullets": [
+        {
+          "bullet": "PC-A edits pilot; PC-B (same squadron) sees update on next poll",
+          "cells": [
+            "E1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/E1.json"
+        },
+        {
+          "bullet": "Cross-squadron PC does not see other squadron pilots in roster query",
+          "cells": [
+            "E2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/E2.json"
+        }
+      ],
+      "pass": 2,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "F": {
+      "title": "Sortie log cross-PC propagation",
+      "bullets": [
+        {
+          "bullet": "PC-A inserts sortie; PC-B (same squadron) sees row",
+          "cells": [
+            "F1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/F1.json"
+        },
+        {
+          "bullet": "PC-A edits sortie; PC-B sees edit",
+          "cells": [
+            "F2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/F2.json"
+        },
+        {
+          "bullet": "Cross-squadron PC cannot select other squadron sorties",
+          "cells": [
+            "F3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/F3.json"
+        }
+      ],
+      "pass": 3,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "G": {
+      "title": "Squadron rename cascade",
+      "bullets": [
+        {
+          "bullet": "Rename squadron: xpc_registry.squadron_name updates for matching rows",
+          "cells": [
+            "G1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/G1.json"
+        },
+        {
+          "bullet": "Rename squadron: xpc_messages.from_pc_name updates for matching rows",
+          "cells": [
+            "G2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/G2.json"
+        },
+        {
+          "bullet": "Rename squadron: xpc_schedule_shares.origin_squadron_name updates",
+          "cells": [
+            "G3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/G3.json"
+        }
+      ],
+      "pass": 3,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "H": {
+      "title": "Heartbeat / refresh / propagation latency",
+      "bullets": [
+        {
+          "bullet": "Heartbeat upsert keeps PC active (last_seen within 90s window)",
+          "cells": [
+            "H1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/H1.json"
+        },
+        {
+          "bullet": "PC with stale last_seen (>90s) is filtered out by directory query",
+          "cells": [
+            "H2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/H2.json"
+        },
+        {
+          "bullet": "Schedule share insert observable to receiver tier on next SELECT",
+          "cells": [
+            "H3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/H3.json"
+        },
+        {
+          "bullet": "Realtime publication membership documented (only device_requests)",
+          "cells": [
+            "H4"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/H4.json"
+        }
+      ],
+      "pass": 3,
+      "fail": 1,
+      "section_verdict": "FAIL"
+    },
+    "I": {
+      "title": "Calculations parity across PCs",
+      "bullets": [
+        {
+          "bullet": "Same query from two PCs returns identical sortie set for pilot+window",
+          "cells": [
+            "I1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/I1.json"
+        },
+        {
+          "bullet": "Closed-month total is frozen — write attempts fail",
+          "cells": [
+            "I2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/I2.json"
+        }
+      ],
+      "pass": 2,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "J": {
+      "title": "RLS isolation under forged claim",
+      "bullets": [
+        {
+          "bullet": "Cross-squadron forged JWT cannot SELECT other squadron sorties",
+          "cells": [
+            "J1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/J1.json"
+        },
+        {
+          "bullet": "Cross-squadron forged JWT cannot INSERT into other squadron sorties",
+          "cells": [
+            "J2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/J2.json"
+        },
+        {
+          "bullet": "Cross-squadron forged JWT cannot SELECT other squadron alerts",
+          "cells": [
+            "J3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/J3.json"
+        },
+        {
+          "bullet": "Cross-squadron forged JWT cannot SELECT other squadron pilots",
+          "cells": [
+            "J4"
+          ],
+          "status": "PASS",
+          "evidence": "cells/J4.json"
+        },
+        {
+          "bullet": "xpc_schedule_shares hidden from non-participant tier",
+          "cells": [
+            "J5"
+          ],
+          "status": "PASS",
+          "evidence": "cells/J5.json"
+        },
+        {
+          "bullet": "xpc_messages hidden from non-participant PC",
+          "cells": [
+            "J6"
+          ],
+          "status": "PASS",
+          "evidence": "cells/J6.json"
+        }
+      ],
+      "pass": 6,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "L": {
+      "title": "Per-role page-data sweep",
+      "bullets": [
+        {
+          "bullet": "Ops sees own squadron sorties/pilots/alerts/notams; cannot see other squadron",
+          "cells": [
+            "L_ops"
+          ],
+          "status": "PASS",
+          "evidence": "cells/L_ops.json",
+          "sweep": "role-sweeps/ops_alpha.json"
+        },
+        {
+          "bullet": "Squadron commander same scope as ops + admin",
+          "cells": [
+            "L_sqn"
+          ],
+          "status": "PASS",
+          "evidence": "cells/L_sqn.json",
+          "sweep": "role-sweeps/sqn_alpha.json"
+        },
+        {
+          "bullet": "Flight commander limited to own squadron",
+          "cells": [
+            "L_flight"
+          ],
+          "status": "PASS",
+          "evidence": "cells/L_flight.json",
+          "sweep": "role-sweeps/flight_alpha.json"
+        },
+        {
+          "bullet": "Deputy same scope as squadron",
+          "cells": [
+            "L_deputy"
+          ],
+          "status": "PASS",
+          "evidence": "cells/L_deputy.json",
+          "sweep": "role-sweeps/deputy_alpha.json"
+        },
+        {
+          "bullet": "Wing commander sees aggregate of squadrons in own wing only",
+          "cells": [
+            "L_wing"
+          ],
+          "status": "PASS",
+          "evidence": "cells/L_wing.json",
+          "sweep": "role-sweeps/wing_n.json"
+        },
+        {
+          "bullet": "Base commander sees aggregate of squadrons in own base only",
+          "cells": [
+            "L_base"
+          ],
+          "status": "PASS",
+          "evidence": "cells/L_base.json",
+          "sweep": "role-sweeps/base_e.json"
+        },
+        {
+          "bullet": "HQ sees all squadrons",
+          "cells": [
+            "L_hq"
+          ],
+          "status": "PASS",
+          "evidence": "cells/L_hq.json",
+          "sweep": "role-sweeps/hq.json"
+        },
+        {
+          "bullet": "Pilot sees only own pilot row + own squadron alerts/notams",
+          "cells": [
+            "L_pilot"
+          ],
+          "status": "PASS",
+          "evidence": "cells/L_pilot.json",
+          "sweep": "role-sweeps/pilot_alpha.json"
+        }
+      ],
+      "pass": 8,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "M": {
+      "title": "Flight schedule sender/receiver scoping",
+      "bullets": [
+        {
+          "bullet": "Wing receiver sees only shares whose origin squadron is in own wing",
+          "cells": [
+            "M1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/M1.json"
+        },
+        {
+          "bullet": "Cross-wing receiver does not see other wing shares",
+          "cells": [
+            "M2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/M2.json"
+        },
+        {
+          "bullet": "Base receiver sees only shares whose origin squadron is in own base",
+          "cells": [
+            "M3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/M3.json",
+          "previousStatus": "FAIL"
+        }
+      ],
+      "pass": 2,
+      "fail": 1,
+      "section_verdict": "FAIL"
+    },
+    "N": {
+      "title": "Messages page scoping",
+      "bullets": [
+        {
+          "bullet": "Sender PC sees own outgoing message",
+          "cells": [
+            "N1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/N1.json"
+        },
+        {
+          "bullet": "Recipient PC sees incoming message",
+          "cells": [
+            "N2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/N2.json"
+        },
+        {
+          "bullet": "Third-party PC does NOT see message",
+          "cells": [
+            "N3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/N3.json"
+        },
+        {
+          "bullet": "in_history=true persists; in_history=false eligible for retention sweep",
+          "cells": [
+            "N4"
+          ],
+          "status": "PASS",
+          "evidence": "cells/N4.json"
+        }
+      ],
+      "pass": 4,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "P": {
+      "title": "Realtime / SLA assessment per cross-PC table",
+      "bullets": [
+        {
+          "bullet": "Schedule chain forward visible to next tier ≤5s",
+          "cells": [
+            "P1"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/P1.json"
+        },
+        {
+          "bullet": "Message arrival visible to recipient ≤5s",
+          "cells": [
+            "P2"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/P2.json"
+        },
+        {
+          "bullet": "Pending approval visible to next tier ≤5s",
+          "cells": [
+            "P3"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/P3.json"
+        },
+        {
+          "bullet": "Alert visible to same-squadron PCs ≤5s",
+          "cells": [
+            "P4"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/P4.json"
+        },
+        {
+          "bullet": "NOTAM visible to same-squadron PCs ≤5s",
+          "cells": [
+            "P5"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/P5.json"
+        },
+        {
+          "bullet": "Sortie insert visible to same-squadron PCs ≤5s",
+          "cells": [
+            "P6"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/P6.json"
+        },
+        {
+          "bullet": "Pilot edit visible to same-squadron PCs ≤5s",
+          "cells": [
+            "P7"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/P7.json"
+        },
+        {
+          "bullet": "Snapshot insert visible upstream ≤5s",
+          "cells": [
+            "P8"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/P8.json"
+        },
+        {
+          "bullet": "PC presence visible to peers ≤5s",
+          "cells": [
+            "P9"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/P9.json"
+        }
+      ],
+      "pass": 0,
+      "fail": 9,
+      "section_verdict": "FAIL"
+    },
+    "K": {
+      "title": "DB-layer RLS coverage for xpc_* tables (negative-CRUD prerequisite)",
+      "bullets": [
+        {
+          "bullet": "xpc_messages has policies for SELECT/INSERT/UPDATE/DELETE",
+          "cells": [
+            "K1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/K1.json"
+        },
+        {
+          "bullet": "xpc_outbox is read-only (SELECT-only policy)",
+          "cells": [
+            "K2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/K2.json"
+        },
+        {
+          "bullet": "xpc_pair_audit is read-only (SELECT-only policy)",
+          "cells": [
+            "K3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/K3.json"
+        },
+        {
+          "bullet": "xpc_pair_codes has policies for SELECT/INSERT/UPDATE/DELETE",
+          "cells": [
+            "K4"
+          ],
+          "status": "PASS",
+          "evidence": "cells/K4.json"
+        },
+        {
+          "bullet": "xpc_pair_links has policies for SELECT/INSERT/UPDATE/DELETE",
+          "cells": [
+            "K5"
+          ],
+          "status": "PASS",
+          "evidence": "cells/K5.json"
+        },
+        {
+          "bullet": "xpc_pending has policies for SELECT/INSERT/UPDATE/DELETE",
+          "cells": [
+            "K6"
+          ],
+          "status": "PASS",
+          "evidence": "cells/K6.json"
+        },
+        {
+          "bullet": "xpc_registry has policies for SELECT/INSERT/UPDATE/DELETE",
+          "cells": [
+            "K7"
+          ],
+          "status": "PASS",
+          "evidence": "cells/K7.json"
+        },
+        {
+          "bullet": "xpc_schedule_shares has policies for SELECT/INSERT/UPDATE/DELETE",
+          "cells": [
+            "K8"
+          ],
+          "status": "PASS",
+          "evidence": "cells/K8.json"
+        },
+        {
+          "bullet": "xpc_squadron_snapshot has policies for SELECT/INSERT/UPDATE (DELETE intentionally absent)",
+          "cells": [
+            "K9"
+          ],
+          "status": "PASS",
+          "evidence": "cells/K9.json"
+        },
+        {
+          "bullet": "xpc_user_pcs has policies for SELECT/INSERT/UPDATE/DELETE",
+          "cells": [
+            "K10"
+          ],
+          "status": "PASS",
+          "evidence": "cells/K10.json"
+        }
+      ],
+      "pass": 10,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "O": {
+      "title": "Sortie INSERT/UPDATE/DELETE recompute parity across rollups",
+      "bullets": [
+        {
+          "bullet": "Sortie INSERT recompute — receiver count matches sender",
+          "cells": [
+            "O1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/O1.json"
+        },
+        {
+          "bullet": "Sortie UPDATE recompute — receiver sees edit",
+          "cells": [
+            "O2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/O2.json"
+        },
+        {
+          "bullet": "Sortie type-count parity (NVG, day, instr) across PCs",
+          "cells": [
+            "O3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/O3.json"
+        },
+        {
+          "bullet": "Sortie DELETE — RLS DELETE policy exists on sorties",
+          "cells": [
+            "O4"
+          ],
+          "status": "PASS",
+          "evidence": "cells/O4.json"
+        },
+        {
+          "bullet": "Cross-squadron sortie read denied (negative)",
+          "cells": [
+            "O5"
+          ],
+          "status": "PASS",
+          "evidence": "cells/O5.json"
+        }
+      ],
+      "pass": 5,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "Q": {
+      "title": "Heartbeat / reconnect / staleness invariants",
+      "bullets": [
+        {
+          "bullet": "Heartbeat upsert keeps PC active within 90s window",
+          "cells": [
+            "Q1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/Q1.json"
+        },
+        {
+          "bullet": "Stale heartbeat (>90s) is filtered from directory",
+          "cells": [
+            "Q2"
+          ],
+          "status": "PASS",
+          "evidence": "cells/Q2.json"
+        },
+        {
+          "bullet": "Reconnect path — purge function exists for offline cleanup",
+          "cells": [
+            "Q3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/Q3.json"
+        },
+        {
+          "bullet": "Schedule share insert observable to receiver tier on next SELECT",
+          "cells": [
+            "Q4"
+          ],
+          "status": "PASS",
+          "evidence": "cells/Q4.json"
+        }
+      ],
+      "pass": 4,
+      "fail": 0,
+      "section_verdict": "PASS"
+    },
+    "R": {
+      "title": "Section R — Direct operational evidence cells (added Round-3 in response to reviewer)",
+      "bullets": [
+        {
+          "bullet": "Sortie DELETE → 30-day currency recompute (cross-PC visibility via polling)",
+          "cells": [
+            "R1"
+          ],
+          "status": "PASS",
+          "evidence": "cells/R1.json"
+        },
+        {
+          "bullet": "NOTAM expiry: dashboard surfaces all rows; expiry field absent from schema",
+          "cells": [
+            "R2"
+          ],
+          "status": "FAIL",
+          "evidence": "cells/R2.json"
+        },
+        {
+          "bullet": "Manual refresh wired (refetch / invalidateQueries) on dashboard pages",
+          "cells": [
+            "R3"
+          ],
+          "status": "PASS",
+          "evidence": "cells/R3.json"
+        },
+        {
+          "bullet": "30/90-day window arithmetic matches fixture counts exactly",
+          "cells": [
+            "R4"
+          ],
+          "status": "PASS",
+          "evidence": "cells/R4.json"
+        },
+        {
+          "bullet": "Role/page action validation: forbidden mutation rejected at policy layer",
+          "cells": [
+            "R5"
+          ],
+          "status": "PASS",
+          "evidence": "cells/R5.json"
+        },
+        {
+          "bullet": "Closed-month immutability: UPDATE and DELETE blocked while month closed",
+          "cells": [
+            "R6"
+          ],
+          "status": "PASS",
+          "evidence": "cells/R6.json"
+        },
+        {
+          "bullet": "Squadron rename propagates into xpc_registry.squadron_name",
+          "cells": [
+            "R7"
+          ],
+          "status": "PASS",
+          "evidence": "cells/R7.json"
+        },
+        {
+          "bullet": "Forwarder remains in chain_pc_ids after handoff (schema; visibility blocked by Family #1)",
+          "cells": [
+            "R8"
+          ],
+          "status": "PASS",
+          "evidence": "cells/R8.json"
+        }
+      ],
+      "pass": 7,
+      "fail": 1,
+      "section_verdict": "FAIL"
+    }
+  }
+}

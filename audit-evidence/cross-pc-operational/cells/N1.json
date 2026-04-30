@@ -1,0 +1,11 @@
+{
+  "cell": "N1",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:47:09.830Z",
+  "note": "Sender PC sees own outgoing message",
+  "seeS": [
+    {
+      "id": "TEST_T303_MSG_N_1777081628303"
+    }
+  ]
+}

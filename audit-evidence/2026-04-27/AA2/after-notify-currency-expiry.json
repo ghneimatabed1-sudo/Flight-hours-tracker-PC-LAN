@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-04-24T20:09:37.959Z",
+  "slug": "notify-currency-expiry",
+  "meta": {
+    "verify_jwt": true,
+    "id": "cc950402-9030-4a6e-96eb-dc4e3c9bbc2c",
+    "slug": "notify-currency-expiry",
+    "version": 6,
+    "name": "notify-currency-expiry",
+    "status": "ACTIVE",
+    "entrypoint_path": "file:///tmp/user_fn_nklrdhfsbevckovqqkah_cc950402-9030-4a6e-96eb-dc4e3c9bbc2c_6/source/index.ts",
+    "import_map_path": null,
+    "import_map": false,
+    "created_at": 1776513706259,
+    "updated_at": 1777061377519,
+    "ezbr_sha256": "ae69cb1094f90ba58ebee99f67038fc21a11015644a9260ab6b19bc782226127"
+  },
+  "body_sha256": "c26cc1feb8043d456ea27a3d95cacffd223b99b2ca038b970e2df2633470b231",
+  "body_size": 503079,
+  "source_sha256": "416e76744a04929371bf68eea4e441e5764505ff709e6a4c14a140c0c1658dd6",
+  "source_has_role_guard_marker": false,
+  "config_verify_jwt": true
+}

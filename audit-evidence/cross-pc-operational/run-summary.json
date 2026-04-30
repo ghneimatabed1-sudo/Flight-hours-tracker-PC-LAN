@@ -1,0 +1,494 @@
+{
+  "task": 303,
+  "finishedAt": "2026-04-25T02:33:37.835Z",
+  "fatalError": null,
+  "cellCount": 92,
+  "pass": 81,
+  "fail": 11,
+  "blocked": 0,
+  "verdict": "NO-GO",
+  "source_of_truth": "matrix.json (per-cell ground truth lives in cells/<id>.json)",
+  "cells": [
+    {
+      "cell": "A1",
+      "status": "PASS",
+      "note": "Wing reads share at current_tier=wing"
+    },
+    {
+      "cell": "A2",
+      "status": "PASS",
+      "note": "PASS after migration 0083 (Task #308)",
+      "previousStatus": "FAIL"
+    },
+    {
+      "cell": "A3",
+      "status": "PASS",
+      "note": "PASS after migration 0083 (Task #308)",
+      "previousStatus": "FAIL"
+    },
+    {
+      "cell": "A4",
+      "status": "PASS",
+      "note": "Originator squadron PC still sees own send"
+    },
+    {
+      "cell": "A5",
+      "status": "PASS",
+      "note": "PASS after migration 0083 (Task #308)",
+      "previousStatus": "FAIL"
+    },
+    {
+      "cell": "A6",
+      "status": "PASS",
+      "note": "PASS after migration 0083 (Task #308)",
+      "previousStatus": "FAIL"
+    },
+    {
+      "cell": "A7",
+      "status": "PASS",
+      "note": "Wing reject appends to rejected_by_pc_ids[]"
+    },
+    {
+      "cell": "A8",
+      "status": "PASS",
+      "note": "PASS after migration 0083 (Task #308)",
+      "previousStatus": "FAIL"
+    },
+    {
+      "cell": "B1",
+      "status": "PASS",
+      "note": "PC-B (same squadron) sees insert"
+    },
+    {
+      "cell": "B2",
+      "status": "PASS",
+      "note": "Same-squadron PCs see identical NVG count for pilot"
+    },
+    {
+      "cell": "B3",
+      "status": "PASS",
+      "note": "Closed month rejects sortie update with explicit error"
+    },
+    {
+      "cell": "C1",
+      "status": "PASS",
+      "note": "Same-squadron ops sees alert"
+    },
+    {
+      "cell": "C2",
+      "status": "PASS",
+      "note": "Cross-squadron same-wing ops does NOT see alert"
+    },
+    {
+      "cell": "C3",
+      "status": "PASS",
+      "note": "Cross-wing ops does NOT see alert"
+    },
+    {
+      "cell": "C4",
+      "status": "PASS",
+      "note": "Same-squadron pilot sees alert"
+    },
+    {
+      "cell": "C5",
+      "status": "PASS",
+      "note": "Cross-squadron pilot does NOT see alert"
+    },
+    {
+      "cell": "D1",
+      "status": "PASS",
+      "note": "Same-squadron ops sees NOTAM"
+    },
+    {
+      "cell": "D2",
+      "status": "PASS",
+      "note": "Cross-squadron same-wing ops does NOT see NOTAM"
+    },
+    {
+      "cell": "D3",
+      "status": "PASS",
+      "note": "Cross-wing ops does NOT see NOTAM"
+    },
+    {
+      "cell": "D4",
+      "status": "PASS",
+      "note": "Same-squadron pilot sees NOTAM"
+    },
+    {
+      "cell": "D5",
+      "status": "PASS",
+      "note": "Cross-squadron pilot does NOT see NOTAM"
+    },
+    {
+      "cell": "E1",
+      "status": "PASS",
+      "note": "Same-squadron PC-B sees pilot rename"
+    },
+    {
+      "cell": "E2",
+      "status": "PASS",
+      "note": "Cross-squadron ops cannot see other squadron pilot"
+    },
+    {
+      "cell": "F1",
+      "status": "PASS",
+      "note": "Same as B1"
+    },
+    {
+      "cell": "F2",
+      "status": "PASS",
+      "note": "Edit on PC-A visible on PC-B"
+    },
+    {
+      "cell": "F3",
+      "status": "PASS",
+      "note": "Cross-squadron ops cannot read other squadron sortie"
+    },
+    {
+      "cell": "G1",
+      "status": "PASS",
+      "note": "xpc_registry.squadron_name updated by rename trigger"
+    },
+    {
+      "cell": "G2",
+      "status": "PASS",
+      "note": "xpc_messages.from_pc_name updated by rename trigger"
+    },
+    {
+      "cell": "G3",
+      "status": "PASS",
+      "note": "xpc_schedule_shares.origin_squadron_name updated by rename trigger"
+    },
+    {
+      "cell": "H1",
+      "status": "PASS",
+      "note": "Heartbeat keeps PC active (age < 90s)"
+    },
+    {
+      "cell": "H2",
+      "status": "PASS",
+      "note": "Stale PC excluded from active directory query"
+    },
+    {
+      "cell": "H3",
+      "status": "PASS",
+      "note": "Share visible to receiver via SELECT within 5s (UI polls 15s)"
+    },
+    {
+      "cell": "H4",
+      "status": "FAIL",
+      "note": "Realtime publication contains only device_requests; cross-PC tables propagate via 15-30s polling — fails ≤5s SLA"
+    },
+    {
+      "cell": "I1",
+      "status": "PASS",
+      "note": "Identical sortie set for same pilot from two PCs"
+    },
+    {
+      "cell": "I2",
+      "status": "PASS",
+      "note": "Closed month freezes calculations (write rejected)"
+    },
+    {
+      "cell": "J1",
+      "status": "PASS",
+      "note": "Bravo ops cannot SELECT alpha sorties"
+    },
+    {
+      "cell": "J2",
+      "status": "PASS",
+      "note": "Bravo ops cannot INSERT into alpha sorties"
+    },
+    {
+      "cell": "J3",
+      "status": "PASS",
+      "note": "Bravo ops cannot SELECT alpha alerts"
+    },
+    {
+      "cell": "J4",
+      "status": "PASS",
+      "note": "Bravo ops cannot SELECT alpha pilots"
+    },
+    {
+      "cell": "J5",
+      "status": "PASS",
+      "note": "Cross-wing wing PC cannot see schedule share addressed to wing N"
+    },
+    {
+      "cell": "J6",
+      "status": "PASS",
+      "note": "Cross-wing wing PC cannot see message addressed to wing N"
+    },
+    {
+      "cell": "L_ops",
+      "status": "PASS",
+      "note": "Per-role page sweep for ops_alpha"
+    },
+    {
+      "cell": "L_sqn",
+      "status": "PASS",
+      "note": "Per-role page sweep for sqn_alpha"
+    },
+    {
+      "cell": "L_flight",
+      "status": "PASS",
+      "note": "Per-role page sweep for flight_alpha"
+    },
+    {
+      "cell": "L_deputy",
+      "status": "PASS",
+      "note": "Per-role page sweep for deputy_alpha"
+    },
+    {
+      "cell": "L_wing",
+      "status": "PASS",
+      "note": "Per-role page sweep for wing_n"
+    },
+    {
+      "cell": "L_base",
+      "status": "PASS",
+      "note": "Per-role page sweep for base_e"
+    },
+    {
+      "cell": "L_hq",
+      "status": "PASS",
+      "note": "Per-role page sweep for hq"
+    },
+    {
+      "cell": "L_pilot",
+      "status": "PASS",
+      "note": "Per-role page sweep for pilot_alpha"
+    },
+    {
+      "cell": "M1",
+      "status": "PASS",
+      "note": "Wing N receiver sees alpha share (own wing)"
+    },
+    {
+      "cell": "M2",
+      "status": "PASS",
+      "note": "Wing N receiver does NOT see bravo share (cross-wing)"
+    },
+    {
+      "cell": "M3",
+      "status": "PASS",
+      "note": "PASS after migration 0083 (Task #308)",
+      "previousStatus": "FAIL"
+    },
+    {
+      "cell": "N1",
+      "status": "PASS",
+      "note": "Sender PC sees own outgoing message"
+    },
+    {
+      "cell": "N2",
+      "status": "PASS",
+      "note": "Recipient PC sees incoming message"
+    },
+    {
+      "cell": "N3",
+      "status": "PASS",
+      "note": "Third-party PC does NOT see message"
+    },
+    {
+      "cell": "N4",
+      "status": "PASS",
+      "note": "in_history=true is recorded for retention exemption"
+    },
+    {
+      "cell": "P1",
+      "status": "FAIL",
+      "note": "polling (15-30s) (SLA requires ≤5s)"
+    },
+    {
+      "cell": "P2",
+      "status": "FAIL",
+      "note": "polling (15-30s) (SLA requires ≤5s)"
+    },
+    {
+      "cell": "P3",
+      "status": "FAIL",
+      "note": "polling (15-30s) (SLA requires ≤5s)"
+    },
+    {
+      "cell": "P4",
+      "status": "FAIL",
+      "note": "polling (15-30s) (SLA requires ≤5s)"
+    },
+    {
+      "cell": "P5",
+      "status": "FAIL",
+      "note": "polling (15-30s) (SLA requires ≤5s)"
+    },
+    {
+      "cell": "P6",
+      "status": "FAIL",
+      "note": "polling (15-30s) (SLA requires ≤5s)"
+    },
+    {
+      "cell": "P7",
+      "status": "FAIL",
+      "note": "polling (15-30s) (SLA requires ≤5s)"
+    },
+    {
+      "cell": "P8",
+      "status": "FAIL",
+      "note": "polling (15-30s) (SLA requires ≤5s)"
+    },
+    {
+      "cell": "P9",
+      "status": "FAIL",
+      "note": "polling (15-30s) (SLA requires ≤5s)"
+    },
+    {
+      "cell": "K1",
+      "status": "PASS",
+      "note": "OK: SELECT+INSERT+UPDATE+DELETE all present"
+    },
+    {
+      "cell": "K2",
+      "status": "PASS",
+      "note": "OK: SELECT all present"
+    },
+    {
+      "cell": "K3",
+      "status": "PASS",
+      "note": "OK: SELECT all present"
+    },
+    {
+      "cell": "K4",
+      "status": "PASS",
+      "note": "OK: SELECT+INSERT+UPDATE+DELETE all present"
+    },
+    {
+      "cell": "K5",
+      "status": "PASS",
+      "note": "OK: SELECT+INSERT+UPDATE+DELETE all present"
+    },
+    {
+      "cell": "K6",
+      "status": "PASS",
+      "note": "OK: SELECT+INSERT+UPDATE+DELETE all present"
+    },
+    {
+      "cell": "K7",
+      "status": "PASS",
+      "note": "OK: SELECT+INSERT+UPDATE+DELETE all present"
+    },
+    {
+      "cell": "K8",
+      "status": "PASS",
+      "note": "OK: SELECT+INSERT+UPDATE+DELETE all present"
+    },
+    {
+      "cell": "K9",
+      "status": "PASS",
+      "note": "OK: SELECT+INSERT+UPDATE all present"
+    },
+    {
+      "cell": "K10",
+      "status": "PASS",
+      "note": "OK: SELECT+INSERT+UPDATE+DELETE all present"
+    },
+    {
+      "cell": "O1",
+      "status": "PASS",
+      "note": "Derived from B1 evidence"
+    },
+    {
+      "cell": "O2",
+      "status": "PASS",
+      "note": "Derived from F2 evidence"
+    },
+    {
+      "cell": "O3",
+      "status": "PASS",
+      "note": "Derived from B2 evidence"
+    },
+    {
+      "cell": "O4",
+      "status": "PASS",
+      "note": "pg_policies cmd=DELETE on sorties: 1"
+    },
+    {
+      "cell": "O5",
+      "status": "PASS",
+      "note": "Derived from F3 evidence"
+    },
+    {
+      "cell": "Q1",
+      "status": "PASS",
+      "note": "Derived from H1 evidence"
+    },
+    {
+      "cell": "Q2",
+      "status": "PASS",
+      "note": "Derived from H2 evidence"
+    },
+    {
+      "cell": "Q3",
+      "status": "PASS",
+      "note": "xpc_purge_inactive_pcs present: true"
+    },
+    {
+      "cell": "Q4",
+      "status": "PASS",
+      "note": "Derived from H3 evidence"
+    },
+    {
+      "cell": "R1",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "cell": "R2",
+      "status": "FAIL",
+      "note": ""
+    },
+    {
+      "cell": "R3",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "cell": "R4",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "cell": "R5",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "cell": "R6",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "cell": "R7",
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "cell": "R8",
+      "status": "PASS",
+      "note": ""
+    }
+  ],
+  "previousVerdict": "NO-GO",
+  "task_308_fix": {
+    "applied": true,
+    "migration": "0083_xpc_schedule_select_chain_pc_ids.sql",
+    "verifiedAt": "2026-04-25T02:43:25Z",
+    "cellsFlippedToPass": [
+      "A2",
+      "A3",
+      "A5",
+      "A6",
+      "A8",
+      "M3"
+    ]
+  },
+  "lastUpdatedAt": "2026-04-25T02:47:00.037Z"
+}

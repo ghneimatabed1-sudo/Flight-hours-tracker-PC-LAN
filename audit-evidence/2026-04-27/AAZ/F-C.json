@@ -1,0 +1,121 @@
+{
+  "item": "F-C xpc_outbox processor",
+  "ts": "2026-04-24T21:13:36.445Z",
+  "checks": [
+    {
+      "label": "table_exists",
+      "ok": true,
+      "rows": [
+        {
+          "exists": "xpc_outbox"
+        }
+      ]
+    },
+    {
+      "label": "processor_cron",
+      "ok": true,
+      "rows": [
+        {
+          "jobname": "xpc-outbox-process",
+          "schedule": "* * * * *",
+          "active": true
+        }
+      ]
+    },
+    {
+      "label": "monitor_cron",
+      "ok": true,
+      "rows": [
+        {
+          "jobname": "xpc-outbox-monitor",
+          "schedule": "15 * * * *",
+          "active": true
+        }
+      ]
+    },
+    {
+      "label": "columns",
+      "ok": true,
+      "rows": [
+        {
+          "column_name": "id",
+          "data_type": "uuid"
+        },
+        {
+          "column_name": "target",
+          "data_type": "text"
+        },
+        {
+          "column_name": "payload",
+          "data_type": "jsonb"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone"
+        },
+        {
+          "column_name": "created_by",
+          "data_type": "uuid"
+        },
+        {
+          "column_name": "sent_at",
+          "data_type": "timestamp with time zone"
+        },
+        {
+          "column_name": "attempts",
+          "data_type": "integer"
+        },
+        {
+          "column_name": "last_attempted_at",
+          "data_type": "timestamp with time zone"
+        },
+        {
+          "column_name": "last_error",
+          "data_type": "text"
+        }
+      ]
+    },
+    {
+      "label": "backlog",
+      "ok": true,
+      "rows": [
+        {
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "label": "synthetic_insert",
+      "ok": true,
+      "rows": [
+        {
+          "id": "10317ef5-2bd5-486c-ae84-fd09c3f01a56",
+          "created_at": "2026-04-24 21:13:44.2353+00",
+          "sent_at": null
+        }
+      ]
+    },
+    {
+      "label": "synthetic_round_trip",
+      "ok": true,
+      "processed": {
+        "id": "10317ef5-2bd5-486c-ae84-fd09c3f01a56",
+        "created_at": "2026-04-24 21:13:44.2353+00",
+        "sent_at": "2026-04-24 21:14:00.014438+00",
+        "last_error": null,
+        "attempts": 1
+      },
+      "elapsed_ms": 18774
+    },
+    {
+      "label": "dispatched_xpc_messages_row",
+      "ok": true,
+      "row": {
+        "id": "AAZ_VERIFY_MSG_aaz_F_modeqrbx",
+        "subject": "aaz probe",
+        "sent_at": "2026-04-24 21:14:00.014438+00"
+      }
+    }
+  ],
+  "verdict": "PASS"
+}

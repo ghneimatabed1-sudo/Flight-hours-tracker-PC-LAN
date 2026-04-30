@@ -1,0 +1,49 @@
+{
+  "residue": [
+    {
+      "t": "squadrons",
+      "n": 0
+    },
+    {
+      "t": "pilots",
+      "n": 0
+    },
+    {
+      "t": "sorties",
+      "n": 0
+    },
+    {
+      "t": "alerts",
+      "n": 0
+    },
+    {
+      "t": "notams",
+      "n": 0
+    },
+    {
+      "t": "xpc_registry",
+      "n": 0
+    },
+    {
+      "t": "xpc_messages",
+      "n": 0
+    },
+    {
+      "t": "xpc_schedule_shares",
+      "n": 0
+    },
+    {
+      "t": "wings",
+      "n": 0
+    },
+    {
+      "t": "bases",
+      "n": 0
+    },
+    {
+      "t": "public_users",
+      "n": 0
+    }
+  ],
+  "writtenAt": "2026-04-25T01:47:38.205Z"
+}

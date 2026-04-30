@@ -1,0 +1,22 @@
+{
+  "cell": "R3",
+  "name": "Manual refresh wired (refetch / invalidateQueries) on dashboard pages",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:25:27.287Z",
+  "note": "",
+  "method": "grep across artifacts/pilot-dashboard/src/pages + lib for refetch() / invalidateQueries() callsites — these are the React Query handles the polling hooks expose for explicit user-triggered refresh.",
+  "observed": {
+    "callsites_total": 75,
+    "files_with_callsites": [
+      "artifacts/pilot-dashboard/src/pages/admin/Squadrons.tsx",
+      "artifacts/pilot-dashboard/src/pages/dashboard/FlightRecords.tsx",
+      "artifacts/pilot-dashboard/src/pages/PdfExports.tsx",
+      "artifacts/pilot-dashboard/src/pages/PilotDetail.tsx",
+      "artifacts/pilot-dashboard/src/pages/Roster.tsx",
+      "artifacts/pilot-dashboard/src/pages/Diagnostic.tsx"
+    ]
+  },
+  "expected": {
+    "callsites_total_min": 1
+  }
+}

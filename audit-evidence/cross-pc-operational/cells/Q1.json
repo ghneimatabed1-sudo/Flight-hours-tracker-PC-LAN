@@ -1,0 +1,15 @@
+{
+  "cell": "Q1",
+  "name": "Heartbeat staleness window: ACTIVE_WINDOW_MS = 90 000 ms",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:30:54.271Z",
+  "note": "",
+  "method": "grep `ACTIVE_WINDOW_MS = …` in artifacts/pilot-dashboard/src/lib/cross-pc.ts. The value must equal 90 000 ms (the documented active-staleness threshold).",
+  "observed": {
+    "ACTIVE_WINDOW_MS_ms": 90000,
+    "source": "artifacts/pilot-dashboard/src/lib/cross-pc.ts"
+  },
+  "expected": {
+    "ACTIVE_WINDOW_MS_ms": 90000
+  }
+}

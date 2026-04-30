@@ -1,0 +1,22 @@
+✔ M-parity P1 (AUD_SIM_G_P1) — mobile == dashboard projection (2.57724ms)
+✔ M-parity P2 (AUD_SIM_G_P2) — mobile == dashboard projection (0.50565ms)
+✔ M-parity P3 (AUD_SIM_G_P3) — mobile == dashboard projection (0.2079ms)
+✔ M-parity P4 (AUD_SIM_G_P4) — mobile == dashboard projection (0.15478ms)
+✔ M-parity P5 (AUD_SIM_G_P5) — mobile == dashboard projection (0.34029ms)
+✔ M-parity P6 (AUD_SIM_G_P6) — mobile == dashboard projection (0.27898ms)
+✔ M-parity P7 (AUD_SIM_G_P7) — mobile == dashboard projection (0.19397ms)
+✔ M-parity P8 (AUD_SIM_G_P8) — mobile == dashboard projection (0.1854ms)
+✔ M-parity captain credit: P2 with explicit coPilotIsCaptain=true gets captain hours (0.34958ms)
+✔ M-parity NVG independence: NVG hours never inflate Night bucket (2.099521ms)
+✔ M-parity initial hours fold into lifetime totals on both sides (0.21292ms)
+✔ M-parity half-year `total` includes Day + Night + NVG + Sim (0.18024ms)
+✔ M-parity monthTotal includes Day + Night + NVG + Sim (0.33762ms)
+✔ M-parity rounding: 1-decimal float at the return surface on both sides (0.22244ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 419.31956

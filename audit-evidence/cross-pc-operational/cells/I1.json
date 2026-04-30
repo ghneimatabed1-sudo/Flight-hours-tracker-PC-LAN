@@ -1,0 +1,12 @@
+{
+  "cell": "I1",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:16.784Z",
+  "note": "Identical sortie set for same pilot from two PCs",
+  "idsA": [
+    "8a67dbe9-14ad-4146-9eb5-5568668f2693"
+  ],
+  "idsB": [
+    "8a67dbe9-14ad-4146-9eb5-5568668f2693"
+  ]
+}

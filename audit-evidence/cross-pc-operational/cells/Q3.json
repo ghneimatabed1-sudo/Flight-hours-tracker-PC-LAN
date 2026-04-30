@@ -1,0 +1,26 @@
+{
+  "cell": "Q3",
+  "name": "xpc_purge_inactive_pcs RPC present and callable",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:30:56.927Z",
+  "note": "",
+  "method": "Probe pg_proc for `xpc_purge_inactive_pcs` and live-invoke with a threshold ~100 years in the past so no real rows are touched. Must exist AND not error.",
+  "observed": {
+    "procs": [
+      {
+        "proname": "xpc_purge_inactive_pcs",
+        "args": ""
+      },
+      {
+        "proname": "xpc_purge_inactive_pcs",
+        "args": "p_days integer"
+      }
+    ],
+    "present": true,
+    "invoke_error": null
+  },
+  "expected": {
+    "present": true,
+    "invoke_error": null
+  }
+}

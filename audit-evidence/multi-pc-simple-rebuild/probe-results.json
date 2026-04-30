@@ -1,0 +1,151 @@
+{
+  "started_at": "2026-04-25T00:39:37.019Z",
+  "join_secret_sha": "23841799e31d",
+  "steps": [
+    {
+      "step": "create_temp_super_admin",
+      "ok": true,
+      "email": "probe-sa-modm3u49@unit.local",
+      "id": "2b5977ea-59a7-4370-994a-237fb3a241d2"
+    },
+    {
+      "step": "unit_super_admin_exists",
+      "ok": true,
+      "status": 200,
+      "body": true
+    },
+    {
+      "step": "unit_squadrons_for_join",
+      "ok": true,
+      "status": 200,
+      "count": 2,
+      "sample": {
+        "id": "9d2415b0-600a-44d2-8de9-12c64e53727c",
+        "name": "NO.8",
+        "number": "8",
+        "base": "KING ABDULLAH II AIRBASE"
+      }
+    },
+    {
+      "step": "unit_request_join",
+      "ok": true,
+      "status": 200,
+      "body": "6d9bbd82-e897-4ec5-9e6a-9e13678a8b2c"
+    },
+    {
+      "step": "sign_in_super_admin",
+      "ok": true
+    },
+    {
+      "step": "unit_pending_requests",
+      "ok": true,
+      "status": 200,
+      "count": 3,
+      "ours": true
+    },
+    {
+      "step": "unit_reserve_approval",
+      "ok": "7433491b-50c0-40b1-a61c-5f339773566b",
+      "status": 200,
+      "body": {
+        "member_id": "7433491b-50c0-40b1-a61c-5f339773566b",
+        "device_id": "635c9197-392b-40e8-948f-843924886cb2",
+        "username": "probe_modm3u49",
+        "display_name": "Probe modm3u49",
+        "role": "ops",
+        "tier": "ops",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "primary_squadron_id": "9d2415b0-600a-44d2-8de9-12c64e53727c"
+      }
+    },
+    {
+      "step": "edge_unit_approve_device",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_modm3u49@no8.unit.local",
+        "memberId": "7433491b-50c0-40b1-a61c-5f339773566b",
+        "deviceId": "635c9197-392b-40e8-948f-843924886cb2"
+      }
+    },
+    {
+      "step": "unit_request_status_pre_claim",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "status": "approved",
+        "decision_reason": null,
+        "supabase_email": "probe_modm3u49@no8.unit.local",
+        "member_id": "7433491b-50c0-40b1-a61c-5f339773566b",
+        "device_id": "635c9197-392b-40e8-948f-843924886cb2",
+        "claim_consumed": false
+      }
+    },
+    {
+      "step": "edge_unit_claim_device",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "supabaseEmail": "probe_modm3u49@no8.unit.local"
+      }
+    },
+    {
+      "step": "unit_request_status_post_claim",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "status": "approved",
+        "decision_reason": null,
+        "supabase_email": "probe_modm3u49@no8.unit.local",
+        "member_id": "7433491b-50c0-40b1-a61c-5f339773566b",
+        "device_id": "635c9197-392b-40e8-948f-843924886cb2",
+        "claim_consumed": true
+      }
+    },
+    {
+      "step": "sign_in_new_pilot",
+      "ok": true,
+      "role": "ops"
+    },
+    {
+      "step": "unit_member_self",
+      "ok": true,
+      "status": 200,
+      "body": {
+        "member_id": "7433491b-50c0-40b1-a61c-5f339773566b",
+        "device_id": "635c9197-392b-40e8-948f-843924886cb2",
+        "status": "active",
+        "role": "ops",
+        "tier": "ops",
+        "squadron_allow_list": [
+          "NO.8"
+        ],
+        "display_name": "Probe modm3u49",
+        "username": "probe_modm3u49"
+      }
+    },
+    {
+      "step": "unit_remove_member",
+      "ok": true,
+      "status": 204,
+      "body": ""
+    },
+    {
+      "step": "sign_in_after_remove_blocked",
+      "ok": true,
+      "err": "Database error querying schema"
+    },
+    {
+      "step": "cleanup",
+      "ok": true,
+      "sql": 201,
+      "body": "[]"
+    }
+  ],
+  "finished_at": "2026-04-25T00:39:49.554Z",
+  "ok": true
+}

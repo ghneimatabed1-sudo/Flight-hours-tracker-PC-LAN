@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FHT License Key Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0a0f1e;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: #111827;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 540px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .badge {
+      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+      border-radius: 10px;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.3px;
+    }
+
+    .header-text p {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .divider {
+      height: 1px;
+      background: #1e293b;
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+
+    input, select {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: #e2e8f0;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.15s;
+      margin-bottom: 20px;
+    }
+
+    input:focus, select:focus {
+      border-color: #3b82f6;
+    }
+
+    select option {
+      background: #0f172a;
+    }
+
+    .generate-btn {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      letter-spacing: 0.2px;
+      margin-top: 4px;
+    }
+
+    .generate-btn:hover { opacity: 0.9; }
+    .generate-btn:active { transform: scale(0.99); }
+
+    .result-box {
+      margin-top: 28px;
+      display: none;
+    }
+
+    .result-box.visible { display: block; }
+
+    .result-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+
+    .key-display {
+      background: #0f172a;
+      border: 1px solid #22c55e44;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+      font-size: 13px;
+      color: #86efac;
+      word-break: break-all;
+      line-height: 1.6;
+      letter-spacing: 0.3px;
+    }
+
+    .copy-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .copy-btn:hover { background: #334155; color: #e2e8f0; }
+    .copy-btn.copied { background: #14532d; border-color: #16a34a; color: #86efac; }
+
+    .meta-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .meta-chip {
+      flex: 1;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .meta-chip .chip-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #475569;
+      margin-bottom: 4px;
+    }
+
+    .meta-chip .chip-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    .warning {
+      margin-top: 24px;
+      padding: 12px 14px;
+      background: #431407;
+      border: 1px solid #7c2d12;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #fdba74;
+      line-height: 1.5;
+    }
+
+    .warning strong { color: #fb923c; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div class="badge">✈️</div>
+      <div class="header-text">
+        <h1>FHT Key Generator</h1>
+        <p>Flight Hours Tracker — License Administration</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <label for="username">Pilot Name / Username</label>
+    <input type="text" id="username" placeholder="e.g. CW3 Smith" autocomplete="off" spellcheck="false" />
+
+    <label for="duration">License Duration</label>
+    <select id="duration">
+      <option value="30">30 Days (1 Month)</option>
+      <option value="60">60 Days (2 Months)</option>
+      <option value="90">90 Days (3 Months)</option>
+      <option value="180">180 Days (6 Months)</option>
+      <option value="365" selected>365 Days (1 Year)</option>
+      <option value="730">730 Days (2 Years)</option>
+      <option value="9999">9999 Days (Lifetime)</option>
+    </select>
+
+    <button class="generate-btn" onclick="generate()">Generate License Key</button>
+
+    <div class="result-box" id="result">
+      <div class="result-label">Generated Key</div>
+      <div class="key-display" id="key-output"></div>
+      <button class="copy-btn" id="copy-btn" onclick="copyKey()">Copy to Clipboard</button>
+      <div class="meta-row">
+        <div class="meta-chip">
+          <div class="chip-label">Issued To</div>
+          <div class="chip-value" id="meta-user">—</div>
+        </div>
+        <div class="meta-chip">
+          <div class="chip-label">Expires</div>
+          <div class="chip-value" id="meta-expiry">—</div>
+        </div>
+        <div class="meta-chip">
+          <div class="chip-label">Duration</div>
+          <div class="chip-value" id="meta-days">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warning">
+      <strong>⚠ Admin Use Only.</strong> Keep this file private.
+      Each key is cryptographically signed — any modification makes it invalid in the app.
+    </div>
+  </div>
+
+  <script>
+    // ─── Secret key — must match _k in lib/license-crypto.ts ─────────────────
+    const SECRET_KEY = "Xv8$rK2!mP9qL4@nZ7^wA3#hB6&jD1*fE5+gC0~yU";
+
+    // ─── HMAC-SHA256 using Web Crypto API ─────────────────────────────────────
+    async function hmacSha256Hex(message, key) {
+      const enc = new TextEncoder();
+      const cryptoKey = await crypto.subtle.importKey(
+        "raw",
+        enc.encode(key),
+        { name: "HMAC", hash: "SHA-256" },
+        false,
+        ["sign"]
+      );
+      const sig = await crypto.subtle.sign("HMAC", cryptoKey, enc.encode(message));
+      return Array.from(new Uint8Array(sig))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+    }
+
+    // ─── URL-safe base64 (matches license-crypto.ts base64Encode) ─────────────
+    function base64UrlEncode(str) {
+      return btoa(unescape(encodeURIComponent(str)))
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=/g, "");
+    }
+
+    // ─── Main generator ───────────────────────────────────────────────────────
+    async function generate() {
+      const username = document.getElementById("username").value.trim();
+      const durationDays = parseInt(document.getElementById("duration").value, 10);
+
+      const now = new Date();
+      const expiry = new Date(now.getTime() + durationDays * 24 * 60 * 60 * 1000);
+
+      const payload = `${expiry.toISOString()}|${username}|${now.toISOString()}`;
+      const payloadEncoded = base64UrlEncode(payload);
+      const fullHmac = await hmacSha256Hex(payload, SECRET_KEY);
+      const signature = fullHmac.substring(0, 16);
+
+      const licenseKey = `FHT-${payloadEncoded}-${signature}`;
+
+      document.getElementById("key-output").textContent = licenseKey;
+      document.getElementById("meta-user").textContent = username || "(none)";
+      document.getElementById("meta-expiry").textContent = expiry.toLocaleDateString("en-US", {
+        year: "numeric", month: "short", day: "numeric"
+      });
+      document.getElementById("meta-days").textContent = durationDays === 9999 ? "Lifetime" : `${durationDays} days`;
+
+      document.getElementById("result").classList.add("visible");
+
+      const copyBtn = document.getElementById("copy-btn");
+      copyBtn.textContent = "Copy to Clipboard";
+      copyBtn.classList.remove("copied");
+    }
+
+    function copyKey() {
+      const key = document.getElementById("key-output").textContent;
+      navigator.clipboard.writeText(key).then(() => {
+        const btn = document.getElementById("copy-btn");
+        btn.textContent = "✓ Copied!";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.textContent = "Copy to Clipboard";
+          btn.classList.remove("copied");
+        }, 2000);
+      });
+    }
+
+    // Allow Enter key to trigger generation
+    document.addEventListener("keydown", e => {
+      if (e.key === "Enter") generate();
+    });
+  </script>
+</body>
+</html>

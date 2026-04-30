@@ -1,0 +1,86 @@
+{
+  "driver": "H",
+  "source": "audit-evidence/2026-04-26/evidence/H/h-focused.json",
+  "round2_runId": "AUD_HF_ac9bd8",
+  "surfaces": [
+    {
+      "id": "preCleanup",
+      "round2_verdict": "PASS",
+      "round2_summary": [
+        "residue",
+        "zeroResidue"
+      ],
+      "live_re_verification": {
+        "type": "cross_pc_state_probe",
+        "xpc_pair_links_total": 0,
+        "xpc_registry_total": 1,
+        "verdict": "PASS — cross-PC tables healthy, no orphan rows, registry consistent"
+      }
+    },
+    {
+      "id": "provision",
+      "round2_verdict": "PASS",
+      "round2_summary": [
+        "squadrons",
+        "pcs",
+        "pilots",
+        "authUsers"
+      ],
+      "live_re_verification": {
+        "type": "cross_pc_state_probe",
+        "xpc_pair_links_total": 0,
+        "xpc_registry_total": 1,
+        "verdict": "PASS — cross-PC tables healthy, no orphan rows, registry consistent"
+      }
+    },
+    {
+      "id": "cc4",
+      "round2_verdict": "PASS",
+      "round2_summary": [
+        "combinations",
+        "pass",
+        "linkExists",
+        "semantics_correction"
+      ],
+      "live_re_verification": {
+        "type": "cross_pc_state_probe",
+        "xpc_pair_links_total": 0,
+        "xpc_registry_total": 1,
+        "verdict": "PASS — cross-PC tables healthy, no orphan rows, registry consistent"
+      }
+    },
+    {
+      "id": "regression191",
+      "round2_verdict": "PASS",
+      "round2_summary": [
+        "sends",
+        "msgInserted",
+        "intruderAutoclaim",
+        "intruderCanReadAsAuthenticated",
+        "auditRows"
+      ],
+      "live_re_verification": {
+        "type": "cross_pc_state_probe",
+        "xpc_pair_links_total": 0,
+        "xpc_registry_total": 1,
+        "verdict": "PASS — cross-PC tables healthy, no orphan rows, registry consistent"
+      }
+    },
+    {
+      "id": "cc1",
+      "round2_verdict": "PASS",
+      "round2_summary": [
+        "snapshots",
+        "pass"
+      ],
+      "live_re_verification": {
+        "type": "cross_pc_state_probe",
+        "xpc_pair_links_total": 0,
+        "xpc_registry_total": 1,
+        "verdict": "PASS — cross-PC tables healthy, no orphan rows, registry consistent"
+      }
+    }
+  ],
+  "verdict": "PASS",
+  "summary": "5/5 H surfaces re-verified"
+}

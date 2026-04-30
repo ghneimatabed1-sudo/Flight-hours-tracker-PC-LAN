@@ -1,0 +1,11 @@
+{
+  "cell": "C1",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T01:46:22.478Z",
+  "note": "Same-squadron ops sees alert",
+  "seeAb": [
+    {
+      "id": "e622e5a3-2b9e-4206-97fe-9c04e62ebbdb"
+    }
+  ]
+}

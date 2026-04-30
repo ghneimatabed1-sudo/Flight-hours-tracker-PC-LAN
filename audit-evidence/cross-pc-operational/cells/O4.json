@@ -1,0 +1,16 @@
+{
+  "cell": "O4",
+  "name": "Sortie DELETE propagates to peer PCs (count delta exactly -1)",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:30:34.912Z",
+  "note": "",
+  "method": "Delete the previously-inserted sortie. PC-B's COUNT query must drop by exactly 1.",
+  "observed": {
+    "count_before": 1,
+    "count_after": 0,
+    "deleted_id": "1262b4ba-087d-4089-9225-92bcd16a0853"
+  },
+  "expected": {
+    "count_after": 0
+  }
+}

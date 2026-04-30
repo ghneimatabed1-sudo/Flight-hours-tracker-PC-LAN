@@ -1,0 +1,187 @@
+{
+  "mode": "apply",
+  "capturedAt": "2026-04-24T20:43:52.456Z",
+  "deleted": {
+    "xpc_pair_links": {
+      "plan": []
+    },
+    "xpc_user_pcs": {
+      "plan": []
+    },
+    "xpc_squadron_snapshot": {
+      "plan": []
+    },
+    "xpc_schedule_shares": {
+      "plan": []
+    },
+    "xpc_messages": {
+      "plan": []
+    },
+    "xpc_pending": {
+      "plan": []
+    },
+    "xpc_outbox": {
+      "plan": []
+    },
+    "squadrons": {
+      "plan": [
+        {
+          "id": "7580946f-e025-4d0c-9ba3-7b972ef14e1f",
+          "name": "AUD_SIM_I_SQN_Z"
+        },
+        {
+          "id": "409e7e3c-7a9d-4155-8c48-46434f31c9eb",
+          "name": "AUD_SIM_H_SQN_ALPHA"
+        },
+        {
+          "id": "95666a36-0b7e-4711-afe7-fa9a35420b63",
+          "name": "AUD_SIM_H_SQN_BRAVO"
+        }
+      ]
+    },
+    "xpc_registry": {
+      "plan": [
+        {
+          "id": "AUD_SIM_H_PC_ALPHA_FLIGHT",
+          "sqn": "AUD_SIM_H_SQN_ALPHA"
+        }
+      ]
+    },
+    "wings": {
+      "plan": [
+        {
+          "id": "50d7fbb7-8afe-464c-877a-725a8d000b66",
+          "name": "AUD_SIM_I_WING"
+        },
+        {
+          "id": "42ac977a-0fc7-4fa6-b3a1-eea4da6fec8b",
+          "name": "AUD_SIM_J_WG_FIRST"
+        },
+        {
+          "id": "5c4bd38d-acb3-47fa-ac08-573d08fde7bf",
+          "name": "AUD_SIM_H_WING"
+        }
+      ]
+    },
+    "bases": {
+      "plan": [
+        {
+          "id": "549547ec-1971-4ed4-8439-8c6cd9247559",
+          "name": "AUD_SIM_I_BASE"
+        },
+        {
+          "id": "a7f08c67-0799-4e3e-8c6c-8473c58043fe",
+          "name": "AUD_SIM_J_BASE_KING_HUSSEIN"
+        },
+        {
+          "id": "443d6a29-66e5-4956-ade6-fc025f5f4610",
+          "name": "AUD_SIM_H_BASE"
+        }
+      ]
+    },
+    "auth_users": {
+      "plan": [
+        {
+          "id": "49d19eeb-5dfa-4c68-98a1-3877bf6c79b7",
+          "email": "audit-intruder-aud_sim_h@audit-test.local"
+        },
+        {
+          "id": "ea5d5dab-48fa-4bef-ab49-a706c556564e",
+          "email": "audit-super-admin-aud_sim_h@audit-test.local"
+        },
+        {
+          "id": "6dd978ff-1cd4-46ee-bf41-43a5059be50b",
+          "email": "audit-base-west-aud_sim_h@audit-test.local"
+        },
+        {
+          "id": "a17b525f-a4ec-4c1f-9d12-da53992e7cad",
+          "email": "audit-base-east-aud_sim_h@audit-test.local"
+        },
+        {
+          "id": "8d0dcdf9-ca57-411e-bed2-c1734c9af515",
+          "email": "audit-wing-south-aud_sim_h@audit-test.local"
+        },
+        {
+          "id": "79d82a88-43d8-4f82-bc6e-2b62b6acfee5",
+          "email": "audit-wing-north-aud_sim_h@audit-test.local"
+        },
+        {
+          "id": "002ebdc1-7d56-4bae-a8b8-13b93910dfbb",
+          "email": "audit-alpha-flight-aud_sim_h@audit-test.local"
+        },
+        {
+          "id": "3d1ecc2d-21ae-4c44-afcb-e3c898a3c5d7",
+          "email": "audit-bravo-ops-aud_sim_h@audit-test.local"
+        },
+        {
+          "id": "01b74481-94b9-4370-80da-c8531fe3e0ce",
+          "email": "audit-alpha-ops-aud_sim_h@audit-test.local"
+        },
+        {
+          "id": "c64bf730-f307-4f4d-aeba-a09e9b260313",
+          "email": "pilot+aud_mob_pilot_a@rjaf.local"
+        }
+      ]
+    },
+    "audit_log": {
+      "plan": [],
+      "totalPlanned": 0
+    }
+  },
+  "errors": [
+    {
+      "table": "auth.users",
+      "id": "ea5d5dab-48fa-4bef-ab49-a706c556564e",
+      "email": "audit-super-admin-aud_sim_h@audit-test.local",
+      "error": "User not found"
+    },
+    {
+      "table": "auth.users",
+      "id": "6dd978ff-1cd4-46ee-bf41-43a5059be50b",
+      "email": "audit-base-west-aud_sim_h@audit-test.local",
+      "error": "User not found"
+    },
+    {
+      "table": "auth.users",
+      "id": "a17b525f-a4ec-4c1f-9d12-da53992e7cad",
+      "email": "audit-base-east-aud_sim_h@audit-test.local",
+      "error": "User not found"
+    },
+    {
+      "table": "auth.users",
+      "id": "8d0dcdf9-ca57-411e-bed2-c1734c9af515",
+      "email": "audit-wing-south-aud_sim_h@audit-test.local",
+      "error": "User not found"
+    },
+    {
+      "table": "auth.users",
+      "id": "79d82a88-43d8-4f82-bc6e-2b62b6acfee5",
+      "email": "audit-wing-north-aud_sim_h@audit-test.local",
+      "error": "User not found"
+    },
+    {
+      "table": "auth.users",
+      "id": "002ebdc1-7d56-4bae-a8b8-13b93910dfbb",
+      "email": "audit-alpha-flight-aud_sim_h@audit-test.local",
+      "error": "User not found"
+    },
+    {
+      "table": "auth.users",
+      "id": "3d1ecc2d-21ae-4c44-afcb-e3c898a3c5d7",
+      "email": "audit-bravo-ops-aud_sim_h@audit-test.local",
+      "error": "User not found"
+    },
+    {
+      "table": "auth.users",
+      "id": "01b74481-94b9-4370-80da-c8531fe3e0ce",
+      "email": "audit-alpha-ops-aud_sim_h@audit-test.local",
+      "error": "User not found"
+    },
+    {
+      "table": "auth.users",
+      "id": "c64bf730-f307-4f4d-aeba-a09e9b260313",
+      "email": "pilot+aud_mob_pilot_a@rjaf.local",
+      "error": "User not found"
+    }
+  ]
+}

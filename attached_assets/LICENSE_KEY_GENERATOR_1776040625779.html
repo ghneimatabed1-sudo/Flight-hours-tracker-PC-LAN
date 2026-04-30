@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Hours Tracker - License Key Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 { color: #1a1a1a; margin-bottom: 10px; font-size: 28px; }
+        .subtitle { color: #666; margin-bottom: 30px; font-size: 14px; }
+
+        .section-title { color: #333; font-weight: 600; margin-bottom: 15px; margin-top: 25px; font-size: 14px; text-transform: uppercase; }
+
+        .duration-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .duration-btn {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.3s;
+            color: #333;
+        }
+
+        .duration-btn:hover {
+            border-color: #4a90e2;
+            background: #f0f7ff;
+        }
+
+        .duration-btn.active {
+            background: #4a90e2;
+            color: white;
+            border-color: #4a90e2;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        label { display: block; color: #333; font-weight: 500; margin-bottom: 8px; font-size: 14px; }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74,144,226,0.1);
+        }
+
+        .button-group { display: flex; gap: 10px; margin-top: 30px; }
+        button {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-generate { background: #4a90e2; color: white; }
+        .btn-generate:hover { background: #3a7bc8; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(74,144,226,0.3); }
+        .btn-copy { background: #f0f0f0; color: #333; }
+        .btn-copy:hover { background: #e0e0e0; transform: translateY(-2px); }
+
+        .result-section { margin-top: 30px; padding-top: 30px; border-top: 2px solid #f0f0f0; }
+        .result-box {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 15px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            word-break: break-all;
+            font-size: 12px;
+            color: #333;
+        }
+        .result-label { color: #666; font-size: 12px; font-weight: 500; margin-bottom: 6px; text-transform: uppercase; }
+        .verification-status { padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 13px; font-weight: 500; }
+        .verification-status.valid { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .verification-status.invalid { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #e7f3ff; border-left: 4px solid #4a90e2; padding: 12px; border-radius: 4px; font-size: 13px; color: #0056b3; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 License Key Generator</h1>
+        <p class="subtitle">Flight Hours Tracker</p>
+
+        <div class="section-title">Duration Options</div>
+        <div class="duration-buttons">
+            <button class="duration-btn" onclick="selectDuration(1, this)">1 Day</button>
+            <button class="duration-btn" onclick="selectDuration(30, this)">1 Month</button>
+            <button class="duration-btn" onclick="selectDuration(90, this)">3 Months</button>
+            <button class="duration-btn" onclick="selectDuration(180, this)">6 Months</button>
+            <button class="duration-btn" onclick="selectDuration(365, this)" style="grid-column: span 2;">1 Year (365 Days)</button>
+        </div>
+
+        <div class="form-group">
+            <label for="customDays">Or Enter Custom Days</label>
+            <input type="number" id="customDays" placeholder="e.g., 90" min="1" max="9999">
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username (Optional)</label>
+            <input type="text" id="username" placeholder="e.g., CAPT ABED">
+        </div>
+
+        <div class="button-group">
+            <button class="btn-generate" onclick="generateKey()">Generate Key</button>
+            <button class="btn-copy" onclick="copyToClipboard()" id="copyBtn" style="display: none;">Copy Key</button>
+        </div>
+
+        <div class="result-section" id="results" style="display: none;">
+            <div>
+                <div class="result-label">License Key</div>
+                <div class="result-box" id="licenseKeyOutput"></div>
+            </div>
+            <div>
+                <div class="result-label">Expiration Date</div>
+                <div class="result-box" id="expirationOutput"></div>
+            </div>
+            <div>
+                <div class="result-label">Generated At</div>
+                <div class="result-box" id="generatedAtOutput"></div>
+            </div>
+            <div id="verificationOutput"></div>
+        </div>
+
+        <div class="info">
+            <strong>✓ Instructions:</strong><br>
+            1. Click a duration button or enter custom days<br>
+            2. Optionally enter username<br>
+            3. Click "Generate Key"<br>
+            4. Copy and paste into app
+        </div>
+    </div>
+
+    <script>
+        let selectedDays = null;
+
+        // CRITICAL: MUST match lib/license-crypto.ts
+        const SECRET_KEY = "Xv8$rK2!mP9qL4@nZ7^wA3#hB6&jD1*fE5+gC0~yU";
+
+        function selectDuration(days, button) {
+            selectedDays = days;
+            document.getElementById('customDays').value = '';
+
+            // Remove active state from all buttons
+            document.querySelectorAll('.duration-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Add active state to clicked button
+            button.classList.add('active');
+        }
+
+        function base64Encode(str) {
+            const encoded = btoa(str);
+            return encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+        }
+
+        function base64Decode(str) {
+            const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+            const padding = (4 - (base64.length % 4)) % 4;
+            const padded = base64 + '='.repeat(padding);
+            return atob(padded);
+        }
+
+        function hmacSha256(message, key) {
+            const hmac = CryptoJS.HmacSHA256(message, key);
+            return hmac.toString(CryptoJS.enc.Hex);
+        }
+
+        function generateLicenseKey(durationDays, username) {
+            const now = new Date();
+            const expirationDate = new Date(now.getTime() + durationDays * 24 * 60 * 60 * 1000);
+            const payload = `${expirationDate.toISOString()}|${username || ""}|${now.toISOString()}`;
+            const payloadEncoded = base64Encode(payload);
+            const fullHmac = hmacSha256(payload, SECRET_KEY);
+            const signature = fullHmac.substring(0, 16);
+            return {
+                key: `FHT-${payloadEncoded}-${signature}`,
+                expiration: expirationDate.toISOString(),
+                generatedAt: now.toISOString(),
+                payload
+            };
+        }
+
+        function verifyLicenseKey(licenseKey) {
+            try {
+                if (!licenseKey.startsWith("FHT-")) return null;
+                const withoutPrefix = licenseKey.slice(4);
+                const lastDash = withoutPrefix.lastIndexOf("-");
+                if (lastDash === -1) return null;
+                const payloadEncoded = withoutPrefix.slice(0, lastDash);
+                const signatureProvided = withoutPrefix.slice(lastDash + 1);
+                const payload = base64Decode(payloadEncoded);
+                const parts = payload.split("|");
+                if (parts.length !== 3) return null;
+                const [expirationISO, username, generatedAt] = parts;
+                if (!expirationISO || !generatedAt) return null;
+                const signatureExpected = hmacSha256(payload, SECRET_KEY).substring(0, 16);
+                if (signatureProvided !== signatureExpected) return null;
+                return {
+                    expirationDate: expirationISO,
+                    username: username || undefined,
+                    generatedAt
+                };
+            } catch {
+                return null;
+            }
+        }
+
+        function generateKey() {
+            // Get duration from selected button or custom input
+            let durationDays = selectedDays;
+            if (!durationDays) {
+                const customDays = parseInt(document.getElementById('customDays').value, 10);
+                if (!customDays || customDays < 1) {
+                    alert('Please select a duration or enter custom days');
+                    return;
+                }
+                durationDays = customDays;
+            }
+
+            const username = document.getElementById('username').value.trim();
+            const result = generateLicenseKey(durationDays, username);
+            const verification = verifyLicenseKey(result.key);
+
+            document.getElementById('licenseKeyOutput').textContent = result.key;
+            document.getElementById('expirationOutput').textContent = result.expiration;
+            document.getElementById('generatedAtOutput').textContent = result.generatedAt;
+
+            const verificationHTML = verification ?
+                '<div class="verification-status valid">✓ Key verified successfully - Ready to use!</div>' :
+                '<div class="verification-status invalid">✗ Verification failed</div>';
+            document.getElementById('verificationOutput').innerHTML = verificationHTML;
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('copyBtn').style.display = 'block';
+        }
+
+        function copyToClipboard() {
+            const keyText = document.getElementById('licenseKeyOutput').textContent;
+            navigator.clipboard.writeText(keyText).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => { btn.textContent = 'Copy Key'; }, 2000);
+            });
+        }
+
+        document.getElementById('customDays').addEventListener('change', () => {
+            selectedDays = null;
+            document.querySelectorAll('.duration-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') generateKey();
+        });
+    </script>
+</body>
+</html>

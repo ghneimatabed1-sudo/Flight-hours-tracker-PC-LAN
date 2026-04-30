@@ -1,0 +1,18 @@
+{
+  "cell": "R5",
+  "name": "Role/page action validation: forbidden mutation rejected at policy layer (not silent client drop)",
+  "status": "PASS",
+  "writtenAt": "2026-04-25T02:25:31.733Z",
+  "note": "",
+  "method": "Anon client (no auth claim → no `squadron_id()` function returns NULL) attempts a NOTAM INSERT. The notams_rw policy requires `squadron_id = squadron_id()` — must reject. Counter-check: a successful INSERT here would be a silent-fail bug.",
+  "observed": {
+    "error_code": "42501",
+    "error_message": "new row violates row-level security policy for table \"notams\"",
+    "rejected": true,
+    "is_rls_like": true
+  },
+  "expected": {
+    "rejected": true,
+    "is_rls_like": true
+  }
+}

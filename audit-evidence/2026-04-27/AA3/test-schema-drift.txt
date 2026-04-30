@@ -1,0 +1,1 @@
+[task-280 / drift] schema-drift restoration test PASSED in 1581ms (run=T280-drift-modcx69k-ogt4xq)

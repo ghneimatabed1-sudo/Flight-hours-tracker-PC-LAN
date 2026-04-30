@@ -1,0 +1,8 @@
+[backfill-272] mode=dry-run
+[backfill-272] license_registry rows: 0
+[backfill-272] distinct assignedUsername values: 0
+
+[backfill-272] scanned: 9 auth users
+[backfill-272] candidates (tier ∈ wing/base/hq): 0
+[backfill-272] already covered: 0
+[backfill-272] healed (planned): 0

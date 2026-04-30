@@ -1,0 +1,69 @@
+{
+  "ts": "2026-04-24T20:50:29.998Z",
+  "checks": {
+    "F_B_audit_log_archive_table": [
+      {
+        "exists": "audit_log_archive"
+      }
+    ],
+    "F_B_audit_archive_crons": [
+      {
+        "jobname": "audit-log-archive-sweep",
+        "schedule": "25 3 * * *",
+        "active": true
+      }
+    ],
+    "F_C_xpc_outbox_table": [
+      {
+        "exists": "xpc_outbox"
+      }
+    ],
+    "F_C_xpc_outbox_processor_cron": [
+      {
+        "jobname": "xpc-outbox-process",
+        "schedule": "* * * * *",
+        "active": true
+      },
+      {
+        "jobname": "xpc-outbox-monitor",
+        "schedule": "15 * * * *",
+        "active": true
+      }
+    ],
+    "F_D_monthly_report_close_table": [
+      {
+        "exists": "monthly_report_close"
+      }
+    ],
+    "F_D_monthly_report_close_immutability_trigger": [],
+    "F_E_runtime_errors_table": [
+      {
+        "exists": "runtime_errors"
+      }
+    ],
+    "F_E_runtime_errors_digest_cron": [
+      {
+        "jobname": "runtime-errors-digest",
+        "schedule": "5 4 * * *",
+        "active": true
+      },
+      {
+        "jobname": "runtime-errors-purge",
+        "schedule": "10 4 * * *",
+        "active": true
+      }
+    ],
+    "F_F_schema_drift_check_function": [
+      {
+        "proname": "schema_drift_check"
+      }
+    ],
+    "F_I_snapshot_select_policy": [
+      {
+        "polname": "xpc_snap_select",
+        "using_clause": "((xpc_caller_role() = ANY (ARRAY['super_admin'::text, 'superadmin'::text, 'admin'::text])) OR (squadron_id = ANY (xpc_my_pc_ids())) OR ((xpc_caller_squadron_ids() IS NOT NULL) AND (squadron_id = ANY (xpc_caller_squadron_ids()))))"
+      }
+    ]
+  },
+  "verdict": "DONE"
+}
