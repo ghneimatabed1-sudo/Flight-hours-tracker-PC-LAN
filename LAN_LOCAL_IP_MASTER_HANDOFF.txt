@@ -1,0 +1,426 @@
+HAWK EYE LAN/LOCAL-IP MASTER HANDOFF
+Generated: 2026-04-30
+Audience: Any future AI agent or engineer continuing this migration
+
+====================================================================
+0) EXECUTIVE STATE
+====================================================================
+
+Goal:
+- Convert Hawk Eye from Supabase/public-internet dependency to private base LAN operation.
+- Support one squadron host PC (mini-server) running API + Postgres, with multiple client PCs.
+- Keep role workflows and operational domain logic intact.
+
+Current status:
+- Large migration chunk implemented and committed locally.
+- New dedicated GitHub repo created and pushed for LAN/local-IP version.
+- Core LAN data plane routes + dashboard transport are in place for many surfaces.
+- Major host setup docs and scripts are in place.
+- Not yet proven as "100% complete" for all real-world roles and all UI surfaces in live LAN pilot.
+
+Key repo pointers:
+- Original repo remote: https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC
+- New LAN repo remote: https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC-LAN
+
+Key commits:
+- Local main latest migration commit: 6c35d29
+  Message: feat: migrate Hawk Eye to LAN-first deployment model
+- LAN repo main snapshot commit: 3aa9a7c
+  Message: chore: initialize LAN/local-IP repository snapshot
+
+Local git status when this file was written:
+- Branch: main
+- Ahead of origin/main by 1 commit (6c35d29)
+
+====================================================================
+1) WHAT WAS DONE (DETAILED)
+====================================================================
+
+1.1) LAN AUTH + SESSION FOUNDATIONS
+- Added first-party LAN auth/session server components under api-server:
+  - lan_users / lan_sessions model support
+  - bootstrap/login/me/logout flow
+  - optional required session gate for internal routes
+- Added/updated supporting auth libs:
+  - artifacts/api-server/src/lib/lan-auth-config.ts
+  - artifacts/api-server/src/lib/lan-auth-middleware.ts
+  - artifacts/api-server/src/lib/lan-auth-schema.ts
+  - artifacts/api-server/src/lib/password.ts
+  - artifacts/api-server/src/lib/internal-write-auth.ts
+  - artifacts/api-server/src/lib/lan-authz.ts
+  - artifacts/api-server/src/lib/internal-audit.ts
+- Registered LAN auth and internal routes in route index:
+  - artifacts/api-server/src/routes/index.ts
+  - artifacts/api-server/src/index.ts
+
+1.2) INTERNAL API DATA PLANE (READ/WRITE MIGRATION)
+- Added multiple new internal routes to replace Supabase direct access:
+  - artifacts/api-server/src/routes/pilot-options.ts
+  - artifacts/api-server/src/routes/pilots-table.ts
+  - artifacts/api-server/src/routes/pilots-writes.ts
+  - artifacts/api-server/src/routes/pilots-transfer.ts
+  - artifacts/api-server/src/routes/sorties-read.ts
+  - artifacts/api-server/src/routes/sorties-writes.ts
+  - artifacts/api-server/src/routes/squadron-airframes.ts
+  - artifacts/api-server/src/routes/squadrons-list.ts
+  - artifacts/api-server/src/routes/lan-users-reminders.ts
+  - artifacts/api-server/src/routes/reminders-internal.ts
+  - artifacts/api-server/src/routes/audit-log-read.ts
+  - artifacts/api-server/src/routes/import-history-internal.ts
+  - artifacts/api-server/src/routes/saved-duty-weeks-internal.ts
+  - artifacts/api-server/src/routes/unavailable-internal.ts
+  - artifacts/api-server/src/routes/ops-board-internal.ts
+  - artifacts/api-server/src/routes/ops-read-lan.ts
+  - artifacts/api-server/src/routes/pilot-links-internal.ts
+- Added/updated internal cross-PC routes:
+  - artifacts/api-server/src/routes/xpc-registry.ts
+  - artifacts/api-server/src/routes/xpc-messages.ts
+  - artifacts/api-server/src/routes/xpc-pending.ts
+  - artifacts/api-server/src/routes/xpc-pairs.ts
+  - artifacts/api-server/src/routes/xpc-schedule-shares.ts
+  - artifacts/api-server/src/routes/xpc-snapshots.ts
+
+1.3) DASHBOARD LAN TRANSPORT AND DATA HOOKS
+- Added central internal migration transport layer:
+  - artifacts/pilot-dashboard/src/lib/internal-migration.ts
+- Refactored main data hooks toward internal API in LAN mode:
+  - artifacts/pilot-dashboard/src/lib/squadron-data.ts
+  - artifacts/pilot-dashboard/src/lib/squadron-defaults.ts
+  - artifacts/pilot-dashboard/src/lib/squadron-store.ts
+  - artifacts/pilot-dashboard/src/lib/cross-pc.ts
+- Added LAN user mapping and utility libs:
+  - artifacts/pilot-dashboard/src/lib/lan-user-map.ts
+  - artifacts/pilot-dashboard/src/lib/schedule-names.ts
+  - artifacts/pilot-dashboard/src/lib/add-sortie-smart.ts
+  - artifacts/pilot-dashboard/src/lib/admin-audit-lan.ts
+  - artifacts/pilot-dashboard/src/lib/admin-overview-pilot-stats.ts
+
+1.4) CLOUD FAIL-CLOSED HARDENING (LAN MODE)
+- Added LAN guards preventing cloud helper calls in LAN session mode:
+  - artifacts/pilot-dashboard/src/lib/supabase.ts
+  - artifacts/pilot-dashboard/src/lib/auth.tsx
+  - artifacts/pilot-dashboard/src/lib/runtimeErrorReporter.ts
+  - artifacts/pilot-dashboard/src/lib/unit-join.ts
+  - artifacts/pilot-dashboard/src/lib/license-registry.ts
+  - artifacts/pilot-dashboard/src/lib/offlineQueue.ts
+  - artifacts/pilot-dashboard/src/lib/pairs.ts
+- Updated app and pages to avoid cloud-first UX in LAN mode:
+  - artifacts/pilot-dashboard/src/App.tsx
+  - artifacts/pilot-dashboard/src/pages/Login.tsx
+  - artifacts/pilot-dashboard/src/pages/FirstLaunch.tsx
+  - artifacts/pilot-dashboard/src/pages/WaitingForApproval.tsx
+  - artifacts/pilot-dashboard/src/pages/SuperAdminSetup.tsx
+  - artifacts/pilot-dashboard/src/pages/JoinSetup.tsx
+
+1.5) ROLE/SCREEN BEHAVIOR ADJUSTMENTS
+- Modified/updated operational pages to support LAN paths and avoid stale mock behavior:
+  - artifacts/pilot-dashboard/src/pages/AddSortie.tsx
+  - artifacts/pilot-dashboard/src/pages/FlightProgram.tsx
+  - artifacts/pilot-dashboard/src/pages/ScheduleChain.tsx
+  - artifacts/pilot-dashboard/src/pages/Roster.tsx
+  - artifacts/pilot-dashboard/src/pages/MonthlyReportDefaults.tsx
+  - artifacts/pilot-dashboard/src/pages/AuditLog.tsx
+  - artifacts/pilot-dashboard/src/pages/Connections.tsx
+  - artifacts/pilot-dashboard/src/pages/Diagnostic.tsx
+  - artifacts/pilot-dashboard/src/pages/Settings.tsx
+- Admin screens adjusted for LAN data and diagnostics:
+  - artifacts/pilot-dashboard/src/pages/admin/Overview.tsx
+  - artifacts/pilot-dashboard/src/pages/admin/AuditLog.tsx
+  - artifacts/pilot-dashboard/src/pages/admin/ConnectionMap.tsx
+  - artifacts/pilot-dashboard/src/pages/admin/DevicesUsers.tsx
+  - artifacts/pilot-dashboard/src/pages/admin/PendingDevices.tsx
+  - artifacts/pilot-dashboard/src/pages/admin/ReminderLog.tsx
+  - artifacts/pilot-dashboard/src/pages/admin/RemindersSchedule.tsx
+  - artifacts/pilot-dashboard/src/pages/admin/Squadrons.tsx
+  - artifacts/pilot-dashboard/src/pages/admin/Security.tsx
+- Layout-level UX updates:
+  - artifacts/pilot-dashboard/src/components/Layout.tsx
+  - artifacts/pilot-dashboard/src/components/SessionCollisionBanner.tsx
+  - Sign-out visibility and LAN flow alignment included.
+
+1.6) ADD SORTIE FREEZE BUG FIX
+- Root issue:
+  - Form was effectively frozen when no aircraft defaults were configured.
+- Fix:
+  - Removed total form-disable behavior.
+  - Added manual A/C type input path when defaults absent.
+  - Updated warning copy to explain manual fallback.
+- Files:
+  - artifacts/pilot-dashboard/src/pages/AddSortie.tsx
+  - artifacts/pilot-dashboard/tests/add-sortie-form-availability.test.ts
+
+1.7) TESTING AND REGRESSION COVERAGE EXPANSION
+- Added/updated test suites:
+  - artifacts/pilot-dashboard/tests/add-sortie-form-availability.test.ts
+  - artifacts/pilot-dashboard/tests/add-sortie-smart.test.ts
+  - artifacts/pilot-dashboard/tests/admin-audit-lan.test.ts
+  - artifacts/pilot-dashboard/tests/admin-overview-pilot-stats.test.ts
+  - artifacts/pilot-dashboard/tests/button-sweep.test.ts
+  - artifacts/pilot-dashboard/tests/fault-injection.test.ts
+  - artifacts/pilot-dashboard/tests/guest-pending-actions.test.ts
+  - artifacts/pilot-dashboard/tests/join-lifecycle.test.ts
+  - artifacts/pilot-dashboard/tests/lan-user-map.test.ts
+  - artifacts/pilot-dashboard/tests/monthly-report-forms.test.ts
+  - artifacts/pilot-dashboard/tests/schedule-names.test.ts
+  - artifacts/pilot-dashboard/tests/squadron-defaults-merge.test.ts
+  - artifacts/pilot-dashboard/tests/squadron-remote-rows.test.ts
+  - artifacts/pilot-dashboard/tests/squadron-store-lan-mode.test.ts
+- Pipeline/config updates:
+  - artifacts/pilot-dashboard/package.json
+  - artifacts/pilot-mobile/package.json
+  - artifacts/pilot-mobile/tsconfig.json
+
+1.8) WINDOWS + BUILD/INSTALLER HARDENING
+- Fixed/adjusted installer and electron behavior:
+  - artifacts/pilot-dashboard/build/installer.nsh
+  - artifacts/pilot-dashboard/electron/main.ts
+  - artifacts/pilot-dashboard/src/components/OpeningAnimation.tsx
+- Important outcomes:
+  - Auto-update disabled by default for packaged build unless explicitly enabled.
+  - Opening animation skipped for file:// packaged context to reduce perceived startup freeze.
+  - INSTALL_PASSWORD env handling corrected for NSIS script.
+- Also updated:
+  - artifacts/pilot-dashboard/dist-electron/main.js
+  - artifacts/pilot-dashboard/dist-electron/preload.js
+
+1.9) LAN HOST AUTOMATION SCRIPTS (POWERSHELL)
+- Added host operations toolkit:
+  - scripts/lan-host/start-api-host.ps1
+  - scripts/lan-host/check-host-health.ps1
+  - scripts/lan-host/setup-api-lan-env.ps1
+  - scripts/lan-host/setup-dashboard-lan-env.ps1
+  - scripts/lan-host/backup-postgres.ps1
+  - scripts/lan-host/restore-postgres.ps1
+  - scripts/lan-host/install-api-startup-task.ps1
+  - scripts/lan-host/install-backup-task.ps1
+  - scripts/lan-host/verify-host-prereqs.ps1
+- Added root command aliases:
+  - package.json
+
+1.10) CONFIG/ENV SUPPORT FOR LAN
+- Added LAN env examples:
+  - artifacts/api-server/.env.lan.example
+  - artifacts/pilot-dashboard/.env.lan.example
+- Added/used production env artifact for forced LAN builds:
+  - artifacts/pilot-dashboard/.env.production
+- Vite and workspace dependency fixes:
+  - artifacts/pilot-dashboard/vite.config.ts
+  - pnpm-workspace.yaml
+  - pnpm-lock.yaml
+  - scripts/preinstall.mjs
+
+1.11) DOCUMENTATION + MEMORY UPDATES
+- Updated core memory/domain docs:
+  - AGENTS.md
+  - DOMAIN.md
+  - replit.md
+- Added migration docs package:
+  - docs/internal-migration/README.md
+  - docs/internal-migration/PROGRAM-STATUS.md
+  - docs/internal-migration/STEP-1-baseline-inventory.md
+  - docs/internal-migration/STEP-2-auth-security-spec.md
+  - docs/internal-migration/STEP-3-internal-api-kickoff.md
+  - docs/internal-migration/STEP-4-parity-matrix.md
+  - docs/internal-migration/STEP-5-golden-fixtures.md
+  - docs/internal-migration/STEP-6-internal-api-data-plane.md
+  - docs/internal-migration/STEP-11-rollout-rollback.md
+  - docs/internal-migration/LAN-MULTI-PC-QUICKSTART.md
+  - docs/internal-migration/SQUADRON-HOST-KIT.md
+  - docs/internal-migration/PILOT-EXECUTION-SPEC.md
+  - docs/internal-migration/GO-NO-GO-CHECKLIST.md
+
+1.12) GITHUB REPOSITORY SPLIT FOR LAN VERSION
+- User request: push all changes to a new repository dedicated to local-IP/local-LAN version.
+- Actions done:
+  - Created new repo:
+    https://github.com/ghneimatabed1-sudo/Flight-hours-tracker-PC-LAN
+  - Initial push attempt failed due to missing historical Git LFS objects from old history.
+  - Executed workaround:
+    - Created orphan snapshot branch containing current full file state.
+    - Pushed snapshot as main branch to new LAN repo successfully.
+- Result:
+  - New repo has clean baseline state for LAN/local-IP work.
+
+====================================================================
+2) WHAT CHANGED (IMPACT-ORIENTED SUMMARY)
+====================================================================
+
+Operator-visible behavior changes:
+- LAN-first paths now exist across many operational reads/writes.
+- Logout/sign-out behavior in LAN mode avoids cloud sign-out assumptions.
+- Add Sortie no longer freezes when aircraft defaults are missing.
+- Connection/diagnostic/admin areas now include LAN migration behavior and checks.
+- Packaged app behavior adjusted to reduce update-loop and splash/freeze confusion.
+
+Architecture changes:
+- Internal API became core migration axis (instead of direct Supabase for key surfaces).
+- Introduced base-LAN session model scaffolding.
+- Added host scripts for lifecycle operations (start/health/backup/restore/tasks/env setup).
+- Formalized rollout plan and no-go gates in docs.
+
+Testing changes:
+- Expanded jsdom and reliability suites for multiple high-risk workflows.
+- Added specific regression tests tied to known bugs and migration weak points.
+
+====================================================================
+3) WHERE WE GOT STUCK / BLOCKERS HIT
+====================================================================
+
+3.1) Build and environment blockers (resolved or partially mitigated)
+- Windows pnpm/path issues (Local Settings / access denied behavior).
+- Missing native package issues (Rollup/Tailwind/LightningCSS) due to workspace overrides.
+- Missing electron-builder/electron dependencies during packaging.
+- Build-time env requirements (PORT, BASE_PATH) missing in production build context.
+- NSIS installer env variable handling for INSTALL_PASSWORD.
+- Windows symlink/permissions ("Access is denied") during electron-builder cache/sign tooling.
+
+3.2) Runtime blockers (partially resolved, still risk area)
+- Packaged app showed black/blue screen in user runs.
+- Old cloud-oriented screens (waiting approval / 2FA) appeared in some installed runs.
+- Auto-update loops and wrong-build relaunch confusion occurred.
+- These were mitigated with:
+  - hard-reset guidance,
+  - forced LAN env packaging,
+  - disabling default auto-update,
+  - direct launch from win-unpacked.
+- Residual risk remains until repeated clean pilot validation on target PCs proves stable.
+
+3.3) GitHub push blocker (resolved)
+- New repo push initially failed from missing/corrupt historical LFS objects.
+- Resolved using orphan snapshot push strategy.
+
+====================================================================
+4) WHAT FAILED TO DO (EXPLICIT)
+====================================================================
+
+- Did NOT prove "100% complete + 100% tested every function in live real deployment".
+  Reason:
+  - That requires full real hardware LAN pilot execution across all roles and all sidebars.
+  - Local/dev simulation and automated tests are necessary but not sufficient for this claim.
+
+- Did NOT fully remove every single Supabase touchpoint from entire codebase end-to-end.
+  Reason:
+  - Migration is in advanced phased state but still includes staged fallback/legacy paths in places.
+
+- Did NOT complete all possible on-device installer runtime root-cause for every blue-screen case.
+  Reason:
+  - Some cases need machine-specific telemetry/log capture from affected host/client installs.
+
+- Did NOT perform production rollout to all squadrons.
+  Reason:
+  - Deliberately deferred pending pilot GO/NO-GO gates.
+
+====================================================================
+5) WHAT WAS NOT DONE YET (REMAINING WORK)
+====================================================================
+
+High-priority remaining items:
+- Finish any remaining Supabase auth/RLS dependencies still reachable in LAN mode.
+- Execute full pilot runbook on real mini-server topology:
+  - 1 ops host (API + Postgres)
+  - 3+ client devices
+  - commander/wing/base role validation flows
+- Capture and close packaged runtime blank-screen root causes with concrete logs.
+- Validate every role sidebar action in real LAN environment (not only jsdom/unit/integration).
+- Finalize hard cutover mode that fails closed when cloud config is accidentally present.
+- Freeze release procedure for LAN .exe with stable repeatable build/playbook.
+
+Medium-priority remaining items:
+- Expand diagnostics and operator plain-language error surfacing further.
+- Continue aligning mobile artifact behavior with LAN-first assumptions as needed.
+- Ensure backup/restore drill execution evidence exists from real host environment.
+
+Documentation and operations remaining:
+- Keep DOMAIN.md and .local memory in sync with every behavior change.
+- Append new known lessons/do-nots to AGENTS.md when discovered.
+- Keep PROGRAM-STATUS and GO/NO-GO evidence current.
+
+====================================================================
+6) WHAT WAS ATTEMPTED BUT REQUIRED WORKAROUNDS
+====================================================================
+
+- Commit with heredoc in PowerShell shell wrapper failed due parser/redirection behavior.
+  - Workaround: used PowerShell here-string variable for commit message.
+
+- New repo push with full old history failed due missing LFS history object.
+  - Workaround: orphan snapshot branch pushed as new repo main.
+
+- Some short git commands appeared as long-running in shell task monitor despite output done.
+  - Workaround: validated terminal output files directly and continued.
+
+====================================================================
+7) KNOWN RISKS RIGHT NOW
+====================================================================
+
+- Risk: User may still launch stale installer/shortcut path and think fixes did not apply.
+- Risk: Old local app data can force cloud-era UX state unless fully cleared.
+- Risk: Any remaining cloud fallback path may activate unexpectedly if env flags are mis-set.
+- Risk: Packaging behavior may vary across Windows hosts due driver/GPU/security policy differences.
+- Risk: Operational claim of "fully done" is unsafe without physical pilot execution evidence.
+
+====================================================================
+8) VERIFIABLE ARTIFACTS TO CHECK FIRST (FOR NEXT AGENT)
+====================================================================
+
+Code anchors:
+- artifacts/pilot-dashboard/src/lib/internal-migration.ts
+- artifacts/pilot-dashboard/src/lib/squadron-data.ts
+- artifacts/api-server/src/routes/index.ts
+- artifacts/api-server/src/routes/lan-auth-public.ts
+- artifacts/api-server/src/routes/pilots-writes.ts
+- artifacts/api-server/src/routes/sorties-writes.ts
+- artifacts/api-server/src/routes/xpc-registry.ts
+- artifacts/pilot-dashboard/src/pages/AddSortie.tsx
+- artifacts/pilot-dashboard/src/components/Layout.tsx
+- artifacts/pilot-dashboard/electron/main.ts
+
+Ops docs:
+- docs/internal-migration/SQUADRON-HOST-KIT.md
+- docs/internal-migration/LAN-MULTI-PC-QUICKSTART.md
+- docs/internal-migration/PILOT-EXECUTION-SPEC.md
+- docs/internal-migration/GO-NO-GO-CHECKLIST.md
+- docs/internal-migration/PROGRAM-STATUS.md
+
+Tests:
+- artifacts/pilot-dashboard/tests/*.test.ts (especially migration/reliability suites)
+
+====================================================================
+9) PLAN STATE SNAPSHOT (TASK TRACKER STYLE)
+====================================================================
+
+Completed:
+- Baseline inventory and migration docs scaffolding.
+- Internal API kickoff and many data-plane endpoints.
+- Multiple reliability test suites and regression coverage additions.
+- LAN host kit scripts and runbooks.
+- Add Sortie freeze bug fix + regression tests.
+- New dedicated LAN repo creation and push.
+
+In progress:
+- Full LAN session cutover and remaining cloud touchpoint retirement.
+- End-to-end pilot validation for all roles and all sidebars on real LAN hardware.
+
+Not started or not complete enough:
+- Final "100% complete" acceptance pass with signed evidence of every workflow.
+- Universal installer stability proof across target operator devices.
+
+====================================================================
+10) CLEAR CONTINUATION INSTRUCTIONS FOR NEXT AGENT
+====================================================================
+
+If you are the next AI agent:
+1) Read AGENTS.md, DOMAIN.md, docs/internal-migration/PROGRAM-STATUS.md first.
+2) Assume the user priority is LAN-only operation and zero babysitting.
+3) Do not declare 100% completion unless real pilot execution evidence exists.
+4) Use SQUADRON-HOST-KIT + PILOT-EXECUTION-SPEC to run/collect hard evidence.
+5) Close remaining Supabase reachability in LAN paths.
+6) Resolve packaged runtime blue-screen/blank-screen residuals with concrete logs.
+7) Keep DOMAIN.md and memory docs synchronized with each behavior change.
+8) Keep updates direct/plain-language for operator readability.
+
+====================================================================
+11) FINAL HONEST STATUS STATEMENT
+====================================================================
+
+This migration is significantly advanced and materially closer to LAN-only operation, but it is not yet safe to claim absolute 100% completion for all roles and all real-world conditions. The next decisive milestone is a disciplined real LAN pilot run using the host mini-server model, with explicit GO/NO-GO evidence and closure of remaining cloud/packaged-runtime edge cases.
+
