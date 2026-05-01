@@ -95,13 +95,20 @@ if (-not $SkipStageRepo) {
     # 10+ minutes. The api-server is fully bundled by esbuild (dist/*.mjs
     # is self-contained) and the dashboard is pre-built static HTML/JS.
     # Neither needs node_modules at runtime on the target PC.
-    $excludeDirs = @(
+    # Full-path excludes: joined with $RepoRoot so only those exact dirs are skipped.
+    $excludeDirsAbsolute = @(
         ".git", ".local", ".cache",
         "attached_assets", "dist-binaries", "downloads",
         "exports", "screenshots",
-        "node_modules",
         "installer\build-cache", "installer\dist"
     )
+    # BARE-NAME excludes: robocopy skips ANY directory with this name at ANY depth.
+    # CRITICAL: "node_modules" must be a bare name, NOT a full path.
+    # pnpm per-package node_modules (artifacts/api-server/node_modules,
+    # artifacts/pilot-dashboard/node_modules) are Windows junctions that point
+    # to the root .pnpm store (1.9 GB). Robocopy follows junctions and copies the
+    # full store unless "node_modules" is listed as a bare-name exclusion.
+    $excludeDirsBare = @("node_modules", ".pnpm")
     $excludeFiles = @("*.log", "legacy-export-*.json")
     # /NP = no per-file progress percent (CRITICAL — without this, robocopy
     #        emits a 0%/100% line for every file copied, which with 100k+
@@ -112,7 +119,9 @@ if (-not $SkipStageRepo) {
     $rcArgs = @(
         "$RepoRoot", "$RepoStage",
         "/MIR", "/NFL", "/NDL", "/NJH", "/NJS", "/NP", "/R:1", "/W:1", "/MT:8"
-    ) + @("/XD") + ($excludeDirs | ForEach-Object { Join-Path $RepoRoot $_ }) + @("/XF") + $excludeFiles
+    ) + @("/XD") + ($excludeDirsAbsolute | ForEach-Object { Join-Path $RepoRoot $_ }) `
+      + $excludeDirsBare `
+      + @("/XF") + $excludeFiles
 
     Info "Running robocopy (silent, will print summary on completion)..."
     $rcLog = Join-Path $env:RUNNER_TEMP "robocopy.log"

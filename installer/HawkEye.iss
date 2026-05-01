@@ -318,15 +318,15 @@ end;
 
 function ValidatePort(Value: String): Boolean;
 var
-  i, n, code: Integer;
+  i, n: Integer;
 begin
   Result := False;
   Value := Trim(Value);
   if Value = '' then begin Result := True; Exit; end; // blank → default
   for i := 1 to Length(Value) do
     if (Value[i] < '0') or (Value[i] > '9') then Exit;
-  Val(Value, n, code);
-  if code <> 0 then Exit;
+  // All chars are digits — safe to call StrToInt (Val is not available in ISPP)
+  n := StrToInt(Value);
   if (n < 1) or (n > 65535) then Exit;
   Result := True;
 end;
