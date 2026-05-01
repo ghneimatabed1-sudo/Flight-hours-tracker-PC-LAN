@@ -152,6 +152,19 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    // Suppress benign sourcemap-resolution warnings emitted by Rollup
+    // when third-party radix-ui packages ship sourcemaps that point at
+    // file paths the build host doesn't have. They look like errors but
+    // are non-fatal.
+    rollupOptions: {
+      onwarn(warning, defaultHandler) {
+        const msg = warning.message || "";
+        if (msg.includes("Can't resolve original location of error")) return;
+        if (warning.code === "SOURCEMAP_ERROR") return;
+        if (warning.code === "SOURCEMAP_BROKEN") return;
+        defaultHandler(warning);
+      },
+    },
   },
   server: {
     port,
