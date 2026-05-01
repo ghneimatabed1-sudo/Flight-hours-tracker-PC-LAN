@@ -1,0 +1,9 @@
+{
+  "name": "@workspace/installer",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Hawk Eye one-click Windows installer (Inno Setup + PowerShell shims).",
+  "scripts": {
+    "build": "node ./build.mjs"
+  }
+}
