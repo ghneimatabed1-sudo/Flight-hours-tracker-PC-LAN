@@ -179,9 +179,13 @@ if (-not $SkipPnpmBundle) {
     } else {
         if ($OfflineCache) { Fail "pnpm bundle missing and -OfflineCache was specified." }
         New-Item -ItemType Directory -Path $PnpmStage -Force | Out-Null
-        $url = "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-win-x64.exe"
+        # Pin to a specific version to avoid redirect issues with Invoke-WebRequest
+        $pnpmVer = "9.15.9"
+        $url = "https://github.com/pnpm/pnpm/releases/download/v$pnpmVer/pnpm-win-x64.exe"
         Info "Downloading $url"
-        Invoke-WebRequest -Uri $url -OutFile $pnpmExe -UseBasicParsing
+        # Use curl.exe (built-in on Windows 10+) which follows redirects correctly
+        curl.exe -fsSL -o $pnpmExe $url
+        if ($LASTEXITCODE -ne 0) { Fail "curl.exe failed to download pnpm (exit $LASTEXITCODE)" }
     }
 }
 
