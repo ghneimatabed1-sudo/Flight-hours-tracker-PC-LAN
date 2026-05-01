@@ -628,6 +628,16 @@ export async function fetchInternalPilotTableRows(): Promise<
   }
 }
 
+/**
+ * Alias kept for backwards compatibility with squadron-data.ts imports.
+ * Fetches pilot rows from the internal LAN API.
+ */
+export async function fetchInternalActivePilotDevicesRows(): Promise<
+  Record<string, unknown>[] | null
+> {
+  return fetchInternalPilotTableRows();
+}
+
 // ── Internal writes (LAN database) — gated by `VITE_INTERNAL_WRITES` ───
 
 /**
