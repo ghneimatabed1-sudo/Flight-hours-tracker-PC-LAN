@@ -2750,3 +2750,423 @@ export async function postInternalRevokePilotDevices(
     return { ok: false, error: e instanceof Error ? e.message : String(e) };
   }
 }
+
+// ── XPC / Cross-PC communication stubs ───────────────────────────────────────
+// The functions below forward to the api-server LAN routes. Signatures are
+// intentionally generic (Record<string, unknown>) so they compile without the
+// full XPC type definitions being imported here.
+
+export async function fetchInternalXpcRegistryRows(
+  opts?: Record<string, unknown>,
+): Promise<Record<string, unknown>[] | null> {
+  const params = opts ? "?" + new URLSearchParams(Object.fromEntries(Object.entries(opts).filter(([,v])=>v!=null).map(([k,v])=>[k,String(v)]))).toString() : "";
+  const url = getInternalApiPath(`internal/xpc/registry${params}`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { items?: unknown };
+    if (!Array.isArray(body?.items)) return null;
+    return body.items.filter((x): x is Record<string, unknown> => !!x && typeof x === "object");
+  } catch { return null; }
+}
+
+export async function deleteInternalXpcRegistryRows(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/registry");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "DELETE", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function postInternalXpcRegistryHeartbeat(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/registry/heartbeat");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function fetchInternalXpcMessages(
+  forPcId?: string | null,
+  retentionDays?: number,
+): Promise<Record<string, unknown>[] | null> {
+  const params: Record<string, string> = {};
+  if (forPcId) params["forPcId"] = forPcId;
+  if (retentionDays != null) params["retentionDays"] = String(retentionDays);
+  const qs = Object.keys(params).length ? "?" + new URLSearchParams(params).toString() : "";
+  const url = getInternalApiPath(`internal/xpc/messages${qs}`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { items?: unknown };
+    if (!Array.isArray(body?.items)) return null;
+    return body.items.filter((x): x is Record<string, unknown> => !!x && typeof x === "object");
+  } catch { return null; }
+}
+
+export async function postInternalXpcMessage(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/messages");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function postInternalXpcMessageRead(
+  id: string,
+): Promise<Record<string, unknown> | null> {
+  const url = getInternalApiPath(`internal/xpc/messages/${encodeURIComponent(id)}/read`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify({}) });
+    if (!res.ok) return null;
+    return (await res.json().catch(() => null)) as Record<string, unknown> | null;
+  } catch { return null; }
+}
+
+export async function fetchInternalXpcPending(
+  opts?: Record<string, unknown>,
+): Promise<Record<string, unknown>[] | null> {
+  const params: Record<string, string> = {};
+  if (opts) Object.entries(opts).forEach(([k,v])=>{ if(v!=null) params[k]=Array.isArray(v)?v.join(","):String(v); });
+  const qs = Object.keys(params).length ? "?" + new URLSearchParams(params).toString() : "";
+  const url = getInternalApiPath(`internal/xpc/pending${qs}`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { items?: unknown };
+    if (!Array.isArray(body?.items)) return null;
+    return body.items.filter((x): x is Record<string, unknown> => !!x && typeof x === "object");
+  } catch { return null; }
+}
+
+export async function postInternalXpcPending(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/pending");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function postInternalXpcPendingUpdate(
+  id: string,
+  payload: Record<string, unknown>,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath(`internal/xpc/pending/${encodeURIComponent(id)}`);
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "PATCH", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function fetchInternalXpcSnapshots(
+  opts?: Record<string, unknown>,
+): Promise<Record<string, unknown>[] | null> {
+  const params: Record<string, string> = {};
+  if (opts) Object.entries(opts).forEach(([k,v])=>{ if(v!=null) params[k]=String(v); });
+  const qs = Object.keys(params).length ? "?" + new URLSearchParams(params).toString() : "";
+  const url = getInternalApiPath(`internal/xpc/snapshots${qs}`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { items?: unknown };
+    if (Array.isArray(body?.items)) return body.items.filter((x): x is Record<string, unknown> => !!x && typeof x === "object");
+    if (Array.isArray(body)) return (body as unknown[]).filter((x): x is Record<string, unknown> => !!x && typeof x === "object");
+    return null;
+  } catch { return null; }
+}
+
+export async function postInternalXpcSnapshot(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/snapshots");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function fetchInternalXpcScheduleShares(
+  opts?: Record<string, unknown>,
+): Promise<Record<string, unknown>[] | null> {
+  const params: Record<string, string> = {};
+  if (opts) Object.entries(opts).forEach(([k,v])=>{ if(v!=null) params[k]=String(v); });
+  const qs = Object.keys(params).length ? "?" + new URLSearchParams(params).toString() : "";
+  const url = getInternalApiPath(`internal/xpc/schedule-shares${qs}`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { items?: unknown };
+    if (!Array.isArray(body?.items)) return null;
+    return body.items.filter((x): x is Record<string, unknown> => !!x && typeof x === "object");
+  } catch { return null; }
+}
+
+export async function fetchInternalXpcScheduleShareById(
+  id: string,
+): Promise<Record<string, unknown> | null> {
+  const url = getInternalApiPath(`internal/xpc/schedule-shares/${encodeURIComponent(id)}`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    return (await res.json().catch(() => null)) as Record<string, unknown> | null;
+  } catch { return null; }
+}
+
+export async function postInternalXpcScheduleShare(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true; row?: Record<string, unknown> } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/schedule-shares");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true, row: typeof parsed === "object" ? parsed : undefined };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function patchInternalXpcScheduleShare(
+  id: string,
+  payload: Record<string, unknown>,
+): Promise<Record<string, unknown> | null> {
+  const url = getInternalApiPath(`internal/xpc/schedule-shares/${encodeURIComponent(id)}`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "PATCH", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    if (!res.ok) return null;
+    return (await res.json().catch(() => null)) as Record<string, unknown> | null;
+  } catch { return null; }
+}
+
+export async function deleteInternalXpcScheduleShare(
+  id: string,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath(`internal/xpc/schedule-shares/${encodeURIComponent(id)}`);
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "DELETE", headers: internalWriteHeaders() });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+// ── XPC Pairing (cross-PC pair negotiation) ───────────────────────────────────
+
+export async function fetchInternalXpcPairs(
+  opts?: Record<string, unknown>,
+): Promise<Record<string, unknown>[] | null> {
+  const params: Record<string, string> = {};
+  if (opts) Object.entries(opts).forEach(([k,v])=>{ if(v!=null) params[k]=String(v); });
+  const qs = Object.keys(params).length ? "?" + new URLSearchParams(params).toString() : "";
+  const url = getInternalApiPath(`internal/xpc/pairs${qs}`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { items?: unknown };
+    if (!Array.isArray(body?.items)) return null;
+    return body.items.filter((x): x is Record<string, unknown> => !!x && typeof x === "object");
+  } catch { return null; }
+}
+
+export async function fetchInternalXpcPairCode(
+  code: string,
+): Promise<Record<string, unknown> | null> {
+  const url = getInternalApiPath(`internal/xpc/pairs/code/${encodeURIComponent(code)}`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    return (await res.json().catch(() => null)) as Record<string, unknown> | null;
+  } catch { return null; }
+}
+
+export async function fetchInternalXpcPairAudit(
+  limit = 100,
+): Promise<{ items: Record<string, unknown>[] } | null> {
+  const url = getInternalApiPath(`internal/xpc/pairs/audit?limit=${encodeURIComponent(String(limit))}`);
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { items?: unknown };
+    if (!Array.isArray(body?.items)) return null;
+    return { items: body.items.filter((x): x is Record<string, unknown> => !!x && typeof x === "object") };
+  } catch { return null; }
+}
+
+export async function postInternalXpcPairIssueCode(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true; code: string; expiresAt: string } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/pairs/issue-code");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true, code: String(parsed.code ?? ""), expiresAt: String(parsed.expiresAt ?? "") };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function postInternalXpcPairRedeem(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true; row?: Record<string, unknown> } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/pairs/redeem");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true, row: typeof parsed === "object" ? parsed : undefined };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function postInternalXpcPairRevoke(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/pairs/revoke");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function postInternalXpcPairAdminCreate(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true; row?: Record<string, unknown> } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/pairs/admin/create");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true, row: typeof parsed === "object" ? parsed : undefined };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function postInternalXpcPairAdminBulk(): Promise<
+  { ok: true; created: number } | { ok: false; error: string; status?: number }
+> {
+  const url = getInternalApiPath("internal/xpc/pairs/admin/bulk");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify({}) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true, created: typeof parsed.created === "number" ? parsed.created : 0 };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function postInternalXpcPairAdminResetPc(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/pairs/admin/reset-pc");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function postInternalXpcPairAdminSetPermanent(
+  payload: Record<string, unknown>,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/xpc/pairs/admin/set-permanent");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify(payload) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+export async function postInternalXpcPairAdminSweep(): Promise<
+  { ok: true; removed: number } | { ok: false; error: string; status?: number }
+> {
+  const url = getInternalApiPath("internal/xpc/pairs/admin/sweep");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify({}) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true, removed: typeof parsed.removed === "number" ? parsed.removed : 0 };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
+
+// ── Reminder / push-notification management ───────────────────────────────────
+
+export async function fetchInternalReminderLogRows(): Promise<Record<string, unknown>[] | null> {
+  const url = getInternalApiPath("internal/reminders/log");
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { items?: unknown };
+    if (!Array.isArray(body?.items)) return null;
+    return body.items.filter((x): x is Record<string, unknown> => !!x && typeof x === "object");
+  } catch { return null; }
+}
+
+export async function fetchInternalReminderStatus(): Promise<Record<string, unknown> | null> {
+  const url = getInternalApiPath("internal/reminders/status");
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: "GET", cache: "no-store", headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    return (await res.json().catch(() => null)) as Record<string, unknown> | null;
+  } catch { return null; }
+}
+
+export async function postInternalReminderAction(
+  action: string,
+  cron?: string,
+): Promise<{ ok: true } | { ok: false; error: string; status?: number }> {
+  const url = getInternalApiPath("internal/reminders/action");
+  if (!url) return { ok: false, error: "internal_api_disabled" };
+  try {
+    const res = await fetch(url, { method: "POST", headers: internalWriteHeaders(), body: JSON.stringify({ action, cron }) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: e instanceof Error ? e.message : String(e) }; }
+}
