@@ -95,24 +95,33 @@ if (-not $SkipStageRepo) {
         "installer\build-cache", "installer\dist"
     )
     $excludeFiles = @("*.log", "legacy-export-*.json")
+    # /NP = no per-file progress percent (CRITICAL — without this, robocopy
+    #        emits a 0%/100% line for every file copied, which with 100k+
+    #        node_modules files generates millions of log lines and looks
+    #        like a hang).
+    # /NFL /NDL /NJH /NJS = no file/dir/job-header/job-summary lines.
+    # /MT:8 = 8 threads.
     $rcArgs = @(
         "$RepoRoot", "$RepoStage",
-        "/MIR", "/NFL", "/NDL", "/NJH", "/R:1", "/W:1", "/MT:8"
+        "/MIR", "/NFL", "/NDL", "/NJH", "/NJS", "/NP", "/R:1", "/W:1", "/MT:8"
     ) + @("/XD") + ($excludeDirs | ForEach-Object { Join-Path $RepoRoot $_ }) + @("/XF") + $excludeFiles
 
-    Info "Running robocopy (output streamed)..."
-    # Stream robocopy output line-by-line so we can SEE progress
+    Info "Running robocopy (silent, will print summary on completion)..."
+    $rcLog = Join-Path $env:RUNNER_TEMP "robocopy.log"
+    if (-not $rcLog) { $rcLog = Join-Path $InstallerDir "robocopy.log" }
     $rcStart = [DateTime]::UtcNow
-    & robocopy @rcArgs 2>&1 | ForEach-Object {
-        $line = $_.ToString()
-        if ($line.Trim().Length -gt 0 -and $line -notmatch "^\s*$") {
-            Write-Host "[rc] $line"
-        }
-    }
+    # Send robocopy output to a log file so we never accumulate millions of
+    # in-memory pipeline objects, but still keep evidence on disk.
+    # /LOG redirects all robocopy output to file; no /TEE so console stays silent.
+    & robocopy @rcArgs /LOG:"$rcLog" *>$null
     $rc = $LASTEXITCODE
     $rcDur = [DateTime]::UtcNow - $rcStart
-    Info "robocopy exit=$rc duration=$($rcDur.TotalSeconds)s"
-    if ($rc -gt 7) { Fail "robocopy failed with exit $rc" }
+    Info "robocopy exit=$rc duration=$([Math]::Round($rcDur.TotalSeconds,1))s"
+    if ($rc -gt 7) {
+        Info "--- robocopy log tail ---"
+        Get-Content $rcLog -Tail 50 -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "[rc] $_" }
+        Fail "robocopy failed with exit $rc"
+    }
 
     $stagedFiles = (Get-ChildItem -Recurse -File $RepoStage -ErrorAction SilentlyContinue | Measure-Object).Count
     Info "Repo staged: $stagedFiles files"
