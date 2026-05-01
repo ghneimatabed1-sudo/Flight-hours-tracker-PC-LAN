@@ -1,6 +1,7 @@
 import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { readFileSync } from "node:fs";
 import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
 import { rm } from "node:fs/promises";
@@ -10,9 +11,40 @@ globalThis.require = createRequire(import.meta.url);
 
 const artifactDir = path.dirname(fileURLToPath(import.meta.url));
 
+// Read package.json version once at build time so the api-server can
+// stamp every `/api/healthz` response with its own build version. The
+// dashboard compares this against its own bundled `__APP_VERSION__` to
+// detect "hub upgraded but the operator is still on the cached old
+// dashboard HTML" — see `routes/health.ts` and `VersionMismatchBanner`.
+const apiServerVersion = (() => {
+  try {
+    const pkg = JSON.parse(
+      readFileSync(path.resolve(artifactDir, "package.json"), "utf8"),
+    );
+    return typeof pkg.version === "string" && pkg.version.trim()
+      ? pkg.version.trim()
+      : "0.0.0";
+  } catch {
+    return "0.0.0";
+  }
+})();
+
 async function buildAll() {
   const distDir = path.resolve(artifactDir, "dist");
   await rm(distDir, { recursive: true, force: true });
+
+  // Build-time constants surfaced to the bundle via `define`. The
+  // "About this PC" Settings panel reads these so an operator can
+  // tell at a glance which build the api-server was started from.
+  let pkgVersion = "0.0.0";
+  try {
+    const pkgRaw = readFileSync(path.resolve(artifactDir, "package.json"), "utf8");
+    const pkg = JSON.parse(pkgRaw);
+    if (typeof pkg?.version === "string" && pkg.version) pkgVersion = pkg.version;
+  } catch {
+    /* fall back to "0.0.0" */
+  }
+  const buildTime = new Date().toISOString();
 
   await esbuild({
     entryPoints: [path.resolve(artifactDir, "src/index.ts")],
@@ -22,6 +54,11 @@ async function buildAll() {
     outdir: distDir,
     outExtension: { ".js": ".mjs" },
     logLevel: "info",
+    define: {
+      __API_SERVER_VERSION__: JSON.stringify(apiServerVersion),
+      __APISERVER_VERSION__: JSON.stringify(pkgVersion),
+      __BUILD_TIME__: JSON.stringify(buildTime),
+    },
     // Some packages may not be bundleable, so we externalize them, we can add more here as needed.
     // Some of the packages below may not be imported or installed, but we're adding them in case they are in the future.
     // Examples of unbundleable packages:

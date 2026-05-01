@@ -1,0 +1,52 @@
+{
+  "name": "@workspace/pilot-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hawk Eye — RJAF Windows desktop wrapper",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "pnpm run build && electron .",
+    "dist": "pnpm run build && electron-builder --win --x64",
+    "dist:portable": "pnpm run build && electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "^39.8.1",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.9.0"
+  },
+  "build": {
+    "appId": "com.rjaf.flighthourtracker",
+    "productName": "Hawk Eye",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "HawkEye-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Hawk Eye",
+      "include": "build/installer.nsh",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

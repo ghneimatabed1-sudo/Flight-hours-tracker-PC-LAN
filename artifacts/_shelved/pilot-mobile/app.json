@@ -1,0 +1,67 @@
+{
+  "expo": {
+    "name": "Hawk Eye",
+    "slug": "pilot-mobile",
+    "version": "1.0.10",
+    "orientation": "portrait",
+    "icon": "./assets/images/emblem.png",
+    "scheme": "pilot-mobile",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/emblem.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#050810"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.rjaf.pilotlogbook",
+      "buildNumber": "8",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.rjaf.pilotlogbook",
+      "versionCode": 8,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/emblem.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/emblem.png"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://replit.com/"
+        }
+      ],
+      "expo-font",
+      "expo-web-browser",
+      "expo-secure-store",
+      "expo-localization",
+      [
+        "expo-notifications",
+        {
+          "color": "#1f2937"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": false
+    },
+    "extra": {
+      "router": {
+        "origin": "https://replit.com/"
+      },
+      "eas": {
+        "projectId": "689f4e3f-7dbd-474d-b423-28113d0f9c1a"
+      }
+    },
+    "owner": "abedghn"
+  }
+}

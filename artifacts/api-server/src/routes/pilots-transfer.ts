@@ -99,24 +99,6 @@ router.post("/pilots/transfer", requireInternalWriteSecret, async (req, res, nex
         `,
         [pilotId, toSquadronId],
       );
-      await runOptionalUpdate(
-        client,
-        `
-        update pilot_link_codes
-        set squadron_id = $2::uuid
-        where pilot_id = $1
-        `,
-        [pilotId, toSquadronId],
-      );
-      await runOptionalUpdate(
-        client,
-        `
-        update pilot_devices
-        set squadron_id = $2::uuid
-        where pilot_id = $1
-        `,
-        [pilotId, toSquadronId],
-      );
       await client.query("commit");
     } catch (err) {
       await client.query("rollback");

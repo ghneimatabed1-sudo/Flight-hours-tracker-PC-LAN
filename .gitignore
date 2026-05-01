@@ -50,3 +50,11 @@ Thumbs.db
 
 # AA2 audit binary blobs (raw eszip dumps)
 audit-evidence/2026-04-27/AA2/*.bin
+
+# Legacy data exports (task #336 ensureLegacyCleanup)
+legacy-export-*.json
+
+# One-click installer build outputs (task #368)
+installer/build-cache/
+installer/dist/
+

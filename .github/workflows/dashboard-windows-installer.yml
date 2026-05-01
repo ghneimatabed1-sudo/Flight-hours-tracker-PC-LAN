@@ -65,7 +65,7 @@ jobs:
           path: |
             installer/build-cache/node
             installer/build-cache/pnpm
-          key: installer-bundles-node20.18.1-pnpm9.15.9-v1
+          key: installer-bundles-node20.18.1-pnpm-latest-v2
 
       - name: Install workspace dependencies
         run: pnpm install --no-frozen-lockfile

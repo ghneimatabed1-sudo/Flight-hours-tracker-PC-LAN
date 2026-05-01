@@ -19,6 +19,8 @@ export const requireInternalLanSession: RequestHandler = async (req, res, next) 
       display_name: string;
       role: string;
       squadron_id: string | null;
+      wing_id: string | null;
+      base_id: string | null;
     }>(
       `
       select
@@ -26,11 +28,14 @@ export const requireInternalLanSession: RequestHandler = async (req, res, next) 
         u.username,
         u.display_name,
         u.role,
-        u.squadron_id
+        u.squadron_id,
+        u.wing_id,
+        u.base_id
       from lan_sessions s
       join lan_users u on u.id = s.user_id
       where s.token = $1
         and s.expires_at > now()
+        and u.disabled_at is null
       limit 1
       `,
       [token],

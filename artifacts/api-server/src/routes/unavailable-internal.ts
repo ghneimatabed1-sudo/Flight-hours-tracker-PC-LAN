@@ -2,18 +2,43 @@ import { Router, type IRouter } from "express";
 import { pool } from "@workspace/db";
 import { requireInternalWriteSecret } from "../lib/internal-write-auth";
 import { appendInternalAudit } from "../lib/internal-audit";
-import { canWriteSquadronData, normalizeLanRole, readLanUser } from "../lib/lan-authz";
+import {
+  buildSquadronReadFilter,
+  canWriteSquadronData,
+  normalizeLanRole,
+  readLanUser,
+} from "../lib/lan-authz";
 
 const router: IRouter = Router();
 
-router.get("/unavailable", async (_req, res, next) => {
+router.get("/unavailable", async (req, res, next) => {
   try {
+    const actor = readLanUser(req);
+    // Source of truth for the row's squadron is the pilot, not
+    // unavailable.squadron_id (which legacy inserts don't populate).
+    // commander_wing/commander_base must see every pilot under their
+    // wing/base; ops/commander_squadron only their own squadron.
+    const filter = buildSquadronReadFilter(
+      {
+        role: actor?.role ?? null,
+        squadronId: actor?.squadron_id ?? null,
+        wingId: actor?.wing_id ?? null,
+        baseId: actor?.base_id ?? null,
+      },
+      "p.squadron_id",
+      1,
+    );
+    const where = filter ? `where 1 = 1 ${filter.sql}` : "";
+    const params = filter ? filter.params : [];
     const q = await pool.query(
       `
-      select id, pilot_id, from_date, to_date, reason
-      from unavailable
-      order by from_date desc
+      select u.id, u.pilot_id, u.from_date, u.to_date, u.reason
+      from unavailable u
+      left join pilots p on p.id = u.pilot_id
+      ${where}
+      order by u.from_date desc
       `,
+      params,
     );
     res.json({ items: q.rows });
   } catch (err) {
