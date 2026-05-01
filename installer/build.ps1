@@ -88,10 +88,18 @@ if (-not $SkipStageRepo) {
     }
     New-Item -ItemType Directory -Path $RepoStage -Force | Out-Null
 
+    # CRITICAL: exclude ALL node_modules (root + per-package).
+    # pnpm per-package node_modules are symlinks/junctions into the root
+    # .pnpm store. On Windows robocopy follows junctions and copies the
+    # full 1.9 GB store — which makes staging take 5+ minutes and iscc
+    # 10+ minutes. The api-server is fully bundled by esbuild (dist/*.mjs
+    # is self-contained) and the dashboard is pre-built static HTML/JS.
+    # Neither needs node_modules at runtime on the target PC.
     $excludeDirs = @(
         ".git", ".local", ".cache",
         "attached_assets", "dist-binaries", "downloads",
         "exports", "screenshots",
+        "node_modules",
         "installer\build-cache", "installer\dist"
     )
     $excludeFiles = @("*.log", "legacy-export-*.json")
