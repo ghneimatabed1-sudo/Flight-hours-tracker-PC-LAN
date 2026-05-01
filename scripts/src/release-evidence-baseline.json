@@ -1,0 +1,109 @@
+{
+  "$comment": "Baseline matrix evidence snapshot for release-verify.mjs. Each entry pins the expected HTTP status code per probe per (profile, role_slug) cell as seen in the last GREEN matrix Playwright sweep. release-verify diffs the current run's test-evidence/<date>/<profile>/<role>/probes.json against this snapshot; any drift turns the verdict AMBER. To re-baseline after an intentional role-gate change: run `pnpm run release:verify` and copy the contents of `release-evidence/<date>/matrix-snapshot.json` over this file, then re-run and confirm GREEN.",
+  "version": 1,
+  "captured_at": "2026-04-30T20:54:41.130Z",
+  "captured_from": "artifacts/pilot-dashboard/test-evidence/2026-04-30 (matrix-playwright GREEN, task #406 step 1)",
+  "snapshot": {
+    "aggregator-base": {
+      "commander_base": {
+        "healthz": 200,
+        "auth.me": 200,
+        "aggregate.peers": 403,
+        "aggregate.pilots": 200,
+        "aggregate.sorties": 200,
+        "aggregate.readiness": 200,
+        "internal.pilots (not mounted)": 404,
+        "peer.pilots (not mounted)": 404
+      },
+      "super_admin": {
+        "healthz": 200,
+        "auth.me": 200,
+        "aggregate.peers": 200,
+        "aggregate.pilots": 200,
+        "aggregate.sorties": 200,
+        "aggregate.readiness": 200,
+        "internal.pilots (not mounted)": 404,
+        "peer.pilots (not mounted)": 404
+      }
+    },
+    "aggregator-wing": {
+      "commander_wing": {
+        "healthz": 200,
+        "auth.me": 200,
+        "aggregate.peers": 403,
+        "aggregate.pilots": 200,
+        "aggregate.sorties": 200,
+        "aggregate.readiness": 200,
+        "internal.pilots (not mounted)": 404,
+        "peer.pilots (not mounted)": 404
+      },
+      "super_admin": {
+        "healthz": 200,
+        "auth.me": 200,
+        "aggregate.peers": 200,
+        "aggregate.pilots": 200,
+        "aggregate.sorties": 200,
+        "aggregate.readiness": 200,
+        "internal.pilots (not mounted)": 404,
+        "peer.pilots (not mounted)": 404
+      }
+    },
+    "hub": {
+      "admin": {
+        "healthz": 200,
+        "auth.me": 200,
+        "pilots.list": 200,
+        "squadrons.list": 200,
+        "audit.read": 200,
+        "peer-tokens.read": 403,
+        "pilots.upsert": 200
+      },
+      "commander_squadron": {
+        "healthz": 200,
+        "auth.me": 200,
+        "pilots.list": 200,
+        "squadrons.list": 200,
+        "peer-tokens.read": 403,
+        "pilots.upsert": 403
+      },
+      "ops": {
+        "healthz": 200,
+        "auth.me": 200,
+        "pilots.list": 200,
+        "squadrons.list": 200,
+        "audit.read": 200,
+        "peer-tokens.read": 403,
+        "pilots.upsert": 200
+      },
+      "super_admin": {
+        "healthz": 200,
+        "auth.me": 200,
+        "pilots.list": 200,
+        "squadrons.list": 200,
+        "audit.read": 200,
+        "peer-tokens.read": 200,
+        "pilots.upsert": 200
+      }
+    },
+    "viewer": {
+      "commander_squadron": {
+        "healthz (no backend)": 404,
+        "auth.me (no backend)": 404,
+        "pilots.list (no backend)": 404,
+        "aggregate.peers (no backend)": 404
+      },
+      "flight_commander": {
+        "healthz (no backend)": 404,
+        "auth.me (no backend)": 404,
+        "pilots.list (no backend)": 404,
+        "aggregate.peers (no backend)": 404
+      },
+      "ops": {
+        "healthz (no backend)": 404,
+        "auth.me (no backend)": 404,
+        "pilots.list (no backend)": 404,
+        "aggregate.peers (no backend)": 404
+      }
+    }
+  }
+}
