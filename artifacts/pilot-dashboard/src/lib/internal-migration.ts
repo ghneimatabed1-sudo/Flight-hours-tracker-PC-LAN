@@ -2676,3 +2676,77 @@ export async function deleteLanPairingOutbound(
     return { ok: false, error: e instanceof Error ? e.message : String(e) };
   }
 }
+
+// ── Pilot device link status ──────────────────────────────────────────────────
+export async function fetchInternalPilotLinkStatus(
+  pilotId: string,
+): Promise<
+  | { ok: true; body: Record<string, unknown> }
+  | { ok: false; error: string; status?: number }
+> {
+  const url = getInternalApiPath(`internal/pilots/${encodeURIComponent(pilotId)}/link-status`);
+  if (!url) return { ok: false, error: 'internal_api_disabled' };
+  try {
+    const res = await fetch(url, { method: 'GET', cache: 'no-store', headers: internalApiHeadersBase() });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true, body: parsed };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : String(e) };
+  }
+}
+
+// ── Reminder / push-notification overview rows ────────────────────────────────
+export async function fetchInternalReminderOverviewRows(): Promise<
+  Record<string, unknown>[] | null
+> {
+  const url = getInternalApiPath('internal/reminders/overview');
+  if (!url) return null;
+  try {
+    const res = await fetch(url, { method: 'GET', cache: 'no-store', headers: internalApiHeadersBase() });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { items?: unknown };
+    if (!body || !Array.isArray(body.items)) return null;
+    return body.items.filter((x): x is Record<string, unknown> => !!x && typeof x === 'object');
+  } catch {
+    return null;
+  }
+}
+
+// ── Issue pilot mobile-link code ──────────────────────────────────────────────
+export async function postInternalIssuePilotLinkCode(
+  pilotId: string,
+): Promise<
+  | { ok: true; code: string; expiresAt: string }
+  | { ok: false; error: string; status?: number }
+> {
+  const url = getInternalApiPath(`internal/pilots/${encodeURIComponent(pilotId)}/issue-link-code`);
+  if (!url) return { ok: false, error: 'internal_api_disabled' };
+  try {
+    const res = await fetch(url, { method: 'POST', headers: internalWriteHeaders(), body: JSON.stringify({}) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true, code: String(parsed.code ?? ''), expiresAt: String(parsed.expiresAt ?? '') };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : String(e) };
+  }
+}
+
+// ── Revoke all pilot mobile devices ──────────────────────────────────────────
+export async function postInternalRevokePilotDevices(
+  pilotId: string,
+): Promise<
+  | { ok: true; revoked: number }
+  | { ok: false; error: string; status?: number }
+> {
+  const url = getInternalApiPath(`internal/pilots/${encodeURIComponent(pilotId)}/revoke-devices`);
+  if (!url) return { ok: false, error: 'internal_api_disabled' };
+  try {
+    const res = await fetch(url, { method: 'POST', headers: internalWriteHeaders(), body: JSON.stringify({}) });
+    const parsed = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { ok: false, error: String(parsed?.error ?? `http_${res.status}`), status: res.status };
+    return { ok: true, revoked: typeof parsed.revoked === 'number' ? parsed.revoked : 0 };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : String(e) };
+  }
+}
