@@ -1,0 +1,3 @@
+# Build outputs and download caches — these are large and reproducible.
+build-cache/
+dist/
